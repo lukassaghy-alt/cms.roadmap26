@@ -132,10 +132,12 @@
 
         const getSizeScore = (size) => {
             switch (size?.toUpperCase()) {
-                case 'S': return 1;
-                case 'M': return 2;
-                case 'L': return 3;
-                case 'XL': return 4;
+                case 'XS': return 1;
+                case 'S': return 2;
+                case 'M': return 3;
+                case 'L': return 4;
+                case 'XL': return 5;
+                case 'XXL': return 6;
                 default: return -1;
             }
         };
@@ -470,4 +472,5 @@
 </body>
 
 </html>
+
 
