@@ -20,7 +20,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useMemo } = React;
+        const { useState, useMemo, useEffect } = React;
 
         // --- ICONS (Inline SVGs pre spoľahlivosť bez externých knižníc) ---
         const Icon = ({ path, className, size = 24 }) => (
@@ -42,43 +42,49 @@
 
         const Icons = {
             Calendar: (props) => <Icon {...props} path={<><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></>} />,
-            List: (props) => <Icon {...props} path={<><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></>} />,
+            List: (props) => <Icon {...props} path={<><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/></>} />,
             BarChart2: (props) => <Icon {...props} path={<><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></>} />,
             Zap: (props) => <Icon {...props} path={<><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></>} />,
             AlertCircle: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></>} />,
             Layers: (props) => <Icon {...props} path={<><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></>} />,
             Clock: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>} />,
             HelpCircle: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></>} />,
-            ArrowRight: (props) => <Icon {...props} path={<><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></>} />
+            ArrowRight: (props) => <Icon {...props} path={<><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></>} />,
+            ExternalLink: (props) => <Icon {...props} path={<><path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></>} />,
+            // Link icon (used for add/edit/remove Jira URL) - common link glyph
+            Link: (props) => <Icon {...props} path={<><path d="M10 14a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10 6.93"/><path d="M14 10a5 5 0 0 0-7.07 0L4.81 12.12a5 5 0 0 0 7.07 7.07L14 17.07"/></>} />,
+            // Pencil icon (used for editing the title)
+            Pencil: (props) => <Icon {...props} path={<><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></>} />
         };
+
         // --- DATA ---
         const rawData = [
-            { id: '1', title: 'Paid Content - Zamykanie videa vo vybranom čase', category: 'Feature', status: 'Zastavené', owner: 'lukas.saghy', size: 'S', impact: 'High', launch: 'Január', notes: 'Čakáme na GO od Web + Video tímu.' },
+            { id: '1', title: 'Paid Content - Zamykanie videa vo vybranom čase', category: 'Feature', status: 'Zastavené', owner: 'lukas.saghy', size: 'S', impact: 'High', launch: 'Január', notes: '', jiraUrl: 'https://newsandmedia.atlassian.net/browse/CMSD-1486' },
             { id: '2', title: 'CMSD-1017: Audio Transcript 1.0', category: 'AI', status: 'Prebieha', owner: 'viktor.koslab', size: 'M', impact: 'Mid', launch: 'Január', notes: '' },
             { id: '3', title: 'CMSD-727: [NMH-VLM] HPM2.1', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'L', impact: 'Mid', launch: 'Január', notes: '' },
             { id: '4', title: 'CMSD-1366: [NMH] - SEO Content Checker 1.0', category: 'BAS', status: 'Prebieha', owner: 'marek.murin', size: 'S', impact: 'Low', launch: 'Január', notes: '' },
-            { id: '5', title: 'CMSD-950: Tagy 2.0 MVP NMH', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy', size: 'L', impact: 'High', launch: 'Február', notes: '' },
-            { id: '6', title: 'CMSD-1502: [NMH] TREND - Dorovnanie funkcionality .NET verzie s PHP', category: 'BAS', status: 'Nezačaté', owner: 'karol.schulz', size: 'S', impact: 'Low', launch: 'Február', notes: 'Potvrdiť ASAP scope s redakciou TREND.' },
-            { id: '7', title: 'CMSD-1046: HPM 2.01 debug/features swap NČ', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'M', impact: 'Mid', launch: 'Február', notes: 'Zostáva primárne swap článkov pre NČ.' },
+            { id: '5', title: 'CMSD-950: Tagy 2.0 MVP NMH', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy', size: 'L', impact: 'High', launch: 'Február', notes: '', jiraUrl: 'https://your-jira-instance/browse/EPIC-123' },
+            { id: '6', title: 'CMSD-1502: [NMH] TREND - Dorovnanie funkcionality .NET verzie s PHP', category: 'BAS', status: 'Nezačaté', owner: 'karol.schulz', size: 'S', impact: 'Low', launch: 'Február', notes: '' },
+            { id: '7', title: 'CMSD-1046: HPM 2.01 debug/features swap NČ', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'M', impact: 'Mid', launch: 'Február', notes: '' },
             { id: '8', title: 'CMSD-949: Piano Integration', category: 'BAS', status: 'Prebieha', owner: 'matus.zahradnik', size: 'M', impact: 'High', launch: 'Február', notes: '' },
             { id: '9', title: 'CMSD-1602: TECH UPGRADE 2026', category: 'BAS', status: 'Prebieha', owner: 'tomas.mikeska', size: 'Unknown', impact: 'Unknown', launch: 'Február', notes: '' },
             { id: '10', title: 'CMSD-954: VLM Tickets MVP Denik', category: 'BAS', status: 'Prebieha', owner: 'radek.silbersky', size: 'XL', impact: 'High', launch: 'Február', notes: '' },
             { id: '11', title: 'CMSD-242: VLM Deník migrace', category: 'BAS', status: 'Prebieha', owner: 'radek.silbersky', size: 'XXL', impact: 'Very high', launch: 'Marec', notes: '' },
             { id: '12', title: 'FE-4035: TREND React', category: 'BAS', status: 'Prebieha', owner: 'tomas.valach', size: 'M', impact: 'High', launch: 'Marec', notes: '' },
-            { id: '13', title: 'Perex generator pre VLM (bez GITA)', category: 'AI', status: 'Nezačaté', owner: 'radek.silbersky', size: 'S', impact: 'Mid', launch: 'Marec', notes: 'Prehodnotiť Ownera, či LŠ' },
-            { id: '14', title: 'Summary generator pre VLM (bez GITA)', category: 'AI', status: 'Nezačaté', owner: 'radek.silbersky', size: 'S', impact: 'Mid', launch: 'Marec', notes: 'Prehodnotiť Ownera, či LŠ' },
+            { id: '13', title: 'Perex generator pre VLM (bez GITA)', category: 'AI', status: 'Nezačaté', owner: 'radek.silbersky', size: 'S', impact: 'Mid', launch: 'Marec', notes: '' },
+            { id: '14', title: 'Summary generator pre VLM (bez GITA)', category: 'AI', status: 'Nezačaté', owner: 'radek.silbersky', size: 'S', impact: 'Mid', launch: 'Marec', notes: '' },
             { id: '15', title: 'CMSD-952: [NMH] Hero/Listing Image recommender 1.0', category: 'AI', status: 'Nezačaté', owner: 'viktor.koslab', size: 'S', impact: 'Unknown', launch: 'Marec', notes: '' },
-            { id: '16', title: 'CMSD-1214: DAM Upgrade - Editorial feedback Q42025', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'M', impact: 'Unknown', launch: 'Marec', notes: 'Primárne search, rozdeliť epic na fázy' },
+            { id: '16', title: 'CMSD-1214: DAM Upgrade - Editorial feedback Q42025', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'M', impact: 'Unknown', launch: 'Marec', notes: '' },
             { id: '17', title: 'CMSD-523: MBASE migracia', category: 'BAS', status: 'Zastavené', owner: 'radek.silbersky', size: 'S', impact: 'Very Low', launch: 'Apríl', notes: '' },
             { id: '18', title: 'CMSD-1490: [NMH] Tagy 2.01', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy', size: 'S', impact: 'Low', launch: 'Marec', notes: '' },
             { id: '19', title: 'CMSD-948: Related articles 2.0 - Automation', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'Unknown', impact: 'Unknown', launch: 'Marec', notes: '' },
-            { id: '20', title: 'CMSD-1396: [NMH] TASR News restyling 2.0', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'M', impact: 'Unknown', launch: 'Apríl', notes: 'Spojiť s automatom aj s Trending topics.' },
+            { id: '20', title: 'CMSD-1396: [NMH] TASR News restyling 2.0', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'M', impact: 'Unknown', launch: 'Apríl', notes: '' },
             { id: '21', title: 'CMSD-1515: [NMH] TASR - automatické postovanie TASR článkov', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'M', impact: 'Apríl', launch: 'Q2', notes: '' },
-            { id: '22', title: 'SEO Copilot / Asistent redaktora', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'Jún', notes: 'Spojiť s VLM, zlúčiť aj s linkbuilding agent.' },
-            { id: '23', title: 'CMSB-1191: Možnosť vytvárania koláží hlavných fotografií', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'S', impact: 'Unknown', launch: 'Máj', notes: '' },
+            { id: '22', title: 'SEO Copilot / Asistent redaktora', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'Jún', notes: 'Spojiť s VLM, zluč.' },
+            { id: '23', title: 'CMSB-1191: Možnosť vytvárania koláží hlavných fotografií', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'S', impact: 'Unknown', launch: '', notes: '' },
             { id: '24', title: 'Tagy 2.1', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'M', impact: 'Unknown', launch: 'Marec', notes: '' },
             { id: '25', title: 'CMSD-705: Tech dept 2025', category: 'BAS', status: 'Prebieha', owner: 'tomas.mikeska', size: 'L', impact: 'Mid', launch: 'Jún', notes: '' },
-            { id: '26', title: 'CMSD-1278: Elasticsearch 9', category: 'BAS', status: 'Nezačaté', owner: 'tomas.mikeska', size: 'M', impact: 'Low', launch: 'Jún', notes: 'Zlepšenie aj vyhľadávania na weboch.' },
+            { id: '26', title: 'CMSD-1278: Elasticsearch 9', category: 'BAS', status: 'Nezačaté', owner: 'tomas.mikeska', size: 'M', impact: 'Low', launch: 'Jún', notes: '' },
             { id: '27', title: 'CMSD-1403: [NMH-VLM] Admin2.0', category: 'BAS', status: 'Nezačaté', owner: 'radek.silbersky', size: 'Unknown', impact: 'Unknown', launch: 'Marec', notes: '' },
             { id: '28', title: 'CMS Lab / App store (Inovation Incubator)', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Máj', launch: 'TBD', notes: '' },
             { id: '29', title: 'Article Body Image Recommender', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'Jún', notes: '' },
@@ -86,11 +92,11 @@
             { id: '31', title: 'Article Gallery Composer - Story Mode', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'December', notes: '' },
             { id: '32', title: 'Video Subtitles 2.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'Marec', notes: '' },
             { id: '33', title: 'Audio Transcription 2.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'Jún', notes: '' },
-            { id: '34', title: 'Editorial Performance - Subs, Video, Seo, ext. perf.', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'September', notes: '' },
+            { id: '34', title: 'Editorial Performance - Subs, Video, Seo, ext. perf.', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '35', title: 'Editorial Peformance - Gamification', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'December', notes: '' },
             { id: '36', title: 'Real-Time Stats 2.0', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '37', title: 'Video Stats 2.0', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '38', title: 'CMSD-969: Article AI Copilot 1.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: 'Koordinovať s VLM.' },
+            { id: '38', title: 'CMSD-969: Article AI Copilot 1.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '39', title: 'Real-Time Copilot 1.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '40', title: 'Editorial Performance Copilot 1.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '41', title: 'CMSD-1476: [Admin2.0] Article stats do CMS - v1.0', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'radek.silbersky', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
@@ -101,21 +107,21 @@
             { id: '46', title: 'CMSD-1384: Video improvements (Livebox)', category: 'Feature', status: 'Nezačaté', owner: 'radek.silbersky', size: 'M', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '47', title: 'CMSD-1346: Admin Management Notifikácií v CMS & Release komunikácia', category: 'BAS', status: 'Zastavené', owner: 'karol.schulz', size: 'M', impact: 'Low', launch: 'TBD', notes: '' },
             { id: '48', title: 'CMSD-765: Ochorenia', category: 'BAS', status: 'Zastavené', owner: 'filip.mackov', size: 'M', impact: 'Very Low', launch: 'TBD', notes: '' },
-            { id: '49', title: 'Tagy 3.0 (image + gallery + video tagy, AI gen. content, BB editor)', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'September', notes: '' },
+            { id: '49', title: 'Tagy 3.0 (image + gallery + video tagy, AI gen. content, BB editor)', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: '', notes: '' },
             { id: '50', title: 'CMSD-1354: 17. NMH - Menu editor - ADMIN - analyza', category: 'Feature', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'Apríl', notes: '' },
             { id: '51', title: 'Headline ABC Testing 2.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'karol.schulz', size: 'M', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '52', title: 'Poll Generator 2.0 - Proactive in-article suggestions', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '53', title: 'Quiz Generator 2.0 - Fact checking, rýchlejšie gen.', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '54', title: 'Reels / Slideshow / Illustration video generator', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' }
+            { id: '54', title: 'Reels / Slideshow / Illustration video generator', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
         ];
 
         // --- UTILS ---
         const getQuarter = (month) => {
             const m = month?.toLowerCase().trim();
-            if (['január', 'február', 'marec', 'Q1'].includes(m)) return 'Q1';
-            if (['apríl', 'máj', 'jún', 'Q2'].includes(m)) return 'Q2';
-            if (['júl', 'august', 'september', 'Q3'].includes(m)) return 'Q3';
-            if (['október', 'november', 'december', 'Q4'].includes(m)) return 'Q4';
+            if (['január', 'február', 'marec', 'q1'].includes(m)) return 'Q1';
+            if (['apríl', 'máj', 'jún', 'q2'].includes(m)) return 'Q2';
+            if (['júl', 'august', 'september', 'q3'].includes(m)) return 'Q3';
+            if (['október', 'november', 'december', 'q4'].includes(m)) return 'Q4';
             return 'TBD';
         };
 
@@ -159,6 +165,117 @@
             return 'text-gray-400';
         };
 
+        // --- EDITABLE JIRA LINK (icon-only on hover) ---
+        const EditableJiraLink = ({ item, onUpdate, compact = false }) => {
+            const [editing, setEditing] = useState(false);
+            const [value, setValue] = useState(item.jiraUrl || '');
+            const [error, setError] = useState('');
+
+            useEffect(() => {
+                setValue(item.jiraUrl || '');
+            }, [item.jiraUrl]);
+
+            const isValidUrl = (u) => {
+                if (!u) return true; // allow clearing
+                try {
+                    const parsed = new URL(u);
+                    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
+                } catch (e) {
+                    return false;
+                }
+            };
+
+            const save = () => {
+                if (!isValidUrl(value)) {
+                    setError('Neplatná URL (musí začínať http:// alebo https://)');
+                    return;
+                }
+                setError('');
+                setEditing(false);
+                onUpdate(item.id, { jiraUrl: value ? value : undefined });
+            };
+
+            const clearAndSave = () => {
+                setValue('');
+                setError('');
+                setEditing(false);
+                onUpdate(item.id, { jiraUrl: undefined });
+            };
+
+            // Icon button (link) - normally hidden, shown on parent hover (handled by group hover)
+            return (
+                <div className="relative inline-flex items-center">
+                    {/* Icon trigger - meant to be shown on hover of the title wrapper (parent should be a group) */}
+                    <button
+                        onClick={() => setEditing(true)}
+                        title={item.jiraUrl ? 'Upraviť / odstrániť Jira URL' : 'Pridať Jira URL'}
+                        className="p-1 rounded text-slate-500 hover:bg-slate-100 opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                        <Icons.Link size={14} />
+                    </button>
+
+                    {editing && (
+                        <div className="absolute z-30 mt-2 p-3 bg-white rounded shadow border border-slate-100" style={{ minWidth: 320 }}>
+                            <div className="text-xs text-slate-600 mb-2">Jira epic URL</div>
+                            <input
+                                value={value}
+                                onChange={(e) => setValue(e.target.value)}
+                                className="w-full p-2 border rounded text-sm border-slate-200 mb-2"
+                                placeholder="https://your-jira-instance/browse/EPIC-123"
+                            />
+                            {error && <div className="text-xs text-red-500 mb-2">{error}</div>}
+                            <div className="flex gap-2 justify-end">
+                                <button onClick={() => { setEditing(false); setValue(item.jiraUrl || ''); setError(''); }} className="px-3 py-1 rounded border text-sm">Zrušiť</button>
+                                <button onClick={clearAndSave} className="px-3 py-1 rounded border text-sm">Vymazať</button>
+                                <button onClick={save} className="px-3 py-1 rounded bg-blue-600 text-white text-sm">Uložiť</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- TITLE EDITOR (pencil) ---
+        const TitleEditor = ({ item, onUpdate }) => {
+            const [editing, setEditing] = useState(false);
+            const [value, setValue] = useState(item.title || '');
+
+            useEffect(() => setValue(item.title || ''), [item.title]);
+
+            const save = () => {
+                const newTitle = value.trim() || item.title;
+                setEditing(false);
+                if (newTitle !== item.title) onUpdate(item.id, { title: newTitle });
+            };
+
+            return (
+                <div className="relative inline-flex items-center">
+                    <button
+                        onClick={() => setEditing(true)}
+                        title="Upraviť názov položky"
+                        className="p-1 rounded text-slate-500 hover:bg-slate-100 opacity-0 group-hover:opacity-100 transition-opacity"
+                    >
+                        <Icons.Pencil size={14} />
+                    </button>
+
+                    {editing && (
+                        <div className="absolute z-30 mt-2 p-3 bg-white rounded shadow border border-slate-100" style={{ minWidth: 320 }}>
+                            <div className="text-xs text-slate-600 mb-2">Úprava názvu</div>
+                            <input
+                                value={value}
+                                onChange={(e) => setValue(e.target.value)}
+                                className="w-full p-2 border rounded text-sm border-slate-200 mb-2"
+                            />
+                            <div className="flex gap-2 justify-end">
+                                <button onClick={() => { setEditing(false); setValue(item.title || ''); }} className="px-3 py-1 rounded border text-sm">Zrušiť</button>
+                                <button onClick={save} className="px-3 py-1 rounded bg-blue-600 text-white text-sm">Uložiť</button>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
         // --- COMPONENTS ---
 
         const StrategyBoard = () => (
@@ -187,7 +304,7 @@
             </div>
         );
 
-        const Card = ({ item }) => (
+        const Card = ({ item, onUpdate }) => (
             <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow group relative">
                 {item.status === 'Zastavené' && (
                     <div className="absolute top-2 right-2 text-red-400" title="Zastavené">
@@ -205,8 +322,26 @@
                     )}
                 </div>
                 
+                {/* Title + hover icons (link + pencil) */}
                 <h3 className="text-sm font-semibold text-slate-800 leading-tight mb-3 group-hover:text-blue-600 transition-colors">
-                    {item.title}
+                    <div className="flex items-center gap-2 group">
+                        <div className="flex-1">
+                            {item.jiraUrl ? (
+                                <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
+                                    {item.title}
+                                </a>
+                            ) : (
+                                <span>{item.title}</span>
+                            )}
+                            {item.notes && <div className="text-xs text-slate-400 mt-0.5 font-normal">{item.notes}</div>}
+                        </div>
+
+                        {/* icons appear only on hover over the title wrapper due to .group and .group-hover */}
+                        <div className="flex items-center gap-1">
+                            <EditableJiraLink item={item} onUpdate={onUpdate} />
+                            <TitleEditor item={item} onUpdate={onUpdate} />
+                        </div>
+                    </div>
                 </h3>
 
                 <div className="flex items-center justify-between text-xs text-slate-400 mt-auto pt-2 border-t border-slate-50">
@@ -223,7 +358,7 @@
             </div>
         );
 
-        const QuickWins = ({ items }) => {
+        const QuickWins = ({ items, onUpdate }) => {
             const quickWins = items.filter(i => 
                 (i.impact === 'High' || i.impact === 'Mid') && 
                 (i.size === 'S' || i.size === 'M') &&
@@ -243,10 +378,25 @@
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {quickWins.length > 0 ? quickWins.map(item => (
-                            <div key={item.id} className="bg-white p-3 rounded-lg shadow-sm border border-green-100 flex justify-between items-center">
+                            <div key={item.id} className="bg-white p-3 rounded-lg shadow-sm border border-green-100 flex justify-between items-center group">
                                 <div>
                                     <div className="text-xs text-green-600 font-bold mb-1">{item.impact} Impact • {item.size} Effort</div>
-                                    <div className="text-sm font-medium text-slate-800">{item.title}</div>
+                                    <div className="text-sm font-medium text-slate-800 flex items-center group">
+                                        <div className="flex-1">
+                                            {item.jiraUrl ? (
+                                                <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
+                                                    {item.title}
+                                                </a>
+                                            ) : (
+                                                <span>{item.title}</span>
+                                            )}
+                                        </div>
+                                        <div className="flex items-center gap-1">
+                                            {/* icons visible on hover over the tile title area */}
+                                            <EditableJiraLink item={item} onUpdate={onUpdate} />
+                                            <TitleEditor item={item} onUpdate={onUpdate} />
+                                        </div>
+                                    </div>
                                 </div>
                                 <Icons.ArrowRight size={16} className="text-green-300" />
                             </div>
@@ -261,7 +411,11 @@
         // --- MAIN APP COMPONENT ---
         const RoadmapApp = () => {
             const [view, setView] = useState('roadmap');
-            const [data] = useState(rawData);
+            const [data, setData] = useState(rawData);
+
+            const handleUpdate = (id, updates) => {
+                setData(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
+            };
 
             const quarters = {
                 Q1: data.filter(i => getQuarter(i.launch) === 'Q1'),
@@ -282,19 +436,19 @@
                             <div className="flex bg-white p-1 rounded-xl shadow-sm border border-slate-200">
                                 <button
                                     onClick={() => setView('roadmap')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'roadmap' ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'roadmap' ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-slate-600'}`}
                                 >
                                     <Icons.Calendar size={16} /> Roadmapa
                                 </button>
                                 <button
                                     onClick={() => setView('matrix')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'matrix' ? 'bg-purple-50 text-purple-700 shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'matrix' ? 'bg-purple-50 text-purple-700 shadow-sm' : 'text-slate-600'}`}
                                 >
                                     <Icons.BarChart2 size={16} /> Prioritizácia
                                 </button>
                                 <button
                                     onClick={() => setView('list')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'list' ? 'bg-green-50 text-green-700 shadow-sm' : 'text-slate-500 hover:bg-slate-50'}`}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'list' ? 'bg-green-50 text-green-700 shadow-sm' : 'text-slate-600'}`}
                                 >
                                     <Icons.List size={16} /> Zoznam
                                 </button>
@@ -321,7 +475,7 @@
                                             </div>
                                             <div className="space-y-3 flex-grow bg-slate-100/50 p-2 rounded-xl border border-slate-100/50 min-h-[200px]">
                                                 {quarters[q].length > 0 ? (
-                                                    quarters[q].map(item => <Card key={item.id} item={item} />)
+                                                    quarters[q].map(item => <Card key={item.id} item={item} onUpdate={handleUpdate} />)
                                                 ) : (
                                                     <div className="h-full flex items-center justify-center text-slate-400 text-sm italic">
                                                         Plánovanie otvorené
@@ -339,7 +493,7 @@
                                         <span className="text-sm text-slate-400 font-normal ml-2">- vyžaduje validáciu alebo odhad času</span>
                                     </div>
                                     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 bg-slate-100 p-4 rounded-xl">
-                                        {quarters.TBD.map(item => <Card key={item.id} item={item} />)}
+                                        {quarters.TBD.map(item => <Card key={item.id} item={item} onUpdate={handleUpdate} />)}
                                     </div>
                                 </div>
                             </div>
@@ -348,7 +502,7 @@
                         {/* OBSAH - Matrix */}
                         {view === 'matrix' && (
                             <div className="space-y-6">
-                                <QuickWins items={data} />
+                                <QuickWins items={data} onUpdate={handleUpdate} />
                                 
                                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                                     <h3 className="text-lg font-bold mb-6 text-slate-800">Value vs. Effort Matrix</h3>
@@ -380,8 +534,22 @@
                                                         item.impact === 'High' ? 'bg-purple-500' : 'bg-blue-400'
                                                     }`}></div>
                                                     
-                                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-48 bg-slate-800 text-white text-xs p-2 rounded opacity-0 group-hover:opacity-100 pointer-events-none z-20">
-                                                        <div className="font-bold mb-1">{item.title}</div>
+                                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-56 bg-slate-800 text-white text-xs p-2 rounded opacity-0 group-hover:opacity-100 pointer-events-none">
+                                                        <div className="font-bold mb-1 flex items-center justify-between">
+                                                            <div className="flex items-center gap-2">
+                                                                {item.jiraUrl ? (
+                                                                    <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
+                                                                        {item.title}
+                                                                    </a>
+                                                                ) : item.title}
+                                                            </div>
+
+                                                            {/* inside tooltip we show icons inline (tooltip is already shown on hover) */}
+                                                            <div className="flex items-center gap-2 pointer-events-auto">
+                                                                <EditableJiraLink item={item} onUpdate={handleUpdate} />
+                                                                <TitleEditor item={item} onUpdate={handleUpdate} />
+                                                            </div>
+                                                        </div>
                                                         <div className="text-slate-300">Imp: {item.impact} | Eff: {item.size}</div>
                                                     </div>
                                                 </div>
@@ -404,7 +572,7 @@
                                 
                                 <div className="bg-slate-100 p-4 rounded-lg text-sm text-slate-500 flex gap-2 items-center">
                                     <Icons.HelpCircle size={16} />
-                                    <span>Poznámka: {data.filter(i => getSizeScore(i.size) === -1 || getImpactScore(i.impact) === -1).length} položiek nie je zobrazených v matici pre chýbajúce dáta (Size/Impact).</span>
+                                    <span>Poznámka: {data.filter(i => getSizeScore(i.size) === -1 || getImpactScore(i.impact) === -1).length} položiek nie je zobrazených v matici pre chýbajúce dáta.</span>
                                 </div>
                             </div>
                         )}
@@ -429,8 +597,28 @@
                                             {data.map(item => (
                                                 <tr key={item.id} className="hover:bg-slate-50 transition-colors">
                                                     <td className="p-4 font-medium text-slate-900">
-                                                        {item.title}
-                                                        {item.notes && <div className="text-xs text-slate-400 mt-0.5 font-normal">{item.notes}</div>}
+                                                        <div className="flex items-start justify-between">
+                                                            <div className="group">
+                                                                <div className="flex items-center gap-2">
+                                                                    <div className="flex-1">
+                                                                        {item.jiraUrl ? (
+                                                                            <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
+                                                                                {item.title}
+                                                                            </a>
+                                                                        ) : (
+                                                                            <span>{item.title}</span>
+                                                                        )}
+                                                                        {item.notes && <div className="text-xs text-slate-400 mt-0.5 font-normal">{item.notes}</div>}
+                                                                    </div>
+
+                                                                    {/* icons appear on hover over the name (due to group) */}
+                                                                    <div className="flex items-center gap-1">
+                                                                        <EditableJiraLink item={item} onUpdate={handleUpdate} />
+                                                                        <TitleEditor item={item} onUpdate={handleUpdate} />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                     <td className="p-4">
                                                         <span className={`px-2 py-1 rounded text-xs font-bold ${getCategoryColor(item.category)}`}>
@@ -472,8 +660,3 @@
 </body>
 
 </html>
-
-
-
-
-
