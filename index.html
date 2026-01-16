@@ -112,10 +112,10 @@
         // --- UTILS ---
         const getQuarter = (month) => {
             const m = month?.toLowerCase().trim();
-            if (['január', 'február', 'marec'].includes(m)) return 'Q1';
-            if (['apríl', 'máj', 'jún'].includes(m)) return 'Q2';
-            if (['júl', 'august', 'september'].includes(m)) return 'Q3';
-            if (['október', 'november', 'december'].includes(m)) return 'Q4';
+            if (['január', 'február', 'marec', 'Q1'].includes(m)) return 'Q1';
+            if (['apríl', 'máj', 'jún', 'Q2'].includes(m)) return 'Q2';
+            if (['júl', 'august', 'september', 'Q3'].includes(m)) return 'Q3';
+            if (['október', 'november', 'december', 'Q4'].includes(m)) return 'Q4';
             return 'TBD';
         };
 
@@ -472,5 +472,6 @@
 </body>
 
 </html>
+
 
 
