@@ -41,8 +41,8 @@
         );
 
         const Icons = {
-            Calendar: (props) => <Icon {...props} path={<><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></>} />,
-            List: (props) => <Icon {...props} path={<><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/></>} />,
+            Calendar: (props) => <Icon {...props} path={<><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x[...]
+            List: (props) => <Icon {...props} path={<><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="[...]
             BarChart2: (props) => <Icon {...props} path={<><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></>} />,
             Zap: (props) => <Icon {...props} path={<><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></>} />,
             AlertCircle: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></>} />,
@@ -52,20 +52,20 @@
             ArrowRight: (props) => <Icon {...props} path={<><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></>} />,
             ExternalLink: (props) => <Icon {...props} path={<><path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></>} />,
             // Link icon (used for add/edit/remove Jira URL) - common link glyph
-            Link: (props) => <Icon {...props} path={<><path d="M10 14a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10 6.93"/><path d="M14 10a5 5 0 0 0-7.07 0L4.81 12.12a5 5 0 0 0 7.07 7.07L14 17.07"/></>} />,
+            Link: (props) => <Icon {...props} path={<><path d="M10 14a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10 6.93"/><path d="M14 10a5 5 0 0 0-7.07 0L4.81 12.12a5 5 0 0 0 7.07 7.07L14 17.07"[...]
             // Pencil icon (used for editing the title)
-            Pencil: (props) => <Icon {...props} path={<><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></>} />
+            Pencil: (props) => <Icon {...props} path={<><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.7[...]
         };
 
         // --- DATA ---
         const rawData = [
-            { id: '1', title: 'Paid Content - Zamykanie videa vo vybranom čase', category: 'Feature', status: 'Zastavené', owner: 'lukas.saghy', size: 'S', impact: 'High', launch: 'Január', notes: '', jiraUrl: 'https://newsandmedia.atlassian.net/browse/CMSD-1486' },
+            { id: '1', title: 'Paid Content - Zamykanie videa vo vybranom čase', category: 'Feature', status: 'Zastavené', owner: 'lukas.saghy', size: 'S', impact: 'High', launch: 'Január', notes: [...] 
             { id: '2', title: 'CMSD-1017: Audio Transcript 1.0', category: 'AI', status: 'Prebieha', owner: 'viktor.koslab', size: 'M', impact: 'Mid', launch: 'Január', notes: '' },
             { id: '3', title: 'CMSD-727: [NMH-VLM] HPM2.1', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'L', impact: 'Mid', launch: 'Január', notes: '' },
             { id: '4', title: 'CMSD-1366: [NMH] - SEO Content Checker 1.0', category: 'BAS', status: 'Prebieha', owner: 'marek.murin', size: 'S', impact: 'Low', launch: 'Január', notes: '' },
-            { id: '5', title: 'CMSD-950: Tagy 2.0 MVP NMH', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy', size: 'L', impact: 'High', launch: 'Február', notes: '', jiraUrl: 'https://your-jira-instance/browse/EPIC-123' },
-            { id: '6', title: 'CMSD-1502: [NMH] TREND - Dorovnanie funkcionality .NET verzie s PHP', category: 'BAS', status: 'Nezačaté', owner: 'karol.schulz', size: 'S', impact: 'Low', launch: 'Február', notes: '' },
-            { id: '7', title: 'CMSD-1046: HPM 2.01 debug/features swap NČ', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'M', impact: 'Mid', launch: 'Február', notes: '' },
+            { id: '5', title: 'CMSD-950: Tagy 2.0 MVP NMH', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy', size: 'L', impact: 'High', launch: 'Február', notes: '', jiraUrl: 'https://your-j[...]
+            { id: '6', title: 'CMSD-1502: [NMH] TREND - Dorovnanie funkcionality .NET verzie s PHP', category: 'BAS', status: 'Nezačaté', owner: 'karol.schulz', size: 'S', impact: 'Low', launch: 'Fe[...]
+            { id: '7', title: 'CMSD-1046: HPM 2.01 debug/features swap NČ', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'M', impact: 'Mid', launch: 'Február', notes: '' [...]
             { id: '8', title: 'CMSD-949: Piano Integration', category: 'BAS', status: 'Prebieha', owner: 'matus.zahradnik', size: 'M', impact: 'High', launch: 'Február', notes: '' },
             { id: '9', title: 'CMSD-1602: TECH UPGRADE 2026', category: 'BAS', status: 'Prebieha', owner: 'tomas.mikeska', size: 'Unknown', impact: 'Unknown', launch: 'Február', notes: '' },
             { id: '10', title: 'CMSD-954: VLM Tickets MVP Denik', category: 'BAS', status: 'Prebieha', owner: 'radek.silbersky', size: 'XL', impact: 'High', launch: 'Február', notes: '' },
@@ -73,46 +73,46 @@
             { id: '12', title: 'FE-4035: TREND React', category: 'BAS', status: 'Prebieha', owner: 'tomas.valach', size: 'M', impact: 'High', launch: 'Marec', notes: '' },
             { id: '13', title: 'Perex generator pre VLM (bez GITA)', category: 'AI', status: 'Nezačaté', owner: 'radek.silbersky', size: 'S', impact: 'Mid', launch: 'Marec', notes: '' },
             { id: '14', title: 'Summary generator pre VLM (bez GITA)', category: 'AI', status: 'Nezačaté', owner: 'radek.silbersky', size: 'S', impact: 'Mid', launch: 'Marec', notes: '' },
-            { id: '15', title: 'CMSD-952: [NMH] Hero/Listing Image recommender 1.0', category: 'AI', status: 'Nezačaté', owner: 'viktor.koslab', size: 'S', impact: 'Unknown', launch: 'Marec', notes: '' },
-            { id: '16', title: 'CMSD-1214: DAM Upgrade - Editorial feedback Q42025', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'M', impact: 'Unknown', launch: 'Marec', notes: '' },
+            { id: '15', title: 'CMSD-952: [NMH] Hero/Listing Image recommender 1.0', category: 'AI', status: 'Nezačaté', owner: 'viktor.koslab', size: 'S', impact: 'Unknown', launch: 'Marec', notes:[...]
+            { id: '16', title: 'CMSD-1214: DAM Upgrade - Editorial feedback Q42025', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'M', impact: 'Unknown', launch: 'Marec', n[...]
             { id: '17', title: 'CMSD-523: MBASE migracia', category: 'BAS', status: 'Zastavené', owner: 'radek.silbersky', size: 'S', impact: 'Very Low', launch: 'Apríl', notes: '' },
             { id: '18', title: 'CMSD-1490: [NMH] Tagy 2.01', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy', size: 'S', impact: 'Low', launch: 'Marec', notes: '' },
-            { id: '19', title: 'CMSD-948: Related articles 2.0 - Automation', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'Unknown', impact: 'Unknown', launch: 'Marec', notes: '' },
+            { id: '19', title: 'CMSD-948: Related articles 2.0 - Automation', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'Unknown', impact: 'Unknown', launch: 'Marec', notes: '[...]
             { id: '20', title: 'CMSD-1396: [NMH] TASR News restyling 2.0', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'M', impact: 'Unknown', launch: 'Apríl', notes: '' },
-            { id: '21', title: 'CMSD-1515: [NMH] TASR - automatické postovanie TASR článkov', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'M', impact: 'Apríl', launch: 'Q2', notes: '' },
-            { id: '22', title: 'SEO Copilot / Asistent redaktora', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'Jún', notes: 'Spojiť s VLM, zluč.' },
-            { id: '23', title: 'CMSB-1191: Možnosť vytvárania koláží hlavných fotografií', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'S', impact: 'Unknown', launch: '', notes: '' },
+            { id: '21', title: 'CMSD-1515: [NMH] TASR - automatické postovanie TASR článkov', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'M', impact: 'Apríl', launch: 'Q2',[...]
+            { id: '22', title: 'SEO Copilot / Asistent redaktora', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'Jún', notes: 'Spojiť s VLM, zlu�[...]
+            { id: '23', title: 'CMSB-1191: Možnosť vytvárania koláží hlavných fotografií', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'S', impact: 'Unknown[...]
             { id: '24', title: 'Tagy 2.1', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'M', impact: 'Unknown', launch: 'Marec', notes: '' },
             { id: '25', title: 'CMSD-705: Tech dept 2025', category: 'BAS', status: 'Prebieha', owner: 'tomas.mikeska', size: 'L', impact: 'Mid', launch: 'Jún', notes: '' },
             { id: '26', title: 'CMSD-1278: Elasticsearch 9', category: 'BAS', status: 'Nezačaté', owner: 'tomas.mikeska', size: 'M', impact: 'Low', launch: 'Jún', notes: '' },
             { id: '27', title: 'CMSD-1403: [NMH-VLM] Admin2.0', category: 'BAS', status: 'Nezačaté', owner: 'radek.silbersky', size: 'Unknown', impact: 'Unknown', launch: 'Marec', notes: '' },
-            { id: '28', title: 'CMS Lab / App store (Inovation Incubator)', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Máj', launch: 'TBD', notes: '' },
-            { id: '29', title: 'Article Body Image Recommender', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'Jún', notes: '' },
+            { id: '28', title: 'CMS Lab / App store (Inovation Incubator)', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Máj', launch: 'TBD', notes:[...]
+            { id: '29', title: 'Article Body Image Recommender', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'Jún', notes: '' },[...]
             { id: '30', title: 'Article Gallery Composer', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'September', notes: '' },
-            { id: '31', title: 'Article Gallery Composer - Story Mode', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'December', notes: '' },
+            { id: '31', title: 'Article Gallery Composer - Story Mode', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'December', n[...]
             { id: '32', title: 'Video Subtitles 2.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'Marec', notes: '' },
             { id: '33', title: 'Audio Transcription 2.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'Jún', notes: '' },
-            { id: '34', title: 'Editorial Performance - Subs, Video, Seo, ext. perf.', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '35', title: 'Editorial Peformance - Gamification', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'December', notes: '' },
+            { id: '34', title: 'Editorial Performance - Subs, Video, Seo, ext. perf.', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', l[...]
+            { id: '35', title: 'Editorial Peformance - Gamification', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'December'[...]
             { id: '36', title: 'Real-Time Stats 2.0', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '37', title: 'Video Stats 2.0', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '38', title: 'CMSD-969: Article AI Copilot 1.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
+            { id: '38', title: 'CMSD-969: Article AI Copilot 1.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' }[...]
             { id: '39', title: 'Real-Time Copilot 1.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '40', title: 'Editorial Performance Copilot 1.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '41', title: 'CMSD-1476: [Admin2.0] Article stats do CMS - v1.0', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'radek.silbersky', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '42', title: 'CMSD-955: NMH - Body block Kvíz s AI generátorom kvízov', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Mid', launch: 'TBD', notes: '' },
-            { id: '43', title: 'CMSD-947: DAM Taxonomia obrazkov (tagy, img alt tag, gallery desc...)', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '44', title: 'CMSD-1127: Social Media Management Tool - MVP', category: 'AI', status: 'Zastavené', owner: 'karol.schulz', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
+            { id: '40', title: 'Editorial Performance Copilot 1.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'viktor.koslab', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' [...]
+            { id: '41', title: 'CMSD-1476: [Admin2.0] Article stats do CMS - v1.0', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'radek.silbersky', size: 'Unknown', impact: 'Unknown', la[...]
+            { id: '42', title: 'CMSD-955: NMH - Body block Kvíz s AI generátorom kvízov', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Mid', launch[...]
+            { id: '43', title: 'CMSD-947: DAM Taxonomia obrazkov (tagy, img alt tag, gallery desc...)', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'U[...]
+            { id: '44', title: 'CMSD-1127: Social Media Management Tool - MVP', category: 'AI', status: 'Zastavené', owner: 'karol.schulz', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '[...]
             { id: '45', title: 'CMSD-1271: [NMH-VLM] Livebox - videa', category: 'BAS', status: 'Zastavené', owner: 'radek.silbersky', size: 'S', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '46', title: 'CMSD-1384: Video improvements (Livebox)', category: 'Feature', status: 'Nezačaté', owner: 'radek.silbersky', size: 'M', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '47', title: 'CMSD-1346: Admin Management Notifikácií v CMS & Release komunikácia', category: 'BAS', status: 'Zastavené', owner: 'karol.schulz', size: 'M', impact: 'Low', launch: 'TBD', notes: '' },
+            { id: '46', title: 'CMSD-1384: Video improvements (Livebox)', category: 'Feature', status: 'Nezačaté', owner: 'radek.silbersky', size: 'M', impact: 'Unknown', launch: 'TBD', notes: '' },[...]
+            { id: '47', title: 'CMSD-1346: Admin Management Notifikácií v CMS & Release komunikácia', category: 'BAS', status: 'Zastavené', owner: 'karol.schulz', size: 'M', impact: 'Low', launch:[...]
             { id: '48', title: 'CMSD-765: Ochorenia', category: 'BAS', status: 'Zastavené', owner: 'filip.mackov', size: 'M', impact: 'Very Low', launch: 'TBD', notes: '' },
-            { id: '49', title: 'Tagy 3.0 (image + gallery + video tagy, AI gen. content, BB editor)', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: '', notes: '' },
-            { id: '50', title: 'CMSD-1354: 17. NMH - Menu editor - ADMIN - analyza', category: 'Feature', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'Apríl', notes: '' },
+            { id: '49', title: 'Tagy 3.0 (image + gallery + video tagy, AI gen. content, BB editor)', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: [...]
+            { id: '50', title: 'CMSD-1354: 17. NMH - Menu editor - ADMIN - analyza', category: 'Feature', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'Apríl', no[...]
             { id: '51', title: 'Headline ABC Testing 2.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'karol.schulz', size: 'M', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '52', title: 'Poll Generator 2.0 - Proactive in-article suggestions', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '53', title: 'Quiz Generator 2.0 - Fact checking, rýchlejšie gen.', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
-            { id: '54', title: 'Reels / Slideshow / Illustration video generator', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
+            { id: '52', title: 'Poll Generator 2.0 - Proactive in-article suggestions', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch:[...]
+            { id: '53', title: 'Quiz Generator 2.0 - Fact checking, rýchlejšie gen.', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch:[...]
+            { id: '54', title: 'Reels / Slideshow / Illustration video generator', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch: 'TBD[...]
         ];
 
         // --- UTILS ---
@@ -410,11 +410,46 @@
 
         // --- MAIN APP COMPONENT ---
         const RoadmapApp = () => {
+            const STORAGE_KEY = 'roadmap_data_v1';
+
             const [view, setView] = useState('roadmap');
-            const [data, setData] = useState(rawData);
+
+            // Initialize data from localStorage (if present) so edits persist across refresh
+            const [data, setData] = useState(() => {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEY);
+                    return raw ? JSON.parse(raw) : rawData;
+                } catch (e) {
+                    console.error('Failed to parse saved roadmap data:', e);
+                    return rawData;
+                }
+            });
+
+            // Persist helper (used on updates)
+            const persist = (next) => {
+                try {
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+                } catch (e) {
+                    console.error('Failed to persist roadmap data:', e);
+                }
+            };
 
             const handleUpdate = (id, updates) => {
-                setData(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
+                setData(prev => {
+                    const next = prev.map(p => p.id === id ? { ...p, ...updates } : p);
+                    persist(next);
+                    return next;
+                });
+            };
+
+            // Optional: allow clearing local edits and restoring original rawData
+            const resetLocalChanges = () => {
+                try {
+                    localStorage.removeItem(STORAGE_KEY);
+                } catch (e) {
+                    console.error('Failed to remove local storage key', e);
+                }
+                setData(rawData);
             };
 
             const quarters = {
@@ -436,19 +471,19 @@
                             <div className="flex bg-white p-1 rounded-xl shadow-sm border border-slate-200">
                                 <button
                                     onClick={() => setView('roadmap')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'roadmap' ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-slate-600'}`}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'roadmap' ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-slat[...]
                                 >
                                     <Icons.Calendar size={16} /> Roadmapa
                                 </button>
                                 <button
                                     onClick={() => setView('matrix')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'matrix' ? 'bg-purple-50 text-purple-700 shadow-sm' : 'text-slate-600'}`}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'matrix' ? 'bg-purple-50 text-purple-700 shadow-sm' : 'text-s[...]
                                 >
                                     <Icons.BarChart2 size={16} /> Prioritizácia
                                 </button>
                                 <button
                                     onClick={() => setView('list')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'list' ? 'bg-green-50 text-green-700 shadow-sm' : 'text-slate-600'}`}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'list' ? 'bg-green-50 text-green-700 shadow-sm' : 'text-slate[...]
                                 >
                                     <Icons.List size={16} /> Zoznam
                                 </button>
@@ -458,6 +493,9 @@
                                 <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-400"></span> Feature</div>
                                 <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-purple-400"></span> AI</div>
                                 <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-400"></span> Tech</div>
+
+                                {/* small reset button to clear local edits */}
+                                <button onClick={resetLocalChanges} className="ml-3 text-xs text-red-500 hover:underline" title="Vymazať lokálne zmeny a obnoviť pôvodné dáta">Reset lokálne zmeny</button>
                             </div>
                         </div>
 
@@ -534,7 +572,7 @@
                                                         item.impact === 'High' ? 'bg-purple-500' : 'bg-blue-400'
                                                     }`}></div>
                                                     
-                                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-56 bg-slate-800 text-white text-xs p-2 rounded opacity-0 group-hover:opacity-100 pointer-events-none">
+                                                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-56 bg-slate-800 text-white text-xs p-2 rounded opacity-0 group-hover:opacity-100 point[...]
                                                         <div className="font-bold mb-1 flex items-center justify-between">
                                                             <div className="flex items-center gap-2">
                                                                 {item.jiraUrl ? (
@@ -572,7 +610,7 @@
                                 
                                 <div className="bg-slate-100 p-4 rounded-lg text-sm text-slate-500 flex gap-2 items-center">
                                     <Icons.HelpCircle size={16} />
-                                    <span>Poznámka: {data.filter(i => getSizeScore(i.size) === -1 || getImpactScore(i.impact) === -1).length} položiek nie je zobrazených v matici pre chýbajúce dáta.</span>
+                                    <span>Poznámka: {data.filter(i => getSizeScore(i.size) === -1 || getImpactScore(i.impact) === -1).length} položiek nie je zobrazených v matici pre chýbajúce d�[...]
                                 </div>
                             </div>
                         )}
@@ -602,7 +640,7 @@
                                                                 <div className="flex items-center gap-2">
                                                                     <div className="flex-1">
                                                                         {item.jiraUrl ? (
-                                                                            <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
+                                                                            <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">[...]
                                                                                 {item.title}
                                                                             </a>
                                                                         ) : (
