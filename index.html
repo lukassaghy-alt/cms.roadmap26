@@ -51,19 +51,17 @@
             HelpCircle: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></>} />,
             ArrowRight: (props) => <Icon {...props} path={<><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></>} />,
             ExternalLink: (props) => <Icon {...props} path={<><path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></>} />,
-            // Link icon (used for add/edit/remove Jira URL) - common link glyph
             Link: (props) => <Icon {...props} path={<><path d="M10 14a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10 6.93"/><path d="M14 10a5 5 0 0 0-7.07 0L4.81 12.12a5 5 0 0 0 7.07 7.07L14 17.07"/></>} />,
-            // Pencil icon (used for editing the title)
-            Pencil: (props) => <Icon {...props} path={<><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></>} />
+            Pencil: (props) => <Icon {...props} path={<><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.63-1.83z"/></>} />,
         };
 
         // --- DATA ---
         const rawData = [
-            { id: '1', title: 'Paid Content - Zamykanie videa vo vybranom čase', category: 'Feature', status: 'Zastavené', owner: 'lukas.saghy', size: 'S', impact: 'High', launch: 'Január', notes: '', jiraUrl: 'https://newsandmedia.atlassian.net/browse/CMSD-1486' },
+            { id: '1', title: 'Paid Content - Zamykanie videa vo vybranom čase', category: 'Feature', status: 'Zastavené', owner: 'lukas.saghy', size: 'S', impact: 'High', launch: 'Január', notes: '' },
             { id: '2', title: 'CMSD-1017: Audio Transcript 1.0', category: 'AI', status: 'Prebieha', owner: 'viktor.koslab', size: 'M', impact: 'Mid', launch: 'Január', notes: '' },
             { id: '3', title: 'CMSD-727: [NMH-VLM] HPM2.1', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'L', impact: 'Mid', launch: 'Január', notes: '' },
             { id: '4', title: 'CMSD-1366: [NMH] - SEO Content Checker 1.0', category: 'BAS', status: 'Prebieha', owner: 'marek.murin', size: 'S', impact: 'Low', launch: 'Január', notes: '' },
-            { id: '5', title: 'CMSD-950: Tagy 2.0 MVP NMH', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy', size: 'L', impact: 'High', launch: 'Február', notes: '', jiraUrl: 'https://your-jira-instance/browse/EPIC-123' },
+            { id: '5', title: 'CMSD-950: Tagy 2.0 MVP NMH', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy', size: 'L', impact: 'High', launch: 'Február', notes: '', jiraUrl: 'https://your-jira-instance/browse/CMSD-950' },
             { id: '6', title: 'CMSD-1502: [NMH] TREND - Dorovnanie funkcionality .NET verzie s PHP', category: 'BAS', status: 'Nezačaté', owner: 'karol.schulz', size: 'S', impact: 'Low', launch: 'Február', notes: '' },
             { id: '7', title: 'CMSD-1046: HPM 2.01 debug/features swap NČ', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky', size: 'M', impact: 'Mid', launch: 'Február', notes: '' },
             { id: '8', title: 'CMSD-949: Piano Integration', category: 'BAS', status: 'Prebieha', owner: 'matus.zahradnik', size: 'M', impact: 'High', launch: 'Február', notes: '' },
@@ -80,8 +78,8 @@
             { id: '19', title: 'CMSD-948: Related articles 2.0 - Automation', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'Unknown', impact: 'Unknown', launch: 'Marec', notes: '' },
             { id: '20', title: 'CMSD-1396: [NMH] TASR News restyling 2.0', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'M', impact: 'Unknown', launch: 'Apríl', notes: '' },
             { id: '21', title: 'CMSD-1515: [NMH] TASR - automatické postovanie TASR článkov', category: 'AI', status: 'Nezačaté', owner: 'karol.schulz', size: 'M', impact: 'Apríl', launch: 'Q2', notes: '' },
-            { id: '22', title: 'SEO Copilot / Asistent redaktora', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'Jún', notes: 'Spojiť s VLM, zluč.' },
-            { id: '23', title: 'CMSB-1191: Možnosť vytvárania koláží hlavných fotografií', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'S', impact: 'Unknown', launch: '', notes: '' },
+            { id: '22', title: 'SEO Copilot / Asistent redaktora', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'Jún', notes: 'Spojiť s VLM' },
+            { id: '23', title: 'CMSB-1191: Možnosť vytvárania koláží hlavných fotografií', category: 'Feature', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'S', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '24', title: 'Tagy 2.1', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'M', impact: 'Unknown', launch: 'Marec', notes: '' },
             { id: '25', title: 'CMSD-705: Tech dept 2025', category: 'BAS', status: 'Prebieha', owner: 'tomas.mikeska', size: 'L', impact: 'Mid', launch: 'Jún', notes: '' },
             { id: '26', title: 'CMSD-1278: Elasticsearch 9', category: 'BAS', status: 'Nezačaté', owner: 'tomas.mikeska', size: 'M', impact: 'Low', launch: 'Jún', notes: '' },
@@ -107,7 +105,7 @@
             { id: '46', title: 'CMSD-1384: Video improvements (Livebox)', category: 'Feature', status: 'Nezačaté', owner: 'radek.silbersky', size: 'M', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '47', title: 'CMSD-1346: Admin Management Notifikácií v CMS & Release komunikácia', category: 'BAS', status: 'Zastavené', owner: 'karol.schulz', size: 'M', impact: 'Low', launch: 'TBD', notes: '' },
             { id: '48', title: 'CMSD-765: Ochorenia', category: 'BAS', status: 'Zastavené', owner: 'filip.mackov', size: 'M', impact: 'Very Low', launch: 'TBD', notes: '' },
-            { id: '49', title: 'Tagy 3.0 (image + gallery + video tagy, AI gen. content, BB editor)', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: '', notes: '' },
+            { id: '49', title: 'Tagy 3.0 (image + gallery + video tagy, AI gen. content, BB editor)', category: 'AI', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '50', title: 'CMSD-1354: 17. NMH - Menu editor - ADMIN - analyza', category: 'Feature', status: 'Nezačaté', owner: 'lukas.saghy', size: 'L', impact: 'Unknown', launch: 'Apríl', notes: '' },
             { id: '51', title: 'Headline ABC Testing 2.0', category: 'AI', status: 'Idea - zvalidovaná', owner: 'karol.schulz', size: 'M', impact: 'Unknown', launch: 'TBD', notes: '' },
             { id: '52', title: 'Poll Generator 2.0 - Proactive in-article suggestions', category: 'AI', status: 'Idea - zvalidovaná', owner: 'lukas.saghy', size: 'Unknown', impact: 'Unknown', launch: 'TBD', notes: '' },
@@ -413,16 +411,40 @@
             const [view, setView] = useState('roadmap');
             const [data, setData] = useState(rawData);
 
+            // filters for categories (Feature, AI, Tech, BAS)
+            const [activeCats, setActiveCats] = useState({
+                Feature: true,
+                AI: true,
+                Tech: true,
+                BAS: true
+            });
+
+            const toggleCat = (cat) => {
+                setActiveCats(prev => ({ ...prev, [cat]: !prev[cat] }));
+            };
+
+            const resetCats = () => {
+                setActiveCats({ Feature: true, AI: true, Tech: true, BAS: true });
+            };
+
+            const filteredData = useMemo(() => {
+                return data.filter(i => {
+                    // if item has no category, include it
+                    const cat = i.category || 'Unknown';
+                    return activeCats[cat] ?? true;
+                });
+            }, [data, activeCats]);
+
             const handleUpdate = (id, updates) => {
                 setData(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
             };
 
             const quarters = {
-                Q1: data.filter(i => getQuarter(i.launch) === 'Q1'),
-                Q2: data.filter(i => getQuarter(i.launch) === 'Q2'),
-                Q3: data.filter(i => getQuarter(i.launch) === 'Q3'),
-                Q4: data.filter(i => getQuarter(i.launch) === 'Q4'),
-                TBD: data.filter(i => getQuarter(i.launch) === 'TBD'),
+                Q1: filteredData.filter(i => getQuarter(i.launch) === 'Q1'),
+                Q2: filteredData.filter(i => getQuarter(i.launch) === 'Q2'),
+                Q3: filteredData.filter(i => getQuarter(i.launch) === 'Q3'),
+                Q4: filteredData.filter(i => getQuarter(i.launch) === 'Q4'),
+                TBD: filteredData.filter(i => getQuarter(i.launch) === 'TBD'),
             };
 
             return (
@@ -454,10 +476,33 @@
                                 </button>
                             </div>
                             
-                            <div className="flex items-center gap-4 text-xs text-slate-500">
-                                <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-400"></span> Feature</div>
-                                <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-purple-400"></span> AI</div>
-                                <div className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-green-400"></span> Tech</div>
+                            {/* FILTERS (clickable) */}
+                            <div className="flex items-center gap-3">
+                                {['Feature','AI','Tech','BAS'].map(cat => (
+                                    <button
+                                        key={cat}
+                                        onClick={() => toggleCat(cat)}
+                                        className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium transition ${
+                                            activeCats[cat] ? 'bg-slate-100 text-slate-800' : 'bg-transparent text-slate-400'
+                                        }`}
+                                        title={`${activeCats[cat] ? 'Zrušiť filter' : 'Zapnúť filter'} ${cat}`}
+                                    >
+                                        <span className={`w-2 h-2 rounded-full ${
+                                            cat === 'Feature' ? 'bg-blue-400' :
+                                            cat === 'AI' ? 'bg-purple-400' :
+                                            cat === 'Tech' ? 'bg-green-400' : 'bg-gray-400'
+                                        }`} />
+                                        <span>{cat}</span>
+                                    </button>
+                                ))}
+
+                                <button
+                                    onClick={resetCats}
+                                    className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-500 hover:bg-slate-50"
+                                    title="Resetovať filtre"
+                                >
+                                    Reset
+                                </button>
                             </div>
                         </div>
 
@@ -502,7 +547,7 @@
                         {/* OBSAH - Matrix */}
                         {view === 'matrix' && (
                             <div className="space-y-6">
-                                <QuickWins items={data} onUpdate={handleUpdate} />
+                                <QuickWins items={filteredData} onUpdate={handleUpdate} />
                                 
                                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                                     <h3 className="text-lg font-bold mb-6 text-slate-800">Value vs. Effort Matrix</h3>
@@ -514,7 +559,7 @@
                                         <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-purple-50/50 rounded-bl-3xl"></div>
                                         <div className="absolute top-0 left-0 w-1/2 h-1/2 bg-green-50/50 rounded-br-3xl"></div>
 
-                                        {data.map(item => {
+                                        {filteredData.map(item => {
                                             const x = getSizeScore(item.size);
                                             const y = getImpactScore(item.impact);
                                             
@@ -538,7 +583,7 @@
                                                         <div className="font-bold mb-1 flex items-center justify-between">
                                                             <div className="flex items-center gap-2">
                                                                 {item.jiraUrl ? (
-                                                                    <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
+                                                                    <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2 text-white">
                                                                         {item.title}
                                                                     </a>
                                                                 ) : item.title}
@@ -572,7 +617,7 @@
                                 
                                 <div className="bg-slate-100 p-4 rounded-lg text-sm text-slate-500 flex gap-2 items-center">
                                     <Icons.HelpCircle size={16} />
-                                    <span>Poznámka: {data.filter(i => getSizeScore(i.size) === -1 || getImpactScore(i.impact) === -1).length} položiek nie je zobrazených v matici pre chýbajúce dáta.</span>
+                                    <span>Poznámka: {filteredData.filter(i => getSizeScore(i.size) === -1 || getImpactScore(i.impact) === -1).length} položiek nie je zobrazených v matici pre chýbajúce dáta</span>
                                 </div>
                             </div>
                         )}
@@ -594,7 +639,7 @@
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-slate-100">
-                                            {data.map(item => (
+                                            {filteredData.map(item => (
                                                 <tr key={item.id} className="hover:bg-slate-50 transition-colors">
                                                     <td className="p-4 font-medium text-slate-900">
                                                         <div className="flex items-start justify-between">
@@ -660,4 +705,3 @@
 </body>
 
 </html>
-
