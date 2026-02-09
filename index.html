@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="sk">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>CMS Product Roadmap 2026 v2</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -11,7 +11,7 @@
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <!-- Babel pre JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
+
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
     </style>
@@ -22,37 +22,37 @@
     <script type="text/babel">
         const { useState, useMemo, useEffect } = React;
 
-        // --- ICONS (Inline SVGs pre spoľahlivosť bez externých knižníc) ---
-        const Icon = ({ path, className, size = 24 }) => (
-            <svg 
-                xmlns="http://www.w3.org/2000/svg" 
-                width={size} 
-                height={size} 
-                viewBox="0 0 24 24" 
-                fill="none" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
+        // --- ICONS (simple valid inline SVGs) ---
+        const Icon = ({ children, size = 24, className = '' }) => (
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={size}
+                height={size}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
                 className={className}
+                aria-hidden="true"
             >
-                {path}
+                {children}
             </svg>
         );
 
         const Icons = {
-            Calendar: (props) => <Icon {...props} path={<><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="3.01" y1="10" y2="10"/></>} />,
-            List: (props) => <Icon {...props} path={<><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/></>} />,
-            BarChart2: (props) => <Icon {...props} path={<><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></>} />,
-            Zap: (props) => <Icon {...props} path={<><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></>} />,
-            AlertCircle: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></>} />,
-            Layers: (props) => <Icon {...props} path={<><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></>} />,
-            Clock: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></>} />,
-            HelpCircle: (props) => <Icon {...props} path={<><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></>} />,
-            ArrowRight: (props) => <Icon {...props} path={<><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></>} />,
-            ExternalLink: (props) => <Icon {...props} path={<><path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></>} />,
-            Link: (props) => <Icon {...props} path={<><path d="M10 14a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10 6.93"/><path d="M14 10a5 5 0 0 0-7.07 0L4.81 12.12a5 5 0 0 0 7.07 7.07L14 17.07"/></>} />,
-            Pencil: (props) => <Icon {...props} path={<><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"/></>} />
+            Calendar: (props) => <Icon {...props}><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></Icon>,
+            List: (props) => <Icon {...props}><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/></Icon>,
+            BarChart2: (props) => <Icon {...props}><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></Icon>,
+            Zap: (props) => <Icon {...props}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></Icon>,
+            AlertCircle: (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></Icon>,
+            Layers: (props) => <Icon {...props}><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 12 12 17 22 12"/></Icon>,
+            Clock: (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></Icon>,
+            HelpCircle: (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></Icon>,
+            ArrowRight: (props) => <Icon {...props}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></Icon>,
+            Link: (props) => <Icon {...props}><path d="M10 14a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10 6.93"/><path d="M14 10a5 5 0 0 0-7.07 0L4.81 12.12a5 5 0 0 0 7.07 7.07L14 17.07"/></Icon>,
+            Pencil: (props) => <Icon {...props}><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41"/></Icon>,
         };
 
         // --- DATA - Updated from cms_products.js ---
@@ -126,6 +126,7 @@
             { id: '67', title: 'CMSD-765: Ochorenia', category: 'BAS', status: 'Idea - nevalidovaná', owner: 'filip.mackov@newsandmedia.sk', size: 'S', impact: 'Very Low', launch: 'TBD', notes: '', jiraUrl: '' },
         ];
 
+
         // --- UTILS ---
         const monthNames2026 = ['Január','Február','Marec','Apríl','Máj','Jún','Júl','August','September','Október','November','December'];
         const monthIndexFromLaunch = (launch) => {
@@ -146,7 +147,7 @@
         };
 
         const getImpactScore = (impact) => {
-            switch (impact?.toLowerCase()) {
+            switch (String(impact || '').toLowerCase()) {
                 case 'very high': return 4;
                 case 'high': return 3;
                 case 'mid': return 2;
@@ -157,7 +158,7 @@
         };
 
         const getSizeScore = (size) => {
-            switch (size?.toUpperCase()) {
+            switch (String(size || '').toUpperCase()) {
                 case 'XS': return 1;
                 case 'S': return 2;
                 case 'M': return 3;
@@ -176,7 +177,7 @@
         };
 
         const getCategoryColor = (cat) => {
-            switch (cat?.toUpperCase()) {
+            switch (String(cat || '').toUpperCase()) {
                 case 'AI': return 'bg-purple-100 text-purple-700 border-purple-200';
                 case 'FEATURE': return 'bg-blue-100 text-blue-700 border-blue-200';
                 case 'BAS': return 'bg-gray-100 text-gray-700 border-gray-200';
@@ -192,13 +193,19 @@
             return 'text-gray-400';
         };
 
+        // sanitize display title: remove leading "CMSD-###:" or "CMSD-####:"
+        const sanitizeTitle = (title) => {
+            if (!title) return '';
+            return title.replace(/^CMSD-\d{3,4}:\s*/i, '').trim();
+        };
+
         // --- Helpers for Gantt Roadmap ---
         // Derive sprint counts from size if explicit sprints not provided.
-        // Mapping is heuristic: 2 sprints = 1 month as requested (so we divide sprints by 2 when computing months).
+        // Mapping is heuristic: 2 sprints = 1 month (so months = ceil(sprints/2))
         const sprintsFromSize = (size) => {
             if (!size) return 4; // default
-            switch (size.toUpperCase()) {
-                case 'XS': return 1;   // 0.5 month
+            switch (String(size).toUpperCase()) {
+                case 'XS': return 1;   // ~0.5 month
                 case 'S': return 2;    // 1 month
                 case 'M': return 4;    // 2 months
                 case 'L': return 6;    // 3 months
@@ -209,7 +216,7 @@
         };
 
         const barColorForCategory = (cat) => {
-            switch ((cat||'').toUpperCase()) {
+            switch (String(cat || '').toUpperCase()) {
                 case 'AI': return 'bg-purple-500';
                 case 'FEATURE': return 'bg-blue-500';
                 case 'BAS': return 'bg-gray-400';
@@ -218,68 +225,34 @@
             }
         };
 
-        // --- EDITABLE JIRA LINK (icon-only on hover) ---
-        const EditableJiraLink = ({ item, onUpdate, compact = false }) => {
+        // --- EDITABLE JIRA LINK (simple) ---
+        const EditableJiraLink = ({ item, onUpdate }) => {
             const [editing, setEditing] = useState(false);
             const [value, setValue] = useState(item.jiraUrl || '');
-            const [error, setError] = useState('');
-
-            useEffect(() => {
-                setValue(item.jiraUrl || '');
-            }, [item.jiraUrl]);
+            useEffect(() => setValue(item.jiraUrl || ''), [item.jiraUrl]);
 
             const isValidUrl = (u) => {
-                if (!u) return true; // allow clearing
-                try {
-                    const parsed = new URL(u);
-                    return parsed.protocol === 'http:' || parsed.protocol === 'https:';
-                } catch (e) {
-                    return false;
-                }
+                if (!u) return true;
+                try { const p = new URL(u); return p.protocol === 'http:' || p.protocol === 'https:'; } catch { return false; }
             };
 
             const save = () => {
-                if (!isValidUrl(value)) {
-                    setError('Neplatná URL (musí začínať http:// alebo https://)');
-                    return;
-                }
-                setError('');
+                if (!isValidUrl(value)) return alert('Neplatná URL (musí začínať http:// alebo https://)');
                 setEditing(false);
-                onUpdate(item.id, { jiraUrl: value ? value : undefined });
+                onUpdate(item.id, { jiraUrl: value || undefined });
             };
 
-            const clearAndSave = () => {
-                setValue('');
-                setError('');
-                setEditing(false);
-                onUpdate(item.id, { jiraUrl: undefined });
-            };
-
-            // Icon button (link) - normally hidden, shown on parent hover (handled by group hover)
             return (
                 <div className="relative inline-flex items-center">
-                    {/* Icon trigger - meant to be shown on hover of the title wrapper (parent should be a group) */}
-                    <button
-                        onClick={() => setEditing(true)}
-                        title={item.jiraUrl ? 'Upraviť / odstrániť Jira URL' : 'Pridať Jira URL'}
-                        className="p-1 rounded text-slate-500 hover:bg-slate-100 opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
+                    <button onClick={() => setEditing(true)} title={item.jiraUrl ? 'Upraviť Jira URL' : 'Pridať Jira URL'} className="p-1 rounded text-slate-500 hover:bg-slate-100 opacity-90">
                         <Icons.Link size={14} />
                     </button>
-
                     {editing && (
-                        <div className="absolute z-30 mt-2 p-3 bg-white rounded shadow border border-slate-100" style={{ minWidth: 320 }}>
+                        <div className="absolute z-30 mt-2 p-3 bg-white rounded shadow border border-slate-100" style={{ minWidth: 280 }}>
                             <div className="text-xs text-slate-600 mb-2">Jira epic URL</div>
-                            <input
-                                value={value}
-                                onChange={(e) => setValue(e.target.value)}
-                                className="w-full p-2 border rounded text-sm border-slate-200 mb-2"
-                                placeholder="https://your-jira-instance/browse/EPIC-123"
-                            />
-                            {error && <div className="text-xs text-red-500 mb-2">{error}</div>}
+                            <input value={value} onChange={(e) => setValue(e.target.value)} className="w-full p-2 border rounded text-sm border-slate-200 mb-2" placeholder="https://..." />
                             <div className="flex gap-2 justify-end">
-                                <button onClick={() => { setEditing(false); setValue(item.jiraUrl || ''); setError(''); }} className="px-3 py-1 rounded border text-sm">Zrušiť</button>
-                                <button onClick={clearAndSave} className="px-3 py-1 rounded border text-sm">Vymazať</button>
+                                <button onClick={() => setEditing(false)} className="px-3 py-1 rounded border text-sm">Zrušiť</button>
                                 <button onClick={save} className="px-3 py-1 rounded bg-blue-600 text-white text-sm">Uložiť</button>
                             </div>
                         </div>
@@ -288,37 +261,21 @@
             );
         };
 
-        // --- TITLE EDITOR (pencil) ---
+        // --- TITLE EDITOR (simple) ---
         const TitleEditor = ({ item, onUpdate }) => {
             const [editing, setEditing] = useState(false);
             const [value, setValue] = useState(item.title || '');
-
             useEffect(() => setValue(item.title || ''), [item.title]);
-
-            const save = () => {
-                const newTitle = value.trim() || item.title;
-                setEditing(false);
-                if (newTitle !== item.title) onUpdate(item.id, { title: newTitle });
-            };
-
+            const save = () => { setEditing(false); if ((value.trim() || item.title) !== item.title) onUpdate(item.id, { title: value.trim() || item.title }); };
             return (
                 <div className="relative inline-flex items-center">
-                    <button
-                        onClick={() => setEditing(true)}
-                        title="Upraviť názov položky"
-                        className="p-1 rounded text-slate-500 hover:bg-slate-100 opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
+                    <button onClick={() => setEditing(true)} title="Upraviť názov" className="p-1 rounded text-slate-500 hover:bg-slate-100">
                         <Icons.Pencil size={14} />
                     </button>
-
                     {editing && (
-                        <div className="absolute z-30 mt-2 p-3 bg-white rounded shadow border border-slate-100" style={{ minWidth: 320 }}>
+                        <div className="absolute z-30 mt-2 p-3 bg-white rounded shadow border border-slate-100" style={{ minWidth: 300 }}>
                             <div className="text-xs text-slate-600 mb-2">Úprava názvu</div>
-                            <input
-                                value={value}
-                                onChange={(e) => setValue(e.target.value)}
-                                className="w-full p-2 border rounded text-sm border-slate-200 mb-2"
-                            />
+                            <input value={value} onChange={(e) => setValue(e.target.value)} className="w-full p-2 border rounded text-sm border-slate-200 mb-2" />
                             <div className="flex gap-2 justify-end">
                                 <button onClick={() => { setEditing(false); setValue(item.title || ''); }} className="px-3 py-1 rounded border text-sm">Zrušiť</button>
                                 <button onClick={save} className="px-3 py-1 rounded bg-blue-600 text-white text-sm">Uložiť</button>
@@ -359,32 +316,17 @@
         const Card = ({ item, onUpdate }) => {
             const missing = getMissingFields(item);
             const isInvalid = missing.length > 0;
-
             return (
-                <div className={`p-4 rounded-xl shadow-sm border transition-shadow group relative ${isInvalid ? 'bg-gray-50 border-dashed border-gray-200/70' : 'bg-white border-slate-100 hover:shadow-lg'}`}>
+                <div className={`p-4 rounded-xl shadow-sm border group relative ${isInvalid ? 'bg-gray-50 border-dashed border-gray-200/70' : 'bg-white border-slate-100 hover:shadow-md'}`}>
                     {item.status === 'Zastavené' && (
                         <div className="absolute top-2 right-2 text-red-400" title="Zastavené">
                             <Icons.AlertCircle size={16} />
                         </div>
                     )}
 
-                    {/* Not Ready indicator - top-left */}
                     {isInvalid && (
                         <div className="absolute top-2 left-2">
-                            <div className="relative inline-flex items-center">
-                                <div className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold flex items-center gap-2 shadow-sm cursor-default group">
-                                    <span className="w-2 h-2 rounded-full bg-slate-400"></span>
-                                    <span>Not ready</span>
-                                </div>
-
-                                {/* tooltip on hover */}
-                                <div className="absolute left-0 top-full mt-2 w-44 bg-slate-800 text-white text-xs p-2 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-                                    <div className="font-semibold text-xs mb-1">Chýbajúce dáta</div>
-                                    <div className="text-slate-200 text-xs">
-                                        {missing.join(', ')}
-                                    </div>
-                                </div>
-                            </div>
+                            <div className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Not ready</div>
                         </div>
                     )}
 
@@ -398,22 +340,20 @@
                             </span>
                         )}
                     </div>
-                    
-                    {/* Title + hover icons (link + pencil) */}
-                    <h3 className={`text-sm font-semibold ${isInvalid ? 'text-slate-700' : 'text-slate-800'} leading-tight mb-3 group-hover:text-blue-600 transition-colors`}>
-                        <div className="flex items-center gap-2 group">
+
+                    <h3 className={`text-sm font-semibold ${isInvalid ? 'text-slate-700' : 'text-slate-800'} leading-tight mb-3`}>
+                        <div className="flex items-center gap-2">
                             <div className="flex-1">
                                 {item.jiraUrl ? (
                                     <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
-                                        {item.title}
+                                        {sanitizeTitle(item.title)}
                                     </a>
                                 ) : (
-                                    <span>{item.title}</span>
+                                    <span>{sanitizeTitle(item.title)}</span>
                                 )}
                                 {item.notes && <div className="text-xs text-slate-400 mt-0.5 font-normal">{item.notes}</div>}
                             </div>
 
-                            {/* icons appear only on hover over the title wrapper due to .group and .group-hover */}
                             <div className="flex items-center gap-1">
                                 <EditableJiraLink item={item} onUpdate={onUpdate} />
                                 <TitleEditor item={item} onUpdate={onUpdate} />
@@ -423,22 +363,18 @@
 
                     <div className="flex items-center justify-between text-xs text-slate-400 mt-auto pt-2 border-t border-slate-50">
                         <div className="flex items-center gap-2">
-                            <span title="Veľkosť / Effort" className="font-mono bg-slate-100 px-1.5 rounded text-slate-600">
-                                {item.size}
-                            </span>
+                            <span title="Veľkosť / Effort" className="font-mono bg-slate-100 px-1.5 rounded text-slate-600">{item.size}</span>
                             <span title="Vlastník">{(item.owner || '').split('.')[0]}</span>
                         </div>
-                        {item.launch !== 'TBD' && item.launch && (
-                            <span className="text-blue-500 font-medium">{item.launch}</span>
-                        )}
+                        {item.launch && item.launch !== 'TBD' && <span className="text-blue-500 font-medium">{item.launch}</span>}
                     </div>
                 </div>
             );
         };
 
         const QuickWins = ({ items, onUpdate }) => {
-            const quickWins = items.filter(i => 
-                (i.impact === 'High' || i.impact === 'Mid') && 
+            const quickWins = items.filter(i =>
+                (i.impact === 'High' || i.impact === 'Mid') &&
                 (i.size === 'S' || i.size === 'M') &&
                 i.status !== 'Zastavené'
             );
@@ -446,166 +382,104 @@
             return (
                 <div className="mb-8 bg-green-50 border border-green-100 rounded-xl p-5">
                     <div className="flex items-center gap-2 mb-4">
-                        <div className="p-2 bg-green-100 rounded-lg text-green-700">
-                            <Icons.Zap size={20} />
-                        </div>
+                        <div className="p-2 bg-green-100 rounded-lg text-green-700"><Icons.Zap size={20} /></div>
                         <div>
                             <h3 className="text-lg font-bold text-slate-800">Quick Wins & High Value</h3>
                             <p className="text-sm text-slate-500">Najlepší pomer cena/výkon pre najbližší vývoj.</p>
                         </div>
                     </div>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {quickWins.length > 0 ? quickWins.map(item => {
-                            const missing = getMissingFields(item);
-                            const isInvalid = missing.length > 0;
-                            return (
-                                <div key={item.id} className={`p-3 rounded-lg shadow-sm border flex justify-between items-center group ${isInvalid ? 'bg-gray-50 border-dashed border-gray-200/70' : 'bg-white border-slate-100 hover:shadow-lg'}`}>
-                                    <div>
-                                        <div className="text-xs text-green-600 font-bold mb-1">{item.impact} Impact • {item.size} Effort</div>
-                                        <div className="text-sm font-medium text-slate-800 flex items-center group">
-                                            <div className="flex-1">
-                                                {item.jiraUrl ? (
-                                                    <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
-                                                        {item.title}
-                                                    </a>
-                                                ) : (
-                                                    <span>{item.title}</span>
-                                                )}
-                                            </div>
-                                            <div className="flex items-center gap-1">
-                                                {/* icons visible on hover over the tile title area */}
-                                                <EditableJiraLink item={item} onUpdate={onUpdate} />
-                                                <TitleEditor item={item} onUpdate={onUpdate} />
-                                            </div>
+                        {quickWins.length > 0 ? quickWins.map(item => (
+                            <div key={item.id} className="p-3 rounded-lg shadow-sm border bg-white flex justify-between items-center">
+                                <div className="flex-1">
+                                    <div className="text-xs text-green-600 font-bold mb-1">{item.impact} Impact • {item.size} Effort</div>
+                                    <div className="text-sm font-medium text-slate-800 flex items-center">
+                                        <div className="flex-1">{sanitizeTitle(item.title)}</div>
+                                        <div className="flex items-center gap-1">
+                                            <EditableJiraLink item={item} onUpdate={onUpdate} />
+                                            <TitleEditor item={item} onUpdate={onUpdate} />
                                         </div>
-                                        {isInvalid && (
-                                            <div className="mt-2 text-xs text-slate-500 flex items-center gap-2">
-                                                <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">Not ready</span>
-                                                <div className="relative group">
-                                                    <div className="absolute -top-12 left-0 bg-slate-800 text-white text-xs p-2 rounded opacity-0 group-hover:opacity-100 pointer-events-none">
-                                                        Chýbajúce: {missing.join(', ')}
-                                                    </div>
-                                                    <span className="text-xs text-slate-400">hover for details</span>
-                                                </div>
-                                            </div>
-                                        )}
                                     </div>
-                                    <Icons.ArrowRight size={16} className="text-green-300" />
                                 </div>
-                            );
-                        }) : (
-                            <div className="text-sm text-slate-500 italic">Žiadne jasné quick wins momentálne neidentifikované v dátach.</div>
-                        )}
+                                <Icons.ArrowRight size={16} className="text-green-300" />
+                            </div>
+                        )) : <div className="text-sm text-slate-500 italic">Žiadne jasné quick wins momentálne neidentifikované v dátach.</div>}
                     </div>
                 </div>
             );
         };
 
-        // --- GANTT ROADMAP COMPONENT (monthly granularity 2026 + 2027 Future column) ---
-        const GanttRoadmap = ({ items, onUpdate }) => {
-            // compute rows with start and delivery indices
+        // --- GANTT ROADMAP COMPONENT (monthly granularity 2026 + Future column) ---
+        const GanttRoadmap = ({ items }) => {
             const rows = items.map(it => {
                 const deliveryIdx = monthIndexFromLaunch(it.launch); // 0..11 or null
-                const sprints = (() => {
-                    if (typeof it.sprints === 'number') return it.sprints;
-                    return sprintsFromSize(it.size);
-                })();
-                // months to subtract: each 2 sprints = 1 month
-                const monthsDuration = Math.ceil(sprints / 2);
+                const sprints = (typeof it.sprints === 'number') ? it.sprints : sprintsFromSize(it.size);
+                const monthsDuration = Math.max(1, Math.ceil(sprints / 2)); // at least 1 month
                 let startIdx = null;
                 if (deliveryIdx !== null) {
-                    startIdx = deliveryIdx - (monthsDuration - 1); // include delivery month as end so duration months count inclusive
+                    // inclusive: if duration = 1 and delivery = Mar (2), start = 2 (Mar)
+                    startIdx = deliveryIdx - (monthsDuration - 1);
                     if (startIdx < 0) startIdx = 0;
                 }
-                return {
-                    ...it,
-                    deliveryIdx,
-                    startIdx,
-                    sprints,
-                    monthsDuration
-                };
+                return { ...it, deliveryIdx, startIdx, sprints, monthsDuration };
             });
 
-            // months grid: 12 months + 1 future column
-            const totalCols = 13; // 0..11 months, 12 -> 2027 Future
+            const totalCols = 13; // 12 months + Future
             return (
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-                    <h3 className="text-lg font-bold mb-4 text-slate-800">Roadmap (Gantt) — Monthly 2026</h3>
-
-                    <div className="mb-2 text-sm text-slate-500">Granularita: mesiace 2026. "Delivery" označuje koniec vývoja. Start sa odpočíta podľa počtu sprintov (2 sprinty = 1 mesiac).</div>
-
-                    <div className="mt-4">
-                        {/* header months */}
+                    <div className="mt-2">
                         <div className="flex items-center gap-4">
                             <div className="w-64 text-sm font-semibold text-slate-700">Funkcia</div>
                             <div className="flex-1 overflow-x-auto">
                                 <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
-                                    {monthNames2026.map((m, i) => (
-                                        <div key={m} className="text-xs text-slate-500 text-center py-2 border-r border-slate-100 bg-slate-50">
-                                            {m.slice(0,3)}
-                                        </div>
-                                    ))}
+                                    {monthNames2026.map(m => <div key={m} className="text-xs text-slate-500 text-center py-2 border-r border-slate-100 bg-slate-50">{m.slice(0,3)}</div>)}
                                     <div className="text-xs text-slate-500 text-center py-2 bg-slate-50">2027 Future</div>
                                 </div>
                             </div>
                         </div>
 
-                        {/* rows */}
                         <div className="mt-3 max-h-[520px] overflow-auto">
                             <div className="space-y-3">
                                 {rows.map(row => {
-                                    // compute grid column for bar
                                     if (row.deliveryIdx === null) {
-                                        // place in Future column (index 12)
                                         return (
                                             <div key={row.id} className="flex items-center gap-4">
-                                                <div className="w-64 text-sm text-slate-800 font-medium">{row.title}</div>
+                                                <div className="w-64 text-sm text-slate-800 font-medium">{sanitizeTitle(row.title)}</div>
                                                 <div className="flex-1">
                                                     <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
-                                                        {/* empty months */}
                                                         {Array.from({length:12}).map((_,i) => <div key={i} className="h-8 border-r border-slate-100"></div>)}
                                                         <div className={`h-8 flex items-center justify-center ${barColorForCategory(row.category)} text-white text-xs font-semibold rounded`}>Future</div>
                                                     </div>
                                                 </div>
-                                                <div className="ml-4 text-xs text-slate-500">
-                                                    <div>Delivery: TBD</div>
-                                                    <div>Start: TBD</div>
-                                                </div>
                                             </div>
                                         );
                                     } else {
-                                        // compute start & end column indexes (inclusive)
                                         const start = row.startIdx === null ? 0 : row.startIdx;
                                         const end = row.deliveryIdx;
-                                        // ensure within 0..11
                                         const clampedStart = Math.max(0, Math.min(11, start));
                                         const clampedEnd = Math.max(0, Math.min(11, end));
-                                        // grid column indices are 1-based
                                         const gridColStart = clampedStart + 1;
-                                        const gridColEnd = clampedEnd + 2; // +1 to become 1-based, +1 because end is inclusive -> end+1 for grid
+                                        const gridColEnd = clampedEnd + 2; // end inclusive => +1 extra
+                                        const leftPercent = ((gridColStart - 1) * (100 / totalCols));
+                                        const widthPercent = Math.max(100 / totalCols, (gridColEnd - gridColStart) * (100 / totalCols));
                                         return (
                                             <div key={row.id} className="flex items-center gap-4 group">
-                                                <div className="w-64 text-sm text-slate-800 font-medium">{row.title}</div>
+                                                <div className="w-64 text-sm text-slate-800 font-medium">{sanitizeTitle(row.title)}</div>
                                                 <div className="flex-1">
                                                     <div className="relative">
                                                         <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
-                                                            {Array.from({length: totalCols}).map((_,i) => (
-                                                                <div key={i} className="h-8 border-r border-slate-100"></div>
-                                                            ))}
+                                                            {Array.from({length: totalCols}).map((_,i) => <div key={i} className="h-8 border-r border-slate-100"></div>)}
                                                         </div>
 
                                                         <div
-                                                            className={`absolute top-0 h-8 rounded text-white text-xs font-semibold flex items-center justify-center ${barColorForCategory(row.category)} shadow-md`}
-                                                            style={{ left: `${(gridColStart-1) * (100/totalCols)}%`, width: `${(gridColEnd - gridColStart) * (100/totalCols)}%` }}
-                                                            title={`${row.title} — Start: ${monthNames2026[clampedStart]}, Delivery: ${monthNames2026[clampedEnd]} (${row.sprints} sprintov)`}
+                                                            className={`absolute top-0 h-8 rounded text-white text-xs font-semibold flex items-center ${barColorForCategory(row.category)} px-2`}
+                                                            style={{ left: `${leftPercent}%`, width: `${widthPercent}%` }}
+                                                            title={`${sanitizeTitle(row.title)} — Start: ${monthNames2026[clampedStart]}, Delivery: ${monthNames2026[clampedEnd]} (${row.sprints} sprintov)`}
                                                         >
-                                                            <div className="px-2 truncate max-w-[75%] text-left">{row.title}</div>
+                                                            <div className="truncate max-w-[85%]">{sanitizeTitle(row.title)}</div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className="ml-4 text-xs text-slate-500 text-right w-40">
-                                                    <div>Delivery: <span className="font-medium text-slate-700">{monthNames2026[clampedEnd]}</span></div>
-                                                    <div>Start: <span className="font-medium text-slate-700">{monthNames2026[clampedStart]}</span></div>
                                                 </div>
                                             </div>
                                         );
@@ -618,39 +492,18 @@
             );
         };
 
-        // --- MAIN APP COMPONENT ---
+        // --- MAIN APP ---
         const RoadmapApp = () => {
-            // default view -> show new Gantt "Roadmap"
-            const [view, setView] = useState('roadmap'); // 'roadmap' = Gantt; 'delivery' = former roadmap view
+            const [view, setView] = useState('roadmap'); // 'roadmap' | 'delivery' | 'matrix' | 'list'
             const [data, setData] = useState(rawData);
+            const [activeCats, setActiveCats] = useState({ Feature: true, AI: true, Tech: true, BAS: true });
 
-            // filters for categories (Feature, AI, Tech, BAS)
-            const [activeCats, setActiveCats] = useState({
-                Feature: true,
-                AI: true,
-                Tech: true,
-                BAS: true
-            });
+            const toggleCat = (cat) => setActiveCats(prev => ({ ...prev, [cat]: !prev[cat] }));
+            const resetCats = () => setActiveCats({ Feature: true, AI: true, Tech: true, BAS: true });
 
-            const toggleCat = (cat) => {
-                setActiveCats(prev => ({ ...prev, [cat]: !prev[cat] }));
-            };
+            const filteredData = useMemo(() => data.filter(i => (activeCats[i.category] ?? true)), [data, activeCats]);
 
-            const resetCats = () => {
-                setActiveCats({ Feature: true, AI: true, Tech: true, BAS: true });
-            };
-
-            const filteredData = useMemo(() => {
-                return data.filter(i => {
-                    // if item has no category, include it
-                    const cat = i.category || 'Unknown';
-                    return activeCats[cat] ?? true;
-                });
-            }, [data, activeCats]);
-
-            const handleUpdate = (id, updates) => {
-                setData(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
-            };
+            const handleUpdate = (id, updates) => setData(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
 
             const quarters = {
                 Q1: filteredData.filter(i => getQuarter(i.launch) === 'Q1'),
@@ -663,99 +516,48 @@
             return (
                 <div className="min-h-screen bg-slate-50 p-4 md:p-8 font-sans text-slate-900">
                     <div className="max-w-7xl mx-auto">
-                        
                         <StrategyBoard />
 
-                        {/* Navigácia */}
                         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
                             <div className="flex bg-white p-1 rounded-xl shadow-sm border border-slate-200">
-                                {/* NEW: Roadmap (Gantt) */}
-                                <button
-                                    onClick={() => setView('roadmap')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'roadmap' ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-slate-600'}`}
-                                >
+                                <button onClick={() => setView('roadmap')} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${view === 'roadmap' ? 'bg-blue-50 text-blue-700' : 'text-slate-600'}`}>
                                     <Icons.Calendar size={16} /> Roadmap
                                 </button>
-
-                                {/* RENAMED: previous "Roadmap" is now "Delivery Plan" */}
-                                <button
-                                    onClick={() => setView('delivery')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'delivery' ? 'bg-purple-50 text-purple-700 shadow-sm' : 'text-slate-600'}`}
-                                >
+                                <button onClick={() => setView('delivery')} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${view === 'delivery' ? 'bg-purple-50 text-purple-700' : 'text-slate-600'}`}>
                                     <Icons.Clock size={16} /> Delivery Plan
                                 </button>
-
-                                <button
-                                    onClick={() => setView('matrix')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'matrix' ? 'bg-purple-50 text-purple-700 shadow-sm' : 'text-slate-600'}`}
-                                >
+                                <button onClick={() => setView('matrix')} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${view === 'matrix' ? 'bg-purple-50 text-purple-700' : 'text-slate-600'}`}>
                                     <Icons.BarChart2 size={16} /> Prioritizácia
                                 </button>
-                                <button
-                                    onClick={() => setView('list')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'list' ? 'bg-green-50 text-green-700 shadow-sm' : 'text-slate-600'}`}
-                                >
+                                <button onClick={() => setView('list')} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${view === 'list' ? 'bg-green-50 text-green-700' : 'text-slate-600'}`}>
                                     <Icons.List size={16} /> Zoznam
                                 </button>
                             </div>
-                            
-                            {/* FILTERS (clickable) */}
+
                             <div className="flex items-center gap-3">
                                 {['Feature','AI','Tech','BAS'].map(cat => (
-                                    <button
-                                        key={cat}
-                                        onClick={() => toggleCat(cat)}
-                                        className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium transition ${
-                                            activeCats[cat] ? 'bg-slate-100 text-slate-800' : 'bg-transparent text-slate-400'
-                                        }`}
-                                        title={`${activeCats[cat] ? 'Zrušiť filter' : 'Zapnúť filter'} ${cat}`}
-                                    >
-                                        <span className={`w-2 h-2 rounded-full ${
-                                            cat === 'Feature' ? 'bg-blue-400' :
-                                            cat === 'AI' ? 'bg-purple-400' :
-                                            cat === 'Tech' ? 'bg-green-400' : 'bg-gray-400'
-                                        }`} />
+                                    <button key={cat} onClick={() => toggleCat(cat)} className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${activeCats[cat] ? 'bg-slate-100 text-slate-800' : 'bg-transparent text-slate-400'}`} title={`${activeCats[cat] ? 'Zrušiť filter' : 'Zapnúť filter'} ${cat}`}>
+                                        <span className={`w-2 h-2 rounded-full ${cat === 'Feature' ? 'bg-blue-400' : cat === 'AI' ? 'bg-purple-400' : cat === 'Tech' ? 'bg-green-400' : 'bg-gray-400'}`}></span>
                                         <span>{cat}</span>
                                     </button>
                                 ))}
-
-                                <button
-                                    onClick={resetCats}
-                                    className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-500 hover:bg-slate-50"
-                                    title="Resetovať filtre"
-                                >
-                                    Reset
-                                </button>
+                                <button onClick={resetCats} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-500 hover:bg-slate-50">Reset</button>
                             </div>
                         </div>
 
-                        {/* NEW: Gantt Roadmap view */}
-                        {view === 'roadmap' && (
-                            <div className="space-y-6">
-                                <GanttRoadmap items={filteredData} onUpdate={handleUpdate} />
-                            </div>
-                        )}
+                        {view === 'roadmap' && <GanttRoadmap items={filteredData} />}
 
-                        {/* FORMER 'roadmap' content renamed to Delivery Plan */}
                         {view === 'delivery' && (
                             <div className="space-y-8">
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                                    {['Q1', 'Q2', 'Q3', 'Q4'].map(q => (
+                                    {['Q1','Q2','Q3','Q4'].map(q => (
                                         <div key={q} className="flex flex-col h-full">
                                             <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-200">
-                                                <h3 className="font-bold text-slate-700 flex items-center gap-2">
-                                                    <Icons.Clock size={16} className="text-slate-400" /> {q} 2026
-                                                </h3>
+                                                <h3 className="font-bold text-slate-700 flex items-center gap-2"><Icons.Clock size={16} className="text-slate-400" /> {q} 2026</h3>
                                                 <span className="bg-slate-100 text-slate-500 text-xs px-2 py-1 rounded-full">{quarters[q].length}</span>
                                             </div>
                                             <div className="space-y-3 flex-grow bg-slate-100/50 p-2 rounded-xl border border-slate-100/50 min-h-[200px]">
-                                                {quarters[q].length > 0 ? (
-                                                    quarters[q].map(item => <Card key={item.id} item={item} onUpdate={handleUpdate} />)
-                                                ) : (
-                                                    <div className="h-full flex items-center justify-center text-slate-400 text-sm italic">
-                                                        Plánovanie otvorené
-                                                    </div>
-                                                )}
+                                                {quarters[q].length > 0 ? quarters[q].map(item => <Card key={item.id} item={item} onUpdate={handleUpdate} />) : <div className="h-full flex items-center justify-center text-slate-400 text-sm italic">Plánovanie otvorené</div>}
                                             </div>
                                         </div>
                                     ))}
@@ -774,14 +576,12 @@
                             </div>
                         )}
 
-                        {/* OBSAH - Matrix */}
                         {view === 'matrix' && (
                             <div className="space-y-6">
                                 <QuickWins items={filteredData} onUpdate={handleUpdate} />
-                                
+
                                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                                     <h3 className="text-lg font-bold mb-6 text-slate-800">Value vs. Effort Matrix</h3>
-                                    
                                     <div className="relative h-[500px] w-full border-l-2 border-b-2 border-slate-200 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:20px_20px]">
                                         <div className="absolute -left-10 top-1/2 -rotate-90 text-sm font-bold text-slate-400 tracking-widest">IMPACT (Value)</div>
                                         <div className="absolute bottom-[-40px] left-1/2 text-sm font-bold text-slate-400 tracking-widest">EFFORT (Size)</div>
@@ -792,39 +592,14 @@
                                         {filteredData.map(item => {
                                             const x = getSizeScore(item.size);
                                             const y = getImpactScore(item.impact);
-                                            
                                             if (x === -1 || y === -1) return null;
-
                                             const left = x === 1 ? '20%' : x === 2 ? '50%' : '80%';
-                                            const bottom = y === 1 ? '20%' : y === 2 ? '50%' : y === 3 ? '80%' : '10%'; 
-
+                                            const bottom = y === 1 ? '20%' : y === 2 ? '50%' : y === 3 ? '80%' : '10%';
                                             return (
-                                                <div 
-                                                    key={item.id}
-                                                    className="absolute transform -translate-x-1/2 translate-y-1/2 transition-all hover:scale-110 hover:z-10 cursor-pointer group"
-                                                    style={{ left, bottom }}
-                                                >
-                                                    <div className={`w-4 h-4 rounded-full border-2 border-white shadow-md ${
-                                                        item.impact === 'High' && item.size === 'S' ? 'bg-green-500 animate-pulse' : 
-                                                        item.impact === 'High' ? 'bg-purple-500' : 'bg-blue-400'
-                                                    }`}></div>
-                                                    
+                                                <div key={item.id} className="absolute transform -translate-x-1/2 translate-y-1/2 transition-all hover:scale-110 hover:z-10 cursor-pointer group" style={{ left, bottom }}>
+                                                    <div className={`w-4 h-4 rounded-full border-2 border-white shadow-md ${item.impact === 'High' && item.size === 'S' ? 'bg-green-500 animate-pulse' : item.impact === 'High' ? 'bg-purple-500' : 'bg-blue-400'}`}></div>
                                                     <div className="absolute bottom-6 left-1/2 -translate-x-1/2 w-56 bg-slate-800 text-white text-xs p-2 rounded opacity-0 group-hover:opacity-100 pointer-events-none">
-                                                        <div className="font-bold mb-1 flex items-center justify-between">
-                                                            <div className="flex items-center gap-2">
-                                                                {item.jiraUrl ? (
-                                                                    <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2 text-white">
-                                                                        {item.title}
-                                                                    </a>
-                                                                ) : item.title}
-                                                            </div>
-
-                                                            {/* inside tooltip we show icons inline (tooltip is already shown on hover) */}
-                                                            <div className="flex items-center gap-2 pointer-events-auto">
-                                                                <EditableJiraLink item={item} onUpdate={handleUpdate} />
-                                                                <TitleEditor item={item} onUpdate={handleUpdate} />
-                                                            </div>
-                                                        </div>
+                                                        <div className="font-bold mb-1">{sanitizeTitle(item.title)}</div>
                                                         <div className="text-slate-300">Imp: {item.impact} | Eff: {item.size}</div>
                                                     </div>
                                                 </div>
@@ -833,26 +608,19 @@
                                     </div>
 
                                     <div className="flex gap-6 mt-12 justify-center">
-                                        <div className="flex items-center gap-2 text-sm text-slate-600">
-                                            <span className="w-3 h-3 rounded-full bg-green-500"></span> Quick Wins
-                                        </div>
-                                        <div className="flex items-center gap-2 text-sm text-slate-600">
-                                            <span className="w-3 h-3 rounded-full bg-purple-500"></span> Big Bets (Strategic)
-                                        </div>
-                                        <div className="flex items-center gap-2 text-sm text-slate-600">
-                                            <span className="w-3 h-3 rounded-full bg-blue-400"></span> Standard Features
-                                        </div>
+                                        <div className="flex items-center gap-2 text-sm text-slate-600"><span className="w-3 h-3 rounded-full bg-green-500"></span> Quick Wins</div>
+                                        <div className="flex items-center gap-2 text-sm text-slate-600"><span className="w-3 h-3 rounded-full bg-purple-500"></span> Big Bets (Strategic)</div>
+                                        <div className="flex items-center gap-2 text-sm text-slate-600"><span className="w-3 h-3 rounded-full bg-blue-400"></span> Standard Features</div>
                                     </div>
                                 </div>
-                                
+
                                 <div className="bg-slate-100 p-4 rounded-lg text-sm text-slate-500 flex gap-2 items-center">
                                     <Icons.HelpCircle size={16} />
-                                    <span>Poznámka: {filteredData.filter(i => getSizeScore(i.size) === -1 || getImpactScore(i.impact) === -1).length} položiek nie je zobrazených v matici pre chýbajúce hodnoty Impact/Effort.</span>
+                                    <span>Poznámka: {filteredData.filter(i => getSizeScore(i.size) === -1 || getImpactScore(i.impact) === -1).length} položiek nie je zobrazených v matici pre chýbajúce hodnoty.</span>
                                 </div>
                             </div>
                         )}
 
-                        {/* OBSAH - List */}
                         {view === 'list' && (
                             <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                                 <div className="overflow-x-auto">
@@ -876,60 +644,24 @@
                                                     <tr key={item.id} className={`hover:bg-slate-50 transition-colors ${isInvalid ? 'bg-gray-50/60' : ''}`}>
                                                         <td className="p-4 font-medium text-slate-900">
                                                             <div className="flex items-start justify-between">
-                                                                <div className="group">
-                                                                    <div className="flex items-center gap-2">
-                                                                        <div className="flex-1">
-                                                                            <div className="flex items-center gap-3">
-                                                                                {item.jiraUrl ? (
-                                                                                    <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">
-                                                                                        {item.title}
-                                                                                    </a>
-                                                                                ) : (
-                                                                                    <span>{item.title}</span>
-                                                                                )}
-
-                                                                                {/* inline not-ready badge for list */}
-                                                                                {isInvalid && (
-                                                                                    <div className="relative group">
-                                                                                        <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Not ready</span>
-                                                                                        <div className="absolute top-full left-0 mt-2 w-40 bg-slate-800 text-white text-xs p-2 rounded opacity-0 group-hover:opacity-100 pointer-events-none">
-                                                                                            Chýbajúce: {missing.join(', ')}
-                                                                                        </div>
-                                                                                    </div>
-                                                                                )}
-                                                                            </div>
-
-                                                                            {item.notes && <div className="text-xs text-slate-400 mt-0.5 font-normal">{item.notes}</div>}
-                                                                        </div>
-
-                                                                        {/* icons appear on hover over the name (due to group) */}
-                                                                        <div className="flex items-center gap-1">
-                                                                            <EditableJiraLink item={item} onUpdate={handleUpdate} />
-                                                                            <TitleEditor item={item} onUpdate={handleUpdate} />
-                                                                        </div>
+                                                                <div className="group flex-1">
+                                                                    <div className="flex items-center gap-3">
+                                                                        {item.jiraUrl ? <a href={item.jiraUrl} target="_blank" rel="noopener noreferrer" className="underline decoration-dotted underline-offset-2">{sanitizeTitle(item.title)}</a> : <span>{sanitizeTitle(item.title)}</span>}
+                                                                        {isInvalid && <span className="px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 text-xs font-semibold">Not ready</span>}
                                                                     </div>
+                                                                    {item.notes && <div className="text-xs text-slate-400 mt-0.5 font-normal">{item.notes}</div>}
+                                                                </div>
+
+                                                                <div className="flex items-center gap-1">
+                                                                    <EditableJiraLink item={item} onUpdate={handleUpdate} />
+                                                                    <TitleEditor item={item} onUpdate={handleUpdate} />
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="p-4">
-                                                            <span className={`px-2 py-1 rounded text-xs font-bold ${getCategoryColor(item.category)}`}>
-                                                                {item.category}
-                                                            </span>
-                                                        </td>
-                                                        <td className="p-4">
-                                                            <div className="flex items-center gap-1.5">
-                                                                {item.status === 'Prebieha' && <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>}
-                                                                {item.status === 'Zastavené' && <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>}
-                                                                {item.status === 'Nezačaté' && <span className="w-1.5 h-1.5 rounded-full bg-slate-300"></span>}
-                                                                {item.status}
-                                                            </div>
-                                                        </td>
-                                                        <td className="p-4">
-                                                            <span className={`font-semibold ${getImpactColor(item.impact)}`}>{item.impact}</span>
-                                                        </td>
-                                                        <td className="p-4">
-                                                            <span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono text-xs">{item.size}</span>
-                                                        </td>
+                                                        <td className="p-4"><span className={`px-2 py-1 rounded text-xs font-bold ${getCategoryColor(item.category)}`}>{item.category}</span></td>
+                                                        <td className="p-4"><div className="flex items-center gap-1.5">{item.status === 'Prebieha' && <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>}{item.status}</div></td>
+                                                        <td className="p-4"><span className={`font-semibold ${getImpactColor(item.impact)}`}>{item.impact}</span></td>
+                                                        <td className="p-4"><span className="bg-slate-100 text-slate-600 px-1.5 py-0.5 rounded font-mono text-xs">{item.size}</span></td>
                                                         <td className="p-4 text-slate-700">{item.launch}</td>
                                                         <td className="p-4 text-xs">{item.owner}</td>
                                                     </tr>
@@ -940,15 +672,14 @@
                                 </div>
                             </div>
                         )}
-
                     </div>
                 </div>
             );
         };
 
+        // render app
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<RoadmapApp />);
     </script>
 </body>
-
 </html>
