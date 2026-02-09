@@ -41,7 +41,7 @@
         );
 
         const Icons = {
-            Calendar: (props) => <Icon {...props} path={<><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></>} />,
+            Calendar: (props) => <Icon {...props} path={<><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="3.01" y1="10" y2="10"/></>} />,
             List: (props) => <Icon {...props} path={<><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/></>} />,
             BarChart2: (props) => <Icon {...props} path={<><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></>} />,
             Zap: (props) => <Icon {...props} path={<><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></>} />,
@@ -52,81 +52,90 @@
             ArrowRight: (props) => <Icon {...props} path={<><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></>} />,
             ExternalLink: (props) => <Icon {...props} path={<><path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6"/><path d="M10 14L21 3"/></>} />,
             Link: (props) => <Icon {...props} path={<><path d="M10 14a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10 6.93"/><path d="M14 10a5 5 0 0 0-7.07 0L4.81 12.12a5 5 0 0 0 7.07 7.07L14 17.07"/></>} />,
-            Pencil: (props) => <Icon {...props} path={<><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.63-1.83z"/></>} />,
+            Pencil: (props) => <Icon {...props} path={<><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"/></>} />
         };
 
         // --- DATA - Updated from cms_products.js ---
         const rawData = [
-            { id: '1', title: 'CMSD-1689: 38. [NMH-VLM][ADMIN] Article Detail - Pridanie tlačidla na stiahnutie obrázka', category: 'Feature', status: 'Doručené', owner: 'karol.schulz@newsandmedia.sk', size: 'XS', impact: 'Low', launch: 'Január', roiIndex: '0.47', impactMoney: 1, impactMarket: 3, client: 'NMH + VLM', manDays: 2, teams: 1, components: 1, effort: 'XS', sprints: 1, desiredDelivery: '31.1.2026', ddlProdSpec: '20.12.2025', notes: '' },
-            { id: '2', title: 'CMSD-1366: [NMH] - SEO Content Checker 1.0', category: 'BAS', status: 'Doručené', owner: 'marek.murin@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'Január', roiIndex: '0.30', impactMoney: 1, impactMarket: 2, client: 'NMH', manDays: 5, teams: 3, components: 2, effort: 'M', sprints: 1, desiredDelivery: '31.1.2026', ddlProdSpec: '6.12.2025', notes: '1. Clarity - pozrieť vhodnosť toolu pre identifikáciu business value' },
-            { id: '3', title: 'CMSD-1017: Audio Transcript 1.0', category: 'AI', status: 'Doručené', owner: 'viktor.koslab@newsandmedia.sk', size: 'L', impact: 'High', launch: 'Január', roiIndex: '0.27', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 42, teams: 3, components: 3, effort: 'L', sprints: 8, desiredDelivery: '31.1.2026', ddlProdSpec: '30.8.2025', notes: 'Tagy 2.0 MVP Demo' },
-            { id: '4', title: 'CMSD-1311: 1. NMH - VIDEO - Zamykanie Premium videa v určitom čase - FE', category: 'Feature', status: 'Doručené', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'High', launch: 'Február', roiIndex: '0.80', impactMoney: 4, impactMarket: 4, client: 'NMH', manDays: 10, teams: 4, components: 4, effort: 'L', sprints: 2, desiredDelivery: '28.2.2026', ddlProdSpec: '20.12.2025', notes: 'Čakáme na GO od Web + Video tímu.' },
-            { id: '5', title: 'CMSD-727: [NMH-VLM] HPM2.1', category: 'Feature', status: 'Doručené', owner: 'radek.silbersky@newsandmedia.sk', size: 'XL', impact: 'Mid', launch: 'Január', roiIndex: '0.16', impactMoney: 3, impactMarket: 4, client: 'NMH + VLM', manDays: 70, teams: 3, components: 4, effort: 'XL', sprints: 16, desiredDelivery: '28.2.2026', ddlProdSpec: '24.5.2025', notes: 'Prezentácia pre redakcie, High-level sizing iniciatív = potvrdiť s TM/MP' },
-            { id: '6', title: 'CMSD-950: Tagy 2.0 MVP NMH', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy@newsandmedia.sk', size: 'XL', impact: 'High', launch: 'Február', roiIndex: '0.17', impactMoney: 4, impactMarket: 4, client: 'NMH', manDays: 88, teams: 4, components: 3, effort: 'XL', sprints: 20, desiredDelivery: '28.2.2026', ddlProdSpec: '29.3.2025', notes: '' },
-            { id: '7', title: 'CMSD-1396: [NMH] TASR News restyling 2.0', category: 'AI', status: 'Prebieha', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', roiIndex: '0.60', impactMoney: 2, impactMarket: 4, client: 'NMH', manDays: 5, teams: 2, components: 4, effort: 'M', sprints: 1, desiredDelivery: '28.2.2026', ddlProdSpec: '3.1.2026', notes: 'Potvrdiť ASAP scope s redakciou TREND.' },
-            { id: '8', title: 'CMSD-1046: HPM 2.01 debug/features swap NČ', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Február', roiIndex: '0.29', impactMoney: 3, impactMarket: 4, client: 'NMH + VLM', manDays: 45, teams: 2, components: 5, effort: 'L', sprints: 8, desiredDelivery: '28.2.2026', ddlProdSpec: '27.9.2025', notes: 'Zostáva primárne swap článkov pre NČ.' },
-            { id: '9', title: 'CMSD-1602: TECH UPGRADE 2026', category: 'BAS', status: 'Prebieha', owner: 'tomas.mikeska@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Február', roiIndex: '0.56', impactMoney: 3, impactMarket: 2, client: 'NMH + VLM', manDays: 10, teams: 2, components: 6, effort: 'L', sprints: 2, desiredDelivery: '28.2.2026', ddlProdSpec: '20.12.2025', notes: 'Outcome = Zoznam / Rámec na 2026' },
-            { id: '10', title: 'CMSD-954: VLM Tickets MVP Denik', category: 'BAS', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'XL', impact: 'High', launch: 'Február', roiIndex: '0.29', impactMoney: 4, impactMarket: 4, client: 'VLM', manDays: 45, teams: 4, components: 9, effort: 'XL', sprints: 10, desiredDelivery: '28.2.2026', ddlProdSpec: '16.8.2025', notes: '' },
-            { id: '11', title: 'Perex generator pre VLM (bez GITA)', category: 'AI', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'VLM', manDays: 8, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '28.2.2026', ddlProdSpec: '20.12.2025', notes: '' },
-            { id: '12', title: 'Summary generator pre VLM (bez GITA)', category: 'AI', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'VLM', manDays: 8, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '28.2.2026', ddlProdSpec: '20.12.2025', notes: '' },
-            { id: '13', title: 'HPM 2.0 Automat - P1D Case study a prenos na NČ', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 3, components: 3, effort: 'M', sprints: 1, desiredDelivery: '28.2.2026', ddlProdSpec: '3.1.2026', notes: '' },
-            { id: '14', title: 'CMSD-949: Piano Integration', category: 'BAS', status: 'Prebieha', owner: 'matus.zahradnik@newsandmedia.sk', size: 'L', impact: 'High', launch: 'Marec', roiIndex: '0.80', impactMoney: 4, impactMarket: 4, client: 'NMH', manDays: 10, teams: 4, components: 3, effort: 'L', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '20.1.2026', notes: '' },
-            { id: '15', title: 'CMSD-242: VLM Deník migrace / Spustenie', category: 'BAS', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Marec', roiIndex: '0.64', impactMoney: 3, impactMarket: 4, client: 'VLM', manDays: 10, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '20.1.2026', notes: '' },
-            { id: '16', title: 'FE-4035: TREND React Trend migrácia na .NET', category: 'BAS', status: 'Prebieha', owner: 'tomas.valach@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Marec', roiIndex: '0.53', impactMoney: 3, impactMarket: 4, client: 'NMH', manDays: 15, teams: 4, components: 6, effort: 'L', sprints: 3, desiredDelivery: '31.3.2026', ddlProdSpec: '6.1.2026', notes: '' },
-            { id: '17', title: 'CMSD-523: MBASE migracia', category: 'BAS', status: 'Zastavené', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Very Low', launch: 'Apríl', roiIndex: '0.25', impactMoney: 1, impactMarket: 1, client: 'NMH', manDays: 10, teams: 2, components: 1, effort: 'S', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '3.2.2026', notes: 'Definovať scope na Q2' },
-            { id: '18', title: 'CMSD-1214: DAM Upgrade - Editorial feedback Q42025', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'Marec', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 2, components: 2, effort: 'S', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '3.2.2026', notes: 'Primárne search, rozdeliť epic na fázy po Q1' },
-            { id: '19', title: 'CMSD-1490: [NMH] Tagy 2.01', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Marec', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 15, teams: 4, components: 5, effort: 'L', sprints: 3, desiredDelivery: '31.3.2026', ddlProdSpec: '6.1.2026', notes: '' },
-            { id: '20', title: 'CMSD-1476: [Admin2.0] Article stats do CMS - v1.0', category: 'Feature', status: 'Ready na analýzu', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Marec', roiIndex: '0.44', impactMoney: 2, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 2, effort: 'M', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '20.1.2026', notes: '' },
-            { id: '21', title: 'CMSD-1354: 17. NMH - Menu editor - ADMIN - analyza', category: 'Feature', status: 'Ready na analýzu', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Apríl', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 3, teams: 3, components: 1, effort: 'M', sprints: 1, desiredDelivery: '31.3.2026', ddlProdSpec: '3.2.2026', notes: '' },
-            { id: '22', title: 'In-Article Podcast search & embedding 1.0', category: 'Feature', status: 'Idea - nevalidovaná', owner: '', size: 'M', impact: 'Mid', launch: 'Apríl', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 3, components: 2, effort: 'M', sprints: 1, desiredDelivery: '31.3.2026', ddlProdSpec: '3.2.2026', notes: '' },
-            { id: '23', title: 'VLM-1720: Integrace CMS Aqua - Gita', category: 'AI', status: 'Ready na analýzu', owner: 'radek.silbersky@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Apríl', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 15, teams: 4, components: 3, effort: 'L', sprints: 3, desiredDelivery: '31.3.2026', ddlProdSpec: '6.1.2026', notes: '' },
-            { id: '24', title: 'CMSB-967: Sales videa v Livebox', category: 'BAS', status: 'Pripraviť prod. spec.', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'Apríl', roiIndex: '0.28', impactMoney: 1, impactMarket: 3, client: 'NMH', manDays: 10, teams: 3, components: 1, effort: 'M', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '20.1.2026', notes: '' },
-            { id: '25', title: 'Video Subtitles 2.0', category: 'AI', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Apríl', roiIndex: '0.40', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 10, teams: 3, components: 2, effort: 'M', sprints: 2, desiredDelivery: '30.4.2026', ddlProdSpec: '19.2.2026', notes: '' },
-            { id: '26', title: 'Audio Transcription 2.0', category: 'AI', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Apríl', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 5, effort: 'L', sprints: 2, desiredDelivery: '30.4.2026', ddlProdSpec: '19.2.2026', notes: '' },
-            { id: '27', title: 'CMSD-952: [NMH] Hero/Listing Image recommender 1.0', category: 'AI', status: 'Ready na analýzu', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Apríl', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 15, teams: 3, components: 3, effort: 'M', sprints: 3, desiredDelivery: '30.4.2026', ddlProdSpec: '5.2.2026', notes: '' },
-            { id: '28', title: 'TASR News Automated publishing', category: 'AI', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Apríl', roiIndex: '0.80', impactMoney: 3, impactMarket: 4, client: 'NMH', manDays: 5, teams: 1, components: 3, effort: 'M', sprints: 1, desiredDelivery: '30.4.2026', ddlProdSpec: '5.3.2026', notes: 'Spojiť s automatom aj s Trending topics.' },
-            { id: '29', title: 'In-Article Podcast Auto-embedding 2.0', category: 'Feature', status: 'Idea - nevalidovaná', owner: '', size: 'M', impact: 'Mid', launch: 'Máj', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 3, components: 2, effort: 'M', sprints: 1, desiredDelivery: '31.5.2026', ddlProdSpec: '5.4.2026', notes: '' },
-            { id: '30', title: 'Article Body Image Recommender', category: 'AI', status: 'Ready na analýzu', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Máj', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 3, components: 3, effort: 'M', sprints: 1, desiredDelivery: '31.5.2026', ddlProdSpec: '5.4.2026', notes: '' },
-            { id: '31', title: 'Short Drama MVP', category: 'Feature', status: 'Pripraviť prod. spec.', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'High', launch: 'Jún', roiIndex: '0.40', impactMoney: 4, impactMarket: 4, client: 'NMH', manDays: 40, teams: 5, components: 1, effort: 'L', sprints: 7, desiredDelivery: '30.6.2026', ddlProdSpec: '10.2.2026', notes: '' },
-            { id: '32', title: 'CMSD-1515: [NMH] TASR - automatické postovanie TASR články', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Máj', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 10, teams: 2, components: 3, effort: 'M', sprints: 2, desiredDelivery: '31.5.2026', ddlProdSpec: '22.3.2026', notes: '' },
-            { id: '33', title: 'TASR News AI-Enhancing (Trend)', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Máj', roiIndex: '0.64', impactMoney: 3, impactMarket: 4, client: 'NMH', manDays: 10, teams: 3, components: 2, effort: 'M', sprints: 2, desiredDelivery: '31.5.2026', ddlProdSpec: '22.3.2026', notes: '' },
-            { id: '34', title: 'Editorial Performance - Subs, Video, Seo, ext. perf.', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Máj', roiIndex: '0.33', impactMoney: 2, impactMarket: 2, client: 'NMH', manDays: 15, teams: 2, components: 1, effort: 'M', sprints: 3, desiredDelivery: '31.5.2026', ddlProdSpec: '8.3.2026', notes: '' },
-            { id: '35', title: 'DAM upgrade Q2', category: 'Feature', status: 'Pripraviť prod. spec.', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 15, teams: 2, components: 1, effort: 'M', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: '' },
-            { id: '36', title: 'SEO Copilot / Asistent redaktora', category: 'AI', status: 'Pripraviť prod. spec.', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.53', impactMoney: 3, impactMarket: 4, client: 'NMH + VLM', manDays: 15, teams: 3, components: 3, effort: 'M', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: 'Spojiť s VLM, zlúčiť aj s linkbuilding agent.' },
-            { id: '37', title: 'CMSB-1191: Možnosť vytvárania koláží hlavných fotografií priamo v Eagle', category: 'Feature', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'Jún', roiIndex: '1.00', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 2, components: 1, effort: 'S', sprints: 1, desiredDelivery: '30.6.2026', ddlProdSpec: '19.5.2026', notes: 'Zvážiť spojenie s DAM upgrade Q2' },
-            { id: '38', title: 'Tagy 2.1', category: 'AI', status: 'Pripraviť prod. spec.', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Jún', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 15, teams: 4, components: 6, effort: 'L', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: '' },
-            { id: '39', title: 'CMSD-705: Tech dept 2025', category: 'BAS', status: 'Prebieha', owner: 'tomas.mikeska@newsandmedia.sk', size: 'L', impact: 'Low', launch: 'Jún', roiIndex: '0.08', impactMoney: 1, impactMarket: 1, client: 'NMH + VLM', manDays: 50, teams: 2, components: 5, effort: 'L', sprints: 9, desiredDelivery: '30.6.2026', ddlProdSpec: '13.1.2026', notes: 'Meet s develom pre potvrdenie' },
-            { id: '40', title: 'CMSD-1278: Elasticsearch 9', category: 'BAS', status: 'Ready na analýzu', owner: 'tomas.mikeska@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'Jún', roiIndex: '0.33', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 15, teams: 2, components: 2, effort: 'M', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: 'Meet s develom pre potvrdenie' },
-            { id: '41', title: 'CMSD-955: NMH - Body block Kvíz s AI generátorom kvízov', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '30.6.2026', ddlProdSpec: '21.4.2026', notes: '' },
-            { id: '42', title: 'DAM Integrácia free fotobánk', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.53', impactMoney: 3, impactMarket: 4, client: 'NMH + VLM', manDays: 15, teams: 2, components: 1, effort: 'M', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: '' },
-            { id: '43', title: 'CMSD-947: DAM Taxonomia obrazkov (tagy, img alt tag, gallery desc...)', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 15, teams: 3, components: 2, effort: 'M', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: 'Zvážiť rozdelenie na min. 2 fázy' },
-            { id: '44', title: 'CMS Lab / App store (Inovation Incubator)', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.80', impactMoney: 3, impactMarket: 4, client: 'NMH', manDays: 5, teams: 2, components: 3, effort: 'M', sprints: 1, desiredDelivery: '30.6.2026', ddlProdSpec: '5.5.2026', notes: '' },
-            { id: '45', title: 'CMSD-1788: [NMH] - SEO Content Checker v1.1 [Lemmatizácia + sémantika]', category: 'AI', status: 'Idea - Zvalidovaná', owner: '', size: 'L', impact: 'Low', launch: 'Jún', roiIndex: '0.28', impactMoney: 1, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 4, components: 2, effort: 'L', sprints: 2, desiredDelivery: '30.6.2026', ddlProdSpec: '21.4.2026', notes: '' },
-            { id: '46', title: 'Virtuálny CMS developer PoC', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 1, effort: 'M', sprints: 2, desiredDelivery: '30.6.2026', ddlProdSpec: '21.4.2026', notes: 'Virtuálny developer (agent) vedel z Jira tasku' },
-            { id: '47', title: 'Virtuálny CMS PM/BA PoC', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 1, effort: 'M', sprints: 2, desiredDelivery: '30.6.2026', ddlProdSpec: '21.4.2026', notes: 'Zozbierať pár jednoduchých taskov' },
-            { id: '48', title: 'Article Gallery Composer', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'September', roiIndex: '0.64', impactMoney: 3, impactMarket: 4, client: 'NMH + VLM', manDays: 10, teams: 3, components: 4, effort: 'M', sprints: 2, desiredDelivery: '30.9.2026', ddlProdSpec: '22.7.2026', notes: '' },
-            { id: '49', title: 'Real-Time Stats 2.0', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'September', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 20, teams: 3, components: 2, effort: 'M', sprints: 3, desiredDelivery: '30.9.2026', ddlProdSpec: '8.7.2026', notes: '' },
-            { id: '50', title: 'Video Stats 2.0', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'September', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 10, teams: 3, components: 2, effort: 'M', sprints: 2, desiredDelivery: '30.9.2026', ddlProdSpec: '22.7.2026', notes: '' },
-            { id: '51', title: 'CMSD-969: Article AI Copilot 1.0', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'L', impact: 'High', launch: 'September', roiIndex: '0.33', impactMoney: 4, impactMarket: 4, client: 'NMH + VLM', manDays: 50, teams: 4, components: 3, effort: 'L', sprints: 9, desiredDelivery: '30.9.2026', ddlProdSpec: '15.4.2026', notes: 'Koordinovať s VLM.' },
-            { id: '52', title: 'Real-Time Copilot 1.0', category: 'AI', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'September', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '30.9.2026', ddlProdSpec: '22.7.2026', notes: '' },
-            { id: '53', title: 'Editorial Performance Copilot 1.0', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'September', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '30.9.2026', ddlProdSpec: '22.7.2026', notes: '' },
-            { id: '54', title: 'CMSD-1799: Kompletný výsledkový servis | S24 + ŠČ', category: 'Feature', status: 'Idea - nevalidovaná', owner: '', size: 'M', impact: 'Mid', launch: 'TBD', roiIndex: '0.40', impactMoney: 2, impactMarket: 2, client: '', manDays: 10, teams: 3, components: 2, effort: 'M', sprints: 2, desiredDelivery: '', ddlProdSpec: '', notes: '' },
-            { id: '55', title: 'Article Gallery Composer - Story Mode', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'December', roiIndex: '0.64', impactMoney: 3, impactMarket: 4, client: 'NMH + VLM', manDays: 10, teams: 3, components: 4, effort: 'M', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '22.10.2026', notes: '' },
-            { id: '56', title: 'Editorial Peformance - Gamification', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'December', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 15, teams: 3, components: 3, effort: 'M', sprints: 3, desiredDelivery: '31.12.2026', ddlProdSpec: '8.10.2026', notes: '' },
-            { id: '57', title: 'CMSD-948: Related articles 2.0 - Automation', category: 'AI', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'December', roiIndex: '0.55', impactMoney: 2, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 2, components: 3, effort: 'M', sprints: 1, desiredDelivery: '31.12.2026', ddlProdSpec: '5.11.2026', notes: 'Má záujem aj VLM' },
-            { id: '58', title: 'CMSD-1271: [NMH-VLM] Livebox - videa', category: 'BAS', status: 'Pripraviť prod. spec.', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'December', roiIndex: '0.50', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 10, teams: 2, components: 1, effort: 'S', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '5.11.2026', notes: 'Zlúčiť s bodom nižšie' },
-            { id: '59', title: 'CMSD-1384: Video improvements (Livebox)', category: 'Feature', status: 'Pripraviť prod. spec.', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'December', roiIndex: '0.50', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 10, teams: 2, components: 1, effort: 'S', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '5.11.2026', notes: '' },
-            { id: '60', title: 'CMSD-1346: Admin Management Notifikácií v CMS & Release komunikácia', category: 'BAS', status: 'Ready na vývoj', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'TBD', roiIndex: '0.40', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 11, teams: 2, components: 1, effort: 'M', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '22.10.2026', notes: '' },
-            { id: '61', title: 'Tagy 3.0 (image + gallery + video tagy, AI gen. content, BB editor)', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'TBD', roiIndex: '0.33', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 30, teams: 5, components: 7, effort: 'L', sprints: 6, desiredDelivery: '31.12.2026', ddlProdSpec: '27.8.2026', notes: '' },
-            { id: '62', title: 'Headline ABC Testing 2.0', category: 'AI', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'TBD', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '22.10.2026', notes: '' },
-            { id: '63', title: 'Poll Generator 2.0 - Proactive in-article suggestions', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'TBD', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 2, components: 3, effort: 'M', sprints: 1, desiredDelivery: '31.12.2026', ddlProdSpec: '5.11.2026', notes: '' },
-            { id: '64', title: 'Quiz Generator 2.0 - Fact checking, rýchlejšie gen.', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'TBD', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 2, components: 3, effort: 'M', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '22.10.2026', notes: '' },
-            { id: '65', title: 'Reels / Slideshow / Illustration video generator', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'TBD', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 15, teams: 3, components: 3, effort: 'M', sprints: 3, desiredDelivery: '31.12.2026', ddlProdSpec: '8.10.2026', notes: '' },
-            { id: '66', title: 'CMSD-1127: Social Media Management Tool - MVP', category: 'AI', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'L', impact: 'High', launch: 'TBD', roiIndex: '0.33', impactMoney: 4, impactMarket: 4, client: 'NMH + VLM', manDays: 50, teams: 3, components: 6, effort: 'L', sprints: 9, desiredDelivery: '', ddlProdSpec: '', notes: '' },
-            { id: '67', title: 'CMSD-765: Ochorenia', category: 'BAS', status: 'Idea - nevalidovaná', owner: 'filip.mackov@newsandmedia.sk', size: 'S', impact: 'Very Low', launch: 'TBD', roiIndex: '0.35', impactMoney: 1, impactMarket: 3, client: 'NMH', manDays: 10, teams: 2, components: 1, effort: 'S', sprints: 2, desiredDelivery: '', ddlProdSpec: '', notes: '' },
+            { id: '1', title: 'CMSD-1689: 38. [NMH-VLM][ADMIN] Article Detail - Pridanie tlačidla na stiahnutie obrázka', category: 'Feature', status: 'Doručené', owner: 'karol.schulz@newsandmedia.sk', size: 'S', impact: 'Low', launch: 'Január', notes: '', jiraUrl: '' },
+            { id: '2', title: 'CMSD-1366: [NMH] - SEO Content Checker 1.0', category: 'BAS', status: 'Doručené', owner: 'marek.murin@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'Január', notes: '', jiraUrl: '' },
+            { id: '3', title: 'CMSD-1017: Audio Transcript 1.0', category: 'AI', status: 'Doručené', owner: 'viktor.koslab@newsandmedia.sk', size: 'L', impact: 'High', launch: 'Január', notes: '', jiraUrl: '' },
+            { id: '4', title: 'CMSD-1311: 1. NMH - VIDEO - Zamykanie Premium videa v určitom čase - FE', category: 'Feature', status: 'Doručené', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'High', launch: 'Január', notes: '', jiraUrl: '' },
+            { id: '5', title: 'CMSD-727: [NMH-VLM] HPM2.1', category: 'Feature', status: 'Doručené', owner: 'radek.silbersky@newsandmedia.sk', size: 'XL', impact: 'Mid', launch: 'Január', notes: '', jiraUrl: '' },
+            { id: '6', title: 'CMSD-950: Tagy 2.0 MVP NMH', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy@newsandmedia.sk', size: 'XL', impact: 'High', launch: 'Február', notes: '', jiraUrl: '' },
+            { id: '7', title: 'CMSD-1396: [NMH] TASR News restyling 2.0', category: 'AI', status: 'Prebieha', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', notes: '', jiraUrl: '' },
+            { id: '8', title: 'CMSD-1046: HPM 2.01 debug/features swap NČ', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Február', notes: '', jiraUrl: '' },
+            { id: '9', title: 'CMSD-1602: TECH UPGRADE 2026', category: 'BAS', status: 'Prebieha', owner: 'tomas.mikeska@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Február', notes: '', jiraUrl: '' },
+            { id: '10', title: 'CMSD-954: VLM Tickets MVP Denik', category: 'BAS', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'XL', impact: 'High', launch: 'Február', notes: '', jiraUrl: '' },
+            { id: '11', title: 'Perex generator pre VLM (bez GITA)', category: 'AI', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', notes: '', jiraUrl: '' },
+            { id: '12', title: 'Summary generator pre VLM (bez GITA)', category: 'AI', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', notes: '', jiraUrl: '' },
+            { id: '13', title: 'HPM 2.0 Automat - P1D Case study a prenos na NČ', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', notes: '', jiraUrl: '' },
+            { id: '14', title: 'CMSD-949: Piano Integration', category: 'BAS', status: 'Prebieha', owner: 'matus.zahradnik@newsandmedia.sk', size: 'L', impact: 'High', launch: 'Marec', notes: '', jiraUrl: '' },
+            { id: '15', title: 'CMSD-242: VLM Deník migrace / Spustenie', category: 'BAS', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Marec', notes: '', jiraUrl: '' },
+            { id: '16', title: 'FE-4035: TREND React Trend migrácia na .NET', category: 'BAS', status: 'Prebieha', owner: 'tomas.valach@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Marec', notes: '', jiraUrl: '' },
+            { id: '17', title: 'CMSD-523: MBASE migracia', category: 'BAS', status: 'Zastavené', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Very Low', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '18', title: 'CMSD-1214: DAM Upgrade - Editorial feedback Q42025', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '19', title: 'CMSD-1490: [NMH] Tagy 2.01', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Marec', notes: '', jiraUrl: '' },
+            { id: '20', title: 'CMSD-1476: [Admin2.0] Article stats do CMS - v1.0', category: 'Feature', status: 'Ready na analýzu', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '21', title: 'CMSD-1354: 17. NMH - Menu editor - ADMIN - analyza', category: 'Feature', status: 'Ready na analýzu', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '22', title: 'In-Article Podcast search & embedding 1.0', category: 'Feature', status: 'Idea - nevalidovaná', owner: '', size: 'M', impact: 'Mid', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '23', title: 'VLM-1720: Integrace CMS Aqua - Gita', category: 'AI', status: 'Ready na analýzu', owner: 'radek.silbersky@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '24', title: 'CMSB-967: Sales videa v Livebox', category: 'BAS', status: 'Pripraviť prod. spec.', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '25', title: 'Video Subtitles 2.0', category: 'AI', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '26', title: 'Audio Transcription 2.0', category: 'AI', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '27', title: 'CMSD-952: [NMH] Hero/Listing Image recommender 1.0', category: 'AI', status: 'Ready na analýzu', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '28', title: 'TASR News Automated publishing', category: 'AI', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Apríl', notes: '', jiraUrl: '' },
+            { id: '29', title: 'In-Article Podcast Auto-embedding 2.0', category: 'Feature', status: 'Idea - nevalidovaná', owner: '', size: 'M', impact: 'Mid', launch: 'Máj', notes: '', jiraUrl: '' },
+            { id: '30', title: 'Article Body Image Recommender', category: 'AI', status: 'Ready na analýzu', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Máj', notes: '', jiraUrl: '' },
+            { id: '31', title: 'Short Drama MVP', category: 'Feature', status: 'Pripraviť prod. spec.', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'High', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '32', title: 'CMSD-1515: [NMH] TASR - automatické postovanie TASR články', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Máj', notes: '', jiraUrl: '' },
+            { id: '33', title: 'TASR News AI-Enhancing (Trend)', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Máj', notes: '', jiraUrl: '' },
+            { id: '34', title: 'Editorial Performance - Subs, Video, Seo, ext. perf.', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Máj', notes: '', jiraUrl: '' },
+            { id: '35', title: 'DAM upgrade Q2', category: 'Feature', status: 'Pripraviť prod. spec.', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '36', title: 'SEO Copilot / Asistent redaktora', category: 'AI', status: 'Pripraviť prod. spec.', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '37', title: 'CMSB-1191: Možnosť vytvárania koláží hlavných fotografií priamo v Eagle', category: 'Feature', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '38', title: 'Tagy 2.1', category: 'AI', status: 'Pripraviť prod. spec.', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '39', title: 'CMSD-705: Tech dept 2025', category: 'BAS', status: 'Prebieha', owner: 'tomas.mikeska@newsandmedia.sk', size: 'L', impact: 'Low', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '40', title: 'CMSD-1278: Elasticsearch 9', category: 'BAS', status: 'Ready na analýzu', owner: 'tomas.mikeska@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '41', title: 'CMSD-955: NMH - Body block Kvíz s AI generátorom kvízov', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '42', title: 'DAM Integrácia free fotobánk', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '43', title: 'CMSD-947: DAM Taxonomia obrazkov (tagy, img alt tag, gallery desc...)', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '44', title: 'CMS Lab / App store (Inovation Incubator)', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '45', title: 'CMSD-1788: [NMH] - SEO Content Checker v1.1 [Lemmatizácia + sémantika]', category: 'AI', status: 'Idea - Zvalidovaná', owner: '', size: 'L', impact: 'Low', launch: 'Júl', notes: '', jiraUrl: '' },
+            { id: '46', title: 'Virtuálny CMS developer PoC', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '47', title: 'Virtuálny CMS PM/BA PoC', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', notes: '', jiraUrl: '' },
+            { id: '48', title: 'Article Gallery Composer', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'September', notes: '', jiraUrl: '' },
+            { id: '49', title: 'Real-Time Stats 2.0', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'September', notes: '', jiraUrl: '' },
+            { id: '50', title: 'Video Stats 2.0', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'September', notes: '', jiraUrl: '' },
+            { id: '51', title: 'CMSD-969: Article AI Copilot 1.0', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'L', impact: 'High', launch: 'September', notes: '', jiraUrl: '' },
+            { id: '52', title: 'Real-Time Copilot 1.0', category: 'AI', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'September', notes: '', jiraUrl: '' },
+            { id: '53', title: 'Editorial Performance Copilot 1.0', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'September', notes: '', jiraUrl: '' },
+            { id: '54', title: 'CMSD-1799: Kompletný výsledkový servis | S24 + ŠČ', category: 'Feature', status: 'Idea - nevalidovaná', owner: '', size: 'M', impact: 'Mid', launch: 'TBD', notes: '', jiraUrl: '' },
+            { id: '55', title: 'Article Gallery Composer - Story Mode', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'December', notes: '', jiraUrl: '' },
+            { id: '56', title: 'Editorial Peformance - Gamification', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'December', notes: '', jiraUrl: '' },
+            { id: '57', title: 'CMSD-948: Related articles 2.0 - Automation', category: 'AI', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'December', notes: '', jiraUrl: '' },
+            { id: '58', title: 'CMSD-1271: [NMH-VLM] Livebox - videa', category: 'BAS', status: 'Pripraviť prod. spec.', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'December', notes: '', jiraUrl: '' },
+            { id: '59', title: 'CMSD-1384: Video improvements (Livebox)', category: 'Feature', status: 'Pripraviť prod. spec.', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'December', notes: '', jiraUrl: '' },
+            { id: '60', title: 'CMSD-1346: Admin Management Notifikácií v CMS & Release komunikácia', category: 'BAS', status: 'Ready na vývoj', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'December', notes: '', jiraUrl: '' },
+            { id: '61', title: 'Tagy 3.0 (image + gallery + video tagy, AI gen. content, BB editor)', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'TBD', notes: '', jiraUrl: '' },
+            { id: '62', title: 'Headline ABC Testing 2.0', category: 'AI', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'TBD', notes: '', jiraUrl: '' },
+            { id: '63', title: 'Poll Generator 2.0 - Proactive in-article suggestions', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'TBD', notes: '', jiraUrl: '' },
+            { id: '64', title: 'Quiz Generator 2.0 - Fact checking, rýchlejšie gen.', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'TBD', notes: '', jiraUrl: '' },
+            { id: '65', title: 'Reels / Slideshow / Illustration video generator', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'TBD', notes: '', jiraUrl: '' },
+            { id: '66', title: 'CMSD-1127: Social Media Management Tool - MVP', category: 'AI', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'L', impact: 'High', launch: 'TBD', notes: '', jiraUrl: '' },
+            { id: '67', title: 'CMSD-765: Ochorenia', category: 'BAS', status: 'Idea - nevalidovaná', owner: 'filip.mackov@newsandmedia.sk', size: 'S', impact: 'Very Low', launch: 'TBD', notes: '', jiraUrl: '' },
         ];
 
         // --- UTILS ---
+        const monthNames2026 = ['Január','Február','Marec','Apríl','Máj','Jún','Júl','August','September','Október','November','December'];
+        const monthIndexFromLaunch = (launch) => {
+            if (!launch) return null;
+            const m = String(launch).toLowerCase().trim();
+            if (m === 'tbd') return null;
+            const idx = monthNames2026.findIndex(mon => mon.toLowerCase() === m);
+            return idx >= 0 ? idx : null;
+        };
+
         const getQuarter = (month) => {
             const m = month?.toLowerCase().trim();
             if (['január', 'február', 'marec', 'q1'].includes(m)) return 'Q1';
@@ -181,6 +190,32 @@
             if (impact === 'Mid') return 'text-blue-600 bg-blue-50';
             if (impact === 'Low') return 'text-gray-500 bg-gray-50';
             return 'text-gray-400';
+        };
+
+        // --- Helpers for Gantt Roadmap ---
+        // Derive sprint counts from size if explicit sprints not provided.
+        // Mapping is heuristic: 2 sprints = 1 month as requested (so we divide sprints by 2 when computing months).
+        const sprintsFromSize = (size) => {
+            if (!size) return 4; // default
+            switch (size.toUpperCase()) {
+                case 'XS': return 1;   // 0.5 month
+                case 'S': return 2;    // 1 month
+                case 'M': return 4;    // 2 months
+                case 'L': return 6;    // 3 months
+                case 'XL': return 8;   // 4 months
+                case 'XXL': return 10; // 5 months
+                default: return 4;
+            }
+        };
+
+        const barColorForCategory = (cat) => {
+            switch ((cat||'').toUpperCase()) {
+                case 'AI': return 'bg-purple-500';
+                case 'FEATURE': return 'bg-blue-500';
+                case 'BAS': return 'bg-gray-400';
+                case 'TECH': return 'bg-green-500';
+                default: return 'bg-slate-400';
+            }
         };
 
         // --- EDITABLE JIRA LINK (icon-only on hover) ---
@@ -295,7 +330,6 @@
         };
 
         // --- COMPONENTS ---
-
         const StrategyBoard = () => (
             <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white p-6 rounded-2xl shadow-lg mb-8">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
@@ -310,12 +344,12 @@
                     </div>
                     <div className="flex gap-3">
                         <div className="bg-white/10 backdrop-blur-sm p-3 rounded-lg border border-white/10 text-center">
-                            <div className="text-2xl font-bold text-purple-300">60%</div>
+                            <div className="text-2xl font-bold text-purple-300">50%</div>
                             <div className="text-xs text-slate-300">AI Features</div>
                         </div>
                         <div className="bg-white/10 backdrop-blur-sm p-3 rounded-lg border border-white/10 text-center">
-                            <div className="text-2xl font-bold text-blue-300">Q1</div>
-                            <div className="text-xs text-slate-300">Top focus: TREND, Denik, Tagy, Premium</div>
+                            <div className="text-2xl font-bold text-blue-300">Focus Q1</div>
+                            <div className="text-xs text-slate-300">TREND, Tagy 2.0, Premium Video, VLM Denik</div>
                         </div>
                     </div>
                 </div>
@@ -327,7 +361,7 @@
             const isInvalid = missing.length > 0;
 
             return (
-                <div className={`p-4 rounded-xl shadow-sm border transition-shadow group relative ${isInvalid ? 'bg-gray-50 border-dashed border-gray-200/70' : 'bg-white border-slate-100 hover:shadow-md'}`}>
+                <div className={`p-4 rounded-xl shadow-sm border transition-shadow group relative ${isInvalid ? 'bg-gray-50 border-dashed border-gray-200/70' : 'bg-white border-slate-100 hover:shadow-lg'}`}>
                     {item.status === 'Zastavené' && (
                         <div className="absolute top-2 right-2 text-red-400" title="Zastavené">
                             <Icons.AlertCircle size={16} />
@@ -344,7 +378,7 @@
                                 </div>
 
                                 {/* tooltip on hover */}
-                                <div className="absolute left-0 top-full mt-2 w-44 bg-slate-800 text-white text-xs p-2 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none translate-y-0">
+                                <div className="absolute left-0 top-full mt-2 w-44 bg-slate-800 text-white text-xs p-2 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                                     <div className="font-semibold text-xs mb-1">Chýbajúce dáta</div>
                                     <div className="text-slate-200 text-xs">
                                         {missing.join(', ')}
@@ -425,7 +459,7 @@
                             const missing = getMissingFields(item);
                             const isInvalid = missing.length > 0;
                             return (
-                                <div key={item.id} className={`p-3 rounded-lg shadow-sm border flex justify-between items-center group ${isInvalid ? 'bg-gray-50 border-dashed border-gray-200/70' : 'bg-white border-green-100'}`}>
+                                <div key={item.id} className={`p-3 rounded-lg shadow-sm border flex justify-between items-center group ${isInvalid ? 'bg-gray-50 border-dashed border-gray-200/70' : 'bg-white border-slate-100 hover:shadow-lg'}`}>
                                     <div>
                                         <div className="text-xs text-green-600 font-bold mb-1">{item.impact} Impact • {item.size} Effort</div>
                                         <div className="text-sm font-medium text-slate-800 flex items-center group">
@@ -467,9 +501,127 @@
             );
         };
 
+        // --- GANTT ROADMAP COMPONENT (monthly granularity 2026 + 2027 Future column) ---
+        const GanttRoadmap = ({ items, onUpdate }) => {
+            // compute rows with start and delivery indices
+            const rows = items.map(it => {
+                const deliveryIdx = monthIndexFromLaunch(it.launch); // 0..11 or null
+                const sprints = (() => {
+                    if (typeof it.sprints === 'number') return it.sprints;
+                    return sprintsFromSize(it.size);
+                })();
+                // months to subtract: each 2 sprints = 1 month
+                const monthsDuration = Math.ceil(sprints / 2);
+                let startIdx = null;
+                if (deliveryIdx !== null) {
+                    startIdx = deliveryIdx - (monthsDuration - 1); // include delivery month as end so duration months count inclusive
+                    if (startIdx < 0) startIdx = 0;
+                }
+                return {
+                    ...it,
+                    deliveryIdx,
+                    startIdx,
+                    sprints,
+                    monthsDuration
+                };
+            });
+
+            // months grid: 12 months + 1 future column
+            const totalCols = 13; // 0..11 months, 12 -> 2027 Future
+            return (
+                <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                    <h3 className="text-lg font-bold mb-4 text-slate-800">Roadmap (Gantt) — Monthly 2026</h3>
+
+                    <div className="mb-2 text-sm text-slate-500">Granularita: mesiace 2026. "Delivery" označuje koniec vývoja. Start sa odpočíta podľa počtu sprintov (2 sprinty = 1 mesiac).</div>
+
+                    <div className="mt-4">
+                        {/* header months */}
+                        <div className="flex items-center gap-4">
+                            <div className="w-64 text-sm font-semibold text-slate-700">Funkcia</div>
+                            <div className="flex-1 overflow-x-auto">
+                                <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
+                                    {monthNames2026.map((m, i) => (
+                                        <div key={m} className="text-xs text-slate-500 text-center py-2 border-r border-slate-100 bg-slate-50">
+                                            {m.slice(0,3)}
+                                        </div>
+                                    ))}
+                                    <div className="text-xs text-slate-500 text-center py-2 bg-slate-50">2027 Future</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* rows */}
+                        <div className="mt-3 max-h-[520px] overflow-auto">
+                            <div className="space-y-3">
+                                {rows.map(row => {
+                                    // compute grid column for bar
+                                    if (row.deliveryIdx === null) {
+                                        // place in Future column (index 12)
+                                        return (
+                                            <div key={row.id} className="flex items-center gap-4">
+                                                <div className="w-64 text-sm text-slate-800 font-medium">{row.title}</div>
+                                                <div className="flex-1">
+                                                    <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
+                                                        {/* empty months */}
+                                                        {Array.from({length:12}).map((_,i) => <div key={i} className="h-8 border-r border-slate-100"></div>)}
+                                                        <div className={`h-8 flex items-center justify-center ${barColorForCategory(row.category)} text-white text-xs font-semibold rounded`}>Future</div>
+                                                    </div>
+                                                </div>
+                                                <div className="ml-4 text-xs text-slate-500">
+                                                    <div>Delivery: TBD</div>
+                                                    <div>Start: TBD</div>
+                                                </div>
+                                            </div>
+                                        );
+                                    } else {
+                                        // compute start & end column indexes (inclusive)
+                                        const start = row.startIdx === null ? 0 : row.startIdx;
+                                        const end = row.deliveryIdx;
+                                        // ensure within 0..11
+                                        const clampedStart = Math.max(0, Math.min(11, start));
+                                        const clampedEnd = Math.max(0, Math.min(11, end));
+                                        // grid column indices are 1-based
+                                        const gridColStart = clampedStart + 1;
+                                        const gridColEnd = clampedEnd + 2; // +1 to become 1-based, +1 because end is inclusive -> end+1 for grid
+                                        return (
+                                            <div key={row.id} className="flex items-center gap-4 group">
+                                                <div className="w-64 text-sm text-slate-800 font-medium">{row.title}</div>
+                                                <div className="flex-1">
+                                                    <div className="relative">
+                                                        <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
+                                                            {Array.from({length: totalCols}).map((_,i) => (
+                                                                <div key={i} className="h-8 border-r border-slate-100"></div>
+                                                            ))}
+                                                        </div>
+
+                                                        <div
+                                                            className={`absolute top-0 h-8 rounded text-white text-xs font-semibold flex items-center justify-center ${barColorForCategory(row.category)} shadow-md`}
+                                                            style={{ left: `${(gridColStart-1) * (100/totalCols)}%`, width: `${(gridColEnd - gridColStart) * (100/totalCols)}%` }}
+                                                            title={`${row.title} — Start: ${monthNames2026[clampedStart]}, Delivery: ${monthNames2026[clampedEnd]} (${row.sprints} sprintov)`}
+                                                        >
+                                                            <div className="px-2 truncate max-w-[75%] text-left">{row.title}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="ml-4 text-xs text-slate-500 text-right w-40">
+                                                    <div>Delivery: <span className="font-medium text-slate-700">{monthNames2026[clampedEnd]}</span></div>
+                                                    <div>Start: <span className="font-medium text-slate-700">{monthNames2026[clampedStart]}</span></div>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
         // --- MAIN APP COMPONENT ---
         const RoadmapApp = () => {
-            const [view, setView] = useState('roadmap');
+            // default view -> show new Gantt "Roadmap"
+            const [view, setView] = useState('roadmap'); // 'roadmap' = Gantt; 'delivery' = former roadmap view
             const [data, setData] = useState(rawData);
 
             // filters for categories (Feature, AI, Tech, BAS)
@@ -517,12 +669,22 @@
                         {/* Navigácia */}
                         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
                             <div className="flex bg-white p-1 rounded-xl shadow-sm border border-slate-200">
+                                {/* NEW: Roadmap (Gantt) */}
                                 <button
                                     onClick={() => setView('roadmap')}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'roadmap' ? 'bg-blue-50 text-blue-700 shadow-sm' : 'text-slate-600'}`}
                                 >
-                                    <Icons.Calendar size={16} /> Roadmapa
+                                    <Icons.Calendar size={16} /> Roadmap
                                 </button>
+
+                                {/* RENAMED: previous "Roadmap" is now "Delivery Plan" */}
+                                <button
+                                    onClick={() => setView('delivery')}
+                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'delivery' ? 'bg-purple-50 text-purple-700 shadow-sm' : 'text-slate-600'}`}
+                                >
+                                    <Icons.Clock size={16} /> Delivery Plan
+                                </button>
+
                                 <button
                                     onClick={() => setView('matrix')}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all ${view === 'matrix' ? 'bg-purple-50 text-purple-700 shadow-sm' : 'text-slate-600'}`}
@@ -567,8 +729,15 @@
                             </div>
                         </div>
 
-                        {/* OBSAH - Roadmap */}
+                        {/* NEW: Gantt Roadmap view */}
                         {view === 'roadmap' && (
+                            <div className="space-y-6">
+                                <GanttRoadmap items={filteredData} onUpdate={handleUpdate} />
+                            </div>
+                        )}
+
+                        {/* FORMER 'roadmap' content renamed to Delivery Plan */}
+                        {view === 'delivery' && (
                             <div className="space-y-8">
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                                     {['Q1', 'Q2', 'Q3', 'Q4'].map(q => (
@@ -678,7 +847,7 @@
                                 
                                 <div className="bg-slate-100 p-4 rounded-lg text-sm text-slate-500 flex gap-2 items-center">
                                     <Icons.HelpCircle size={16} />
-                                    <span>Poznámka: {filteredData.filter(i => getSizeScore(i.size) === -1 || getImpactScore(i.impact) === -1).length} položiek nie je zobrazených v matici pre chýbajúce dáta</span>
+                                    <span>Poznámka: {filteredData.filter(i => getSizeScore(i.size) === -1 || getImpactScore(i.impact) === -1).length} položiek nie je zobrazených v matici pre chýbajúce hodnoty Impact/Effort.</span>
                                 </div>
                             </div>
                         )}
