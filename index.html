@@ -14,6 +14,9 @@
 
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        /* Scrollbar pre dropdown */
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body>
@@ -53,6 +56,7 @@
             ArrowRight: (props) => <Icon {...props}><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></Icon>,
             Link: (props) => <Icon {...props}><path d="M10 14a5 5 0 0 0 7.07 0l2.12-2.12a5 5 0 0 0-7.07-7.07L10 6.93"/><path d="M14 10a5 5 0 0 0-7.07 0L4.81 12.12a5 5 0 0 0 7.07 7.07L14 17.07"/></Icon>,
             Pencil: (props) => <Icon {...props}><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41"/></Icon>,
+            User: (props) => <Icon {...props}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></Icon>,
         };
 
         // --- DATA - Updated from cms_products.js ---
@@ -199,8 +203,6 @@
         };
 
         // --- Helpers for Gantt Roadmap ---
-        // Derive sprint counts from size if explicit sprints not provided.
-        // Mapping is heuristic: 2 sprints = 1 month (so months = ceil(sprints/2))
         const sprintsFromSize = (size) => {
             if (!size) return 4; // default
             switch (String(size).toUpperCase()) {
@@ -284,6 +286,63 @@
                 </div>
             );
         };
+
+        // --- OWNER FILTER COMPONENT ---
+        const OwnerFilter = ({ owners, selected, onChange }) => {
+            const [isOpen, setIsOpen] = useState(false);
+
+            const toggleOwner = (owner) => {
+                if (selected.includes(owner)) {
+                    onChange(selected.filter(s => s !== owner));
+                } else {
+                    onChange([...selected, owner]);
+                }
+            };
+
+            const toggleAll = () => {
+                if (selected.length > 0) onChange([]);
+            }
+
+            return (
+                <div className="relative">
+                    <button
+                        onClick={() => setIsOpen(!isOpen)}
+                        className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border transition-colors ${selected.length > 0 ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}
+                        title="Filtrovať podľa vlastníka"
+                    >
+                        <Icons.User size={14} />
+                        <span>{selected.length > 0 ? `Vlastník (${selected.length})` : 'Vlastník'}</span>
+                    </button>
+
+                    {isOpen && (
+                        <>
+                            <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)}></div>
+                            <div className="absolute top-full mt-2 right-0 bg-white border border-slate-200 shadow-xl rounded-lg p-2 w-64 z-50 max-h-80 overflow-y-auto scrollbar-hide">
+                                <div className="text-xs font-bold text-slate-400 px-2 py-1 uppercase tracking-wider mb-1">Vybrať vlastníka</div>
+                                {owners.map(owner => {
+                                    const displayName = owner ? owner.split('@')[0] : 'Nezaradené';
+                                    const isSelected = selected.includes(owner);
+                                    return (
+                                        <div key={owner} onClick={() => toggleOwner(owner)} className={`flex items-center gap-2 p-2 cursor-pointer rounded text-xs transition-colors ${isSelected ? 'bg-blue-50 text-blue-700' : 'text-slate-700 hover:bg-slate-50'}`}>
+                                            <div className={`w-4 h-4 rounded border flex items-center justify-center ${isSelected ? 'bg-blue-500 border-blue-500' : 'border-slate-300 bg-white'}`}>
+                                                {isSelected && <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>}
+                                            </div>
+                                            <span className="truncate flex-1" title={owner}>{displayName}</span>
+                                        </div>
+                                    );
+                                })}
+                                <div className="pt-2 mt-2 border-t border-slate-100">
+                                    <button onClick={toggleAll} className={`text-xs w-full text-center py-1 rounded ${selected.length === 0 ? 'text-slate-400 cursor-default' : 'text-blue-600 hover:bg-blue-50'}`} disabled={selected.length === 0}>
+                                        Zrušiť filter
+                                    </button>
+                                </div>
+                            </div>
+                        </>
+                    )}
+                </div>
+            );
+        };
+
 
         // --- COMPONENTS ---
         const StrategyBoard = () => (
@@ -496,11 +555,28 @@
             const [view, setView] = useState('roadmap'); // 'roadmap' | 'delivery' | 'matrix' | 'list'
             const [data, setData] = useState(rawData);
             const [activeCats, setActiveCats] = useState({ Feature: true, AI: true, Tech: true, BAS: true });
+            const [selectedOwners, setSelectedOwners] = useState([]); // Array of owner strings
 
             const toggleCat = (cat) => setActiveCats(prev => ({ ...prev, [cat]: !prev[cat] }));
-            const resetCats = () => setActiveCats({ Feature: true, AI: true, Tech: true, BAS: true });
+            const resetCats = () => {
+                setActiveCats({ Feature: true, AI: true, Tech: true, BAS: true });
+                setSelectedOwners([]);
+            };
 
-            const filteredData = useMemo(() => data.filter(i => (activeCats[i.category] ?? true)), [data, activeCats]);
+            // Calculate unique owners for dropdown
+            const uniqueOwners = useMemo(() => {
+                const owners = new Set(data.map(d => d.owner).filter(Boolean)); // Filter out null/undefined, keep empty strings if valid
+                return Array.from(owners).sort();
+            }, [data]);
+
+            const filteredData = useMemo(() => {
+                return data.filter(i => {
+                    const catMatch = (activeCats[i.category] ?? true);
+                    // Filter by owner: if selectedOwners is empty => show all, else check inclusion
+                    const ownerMatch = selectedOwners.length === 0 || selectedOwners.includes(i.owner);
+                    return catMatch && ownerMatch;
+                });
+            }, [data, activeCats, selectedOwners]);
 
             const handleUpdate = (id, updates) => setData(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
 
@@ -534,6 +610,11 @@
                             </div>
 
                             <div className="flex items-center gap-3">
+                                {/* Owner Filter */}
+                                <OwnerFilter owners={uniqueOwners} selected={selectedOwners} onChange={setSelectedOwners} />
+
+                                <div className="h-6 w-px bg-slate-300 mx-1"></div>
+
                                 {['Feature','AI','Tech','BAS'].map(cat => (
                                     <button key={cat} onClick={() => toggleCat(cat)} className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${activeCats[cat] ? 'bg-slate-100 text-slate-800' : 'bg-transparent text-slate-400'}`} title={`${activeCats[cat] ? 'Zrušiť filter' : 'Zapnúť filter'} ${cat}`}>
                                         <span className={`w-2 h-2 rounded-full ${cat === 'Feature' ? 'bg-blue-400' : cat === 'AI' ? 'bg-purple-400' : cat === 'Tech' ? 'bg-green-400' : 'bg-gray-400'}`}></span>
@@ -682,4 +763,3 @@
     </script>
 </body>
 </html>
-
