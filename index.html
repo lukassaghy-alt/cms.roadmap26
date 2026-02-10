@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>CMS Product Roadmap 2026 v2.3</title>
+    <title>CMS Product Roadmap 2026 v2.4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -23,7 +23,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useMemo, useEffect } = React;
+        const { useState, useMemo, useEffect, useRef } = React;
 
         // --- ICONS ---
         const Icon = ({ children, size = 24, className = '' }) => (
@@ -62,6 +62,8 @@
             RefreshCw: (props) => <Icon {...props}><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></Icon>,
             StopCircle: (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></Icon>,
             TrendingUp: (props) => <Icon {...props}><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></Icon>,
+            Filter: (props) => <Icon {...props}><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></Icon>,
+            X: (props) => <Icon {...props}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></Icon>,
         };
 
         // --- DATA (Updated Category: TECH -> Tech upgrade) ---
@@ -347,7 +349,7 @@
                     {isOpen && (
                         <>
                             <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)}></div>
-                            <div className="absolute top-full mt-2 right-0 bg-white border border-slate-200 shadow-xl rounded-lg p-2 w-64 z-50 max-h-80 overflow-y-auto scrollbar-hide">
+                            <div className="absolute top-full mt-2 left-0 bg-white border border-slate-200 shadow-xl rounded-lg p-2 w-64 z-50 max-h-80 overflow-y-auto scrollbar-hide">
                                 <div className="text-xs font-bold text-slate-400 px-2 py-1 uppercase tracking-wider mb-1">Vybrať {label.toLowerCase()}</div>
                                 {options.map(opt => {
                                     const displayName = opt ? (opt.includes('@') ? opt.split('@')[0] : opt) : 'Nezaradené';
@@ -383,7 +385,6 @@
                         <h1 className="text-2xl md:text-3xl font-bold leading-tight">
                             EAGLE CMS ako <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Inteligentný Copilot redakcie</span>
                         </h1>
-                        {/* Upravený text a zmenšené písmo, aby sa nezalamovalo */}
                         <p className="text-slate-300 mt-2 text-sm whitespace-nowrap md:whitespace-normal">
                             Zvyšovanie efektivity redakcie pomocou AI a automatizácie, s využitím historických dát, aktuálnych trendov a predikcií.
                         </p>
@@ -501,15 +502,14 @@
             );
         };
 
-        // --- GANTT ROADMAP COMPONENT (Updated) ---
+        // --- GANTT ROADMAP COMPONENT (Updated with Sticky Header) ---
         const GanttRoadmap = ({ items }) => {
             const rows = items.map(it => {
-                const deliveryIdx = monthIndexFromLaunch(it.launch); // 0..11 or null
+                const deliveryIdx = monthIndexFromLaunch(it.launch); 
                 const sprints = (typeof it.sprints === 'number') ? it.sprints : sprintsFromSize(it.size);
-                const monthsDuration = Math.max(1, Math.ceil(sprints / 2)); // at least 1 month
+                const monthsDuration = Math.max(1, Math.ceil(sprints / 2)); 
                 let startIdx = null;
                 if (deliveryIdx !== null) {
-                    // inclusive: if duration = 1 and delivery = Mar (2), start = 2 (Mar)
                     startIdx = deliveryIdx - (monthsDuration - 1);
                     if (startIdx < 0) startIdx = 0;
                 }
@@ -520,80 +520,67 @@
             return (
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <div className="mt-2">
-                        <div className="flex items-end gap-4">
-                            <div className="w-64 pb-2 flex justify-between items-end pr-4">
-                                <div className="text-sm font-semibold text-slate-700">Funkcia</div>
-                                {/* ROI Header */}
-                                <div className="text-xs font-semibold text-slate-400">ROI</div>
-                            </div>
-                            <div className="flex-1 overflow-x-auto">
-                                {/* Quarters Indication */}
-                                <div className="grid grid-cols-12 mb-1 pl-[1px]">
-                                     <div className="col-span-3 text-center text-xs text-slate-400 font-semibold bg-slate-50/50 rounded-t mx-0.5">Q1</div>
-                                     <div className="col-span-3 text-center text-xs text-slate-400 font-semibold bg-slate-50/50 rounded-t mx-0.5">Q2</div>
-                                     <div className="col-span-3 text-center text-xs text-slate-400 font-semibold bg-slate-50/50 rounded-t mx-0.5">Q3</div>
-                                     <div className="col-span-3 text-center text-xs text-slate-400 font-semibold bg-slate-50/50 rounded-t mx-0.5">Q4</div>
+                        {/* Scrollable Container */}
+                        <div className="overflow-auto max-h-[600px] relative">
+                            {/* Sticky Header */}
+                            <div className="sticky top-0 z-10 bg-white border-b border-slate-200">
+                                <div className="flex items-end gap-4 pb-2">
+                                    <div className="w-64 flex justify-between items-end pr-4 flex-shrink-0 bg-white z-20 sticky left-0">
+                                        <div className="text-sm font-semibold text-slate-700">Funkcia</div>
+                                        <div className="text-xs font-semibold text-slate-400">ROI</div>
+                                    </div>
+                                    <div className="flex-1 min-w-[800px]">
+                                        <div className="grid grid-cols-12 mb-1 pl-[1px]">
+                                             <div className="col-span-3 text-center text-xs text-slate-400 font-semibold bg-slate-50/50 rounded-t mx-0.5">Q1</div>
+                                             <div className="col-span-3 text-center text-xs text-slate-400 font-semibold bg-slate-50/50 rounded-t mx-0.5">Q2</div>
+                                             <div className="col-span-3 text-center text-xs text-slate-400 font-semibold bg-slate-50/50 rounded-t mx-0.5">Q3</div>
+                                             <div className="col-span-3 text-center text-xs text-slate-400 font-semibold bg-slate-50/50 rounded-t mx-0.5">Q4</div>
+                                        </div>
+                                        <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
+                                            {monthNames2026.map(m => <div key={m} className="text-xs text-slate-500 text-center py-2 border-r border-slate-300 bg-slate-50">{m.slice(0,3)}</div>)}
+                                            {/* Fix: No right border for last column */}
+                                            <div className="text-xs text-slate-500 text-center py-2 bg-slate-50">2027+</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
-                                    {monthNames2026.map(m => <div key={m} className="text-xs text-slate-500 text-center py-2 border-r border-slate-300 bg-slate-50">{m.slice(0,3)}</div>)}
-                                    <div className="text-xs text-slate-500 text-center py-2 bg-slate-50">2027+</div>
-                                </div>
                             </div>
-                        </div>
 
-                        <div className="mt-3 max-h-[600px] overflow-auto">
-                            <div className="space-y-3">
+                            {/* Body Rows */}
+                            <div className="space-y-3 pt-3">
                                 {rows.map(row => {
-                                    if (row.deliveryIdx === null) {
-                                        return (
-                                            <div key={row.id} className="flex items-center gap-4">
-                                                <div className="w-64">
-                                                    <div className="flex items-center justify-between text-xs text-slate-800 font-medium pr-4">
-                                                        <div className="flex items-center gap-2 overflow-hidden">
-                                                            {/* Status Icon */}
-                                                            {getStatusIcon(row.status)}
-                                                            <span className="truncate">{sanitizeTitle(row.title)}</span>
-                                                        </div>
-                                                        <span className={`text-[10px] px-1.5 py-0.5 rounded ml-2 whitespace-nowrap ${getRoiColor(row.roiIndex)}`} title="ROI Index">
-                                                            {row.roiIndex}
-                                                        </span>
+                                    const hasDelivery = row.deliveryIdx !== null;
+                                    const start = row.startIdx === null ? 0 : row.startIdx;
+                                    const end = row.deliveryIdx;
+                                    const clampedStart = Math.max(0, Math.min(11, start));
+                                    const clampedEnd = Math.max(0, Math.min(11, end));
+                                    const gridColStart = clampedStart + 1;
+                                    const gridColEnd = clampedEnd + 2; 
+                                    const leftPercent = ((gridColStart - 1) * (100 / totalCols));
+                                    const widthPercent = Math.max(100 / totalCols, (gridColEnd - gridColStart) * (100 / totalCols));
+
+                                    return (
+                                        <div key={row.id} className="flex items-center gap-4 group">
+                                            {/* Sticky Left Column */}
+                                            <div className="w-64 flex-shrink-0 bg-white z-0 sticky left-0">
+                                                <div className="flex items-center justify-between text-xs text-slate-800 font-medium pr-4">
+                                                    <div className="flex items-center gap-2 overflow-hidden">
+                                                        {getStatusIcon(row.status)}
+                                                        <span className="truncate">{sanitizeTitle(row.title)}</span>
                                                     </div>
-                                                </div>
-                                                <div className="flex-1">
-                                                    <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
-                                                        {Array.from({length:12}).map((_,i) => <div key={i} className="h-8 border-r border-slate-300"></div>)}
-                                                        <div className={`h-8 flex items-center justify-center ${barColorForCategory(row.category)} text-white text-[10px] font-semibold rounded`}>Future</div>
-                                                    </div>
+                                                    <span className={`text-[10px] px-1.5 py-0.5 rounded ml-2 whitespace-nowrap ${getRoiColor(row.roiIndex)}`} title="ROI Index">
+                                                        {row.roiIndex}
+                                                    </span>
                                                 </div>
                                             </div>
-                                        );
-                                    } else {
-                                        const start = row.startIdx === null ? 0 : row.startIdx;
-                                        const end = row.deliveryIdx;
-                                        const clampedStart = Math.max(0, Math.min(11, start));
-                                        const clampedEnd = Math.max(0, Math.min(11, end));
-                                        const gridColStart = clampedStart + 1;
-                                        const gridColEnd = clampedEnd + 2; // end inclusive => +1 extra
-                                        const leftPercent = ((gridColStart - 1) * (100 / totalCols));
-                                        const widthPercent = Math.max(100 / totalCols, (gridColEnd - gridColStart) * (100 / totalCols));
-                                        return (
-                                            <div key={row.id} className="flex items-center gap-4 group">
-                                                <div className="w-64">
-                                                    <div className="flex items-center justify-between text-xs text-slate-800 font-medium pr-4">
-                                                        <div className="flex items-center gap-2 overflow-hidden">
-                                                            {/* Status Icon */}
-                                                            {getStatusIcon(row.status)}
-                                                            <span className="truncate">{sanitizeTitle(row.title)}</span>
-                                                        </div>
-                                                        <span className={`text-[10px] px-1.5 py-0.5 rounded ml-2 whitespace-nowrap ${getRoiColor(row.roiIndex)}`} title="ROI Index">
-                                                            {row.roiIndex}
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                                <div className="flex-1">
+                                            
+                                            {/* Scrollable Right Side */}
+                                            <div className="flex-1 min-w-[800px]">
+                                                {hasDelivery ? (
                                                     <div className="relative">
                                                         <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
-                                                            {Array.from({length: totalCols}).map((_,i) => <div key={i} className="h-8 border-r border-slate-300"></div>)}
+                                                            {Array.from({length: totalCols}).map((_,i) => (
+                                                                <div key={i} className={`h-8 border-slate-300 ${i === totalCols - 1 ? '' : 'border-r'}`}></div>
+                                                            ))}
                                                         </div>
 
                                                         <div
@@ -604,10 +591,15 @@
                                                             <div className="truncate max-w-[90%]">{sanitizeTitle(row.title)}</div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                ) : (
+                                                    <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
+                                                        {Array.from({length:12}).map((_,i) => <div key={i} className="h-8 border-r border-slate-300"></div>)}
+                                                        <div className={`h-8 flex items-center justify-center ${barColorForCategory(row.category)} text-white text-[10px] font-semibold rounded`}>Future</div>
+                                                    </div>
+                                                )}
                                             </div>
-                                        );
-                                    }
+                                        </div>
+                                    );
                                 })}
                             </div>
                         </div>
@@ -625,8 +617,9 @@
             // Filters state
             const [selectedOwners, setSelectedOwners] = useState([]);
             const [selectedClients, setSelectedClients] = useState([]);
-            const [selectedRoi, setSelectedRoi] = useState([]); // g) ROI Filter
-            const [selectedUis, setSelectedUis] = useState([]); // NEW: UI Filter
+            const [selectedRoi, setSelectedRoi] = useState([]); 
+            const [selectedUis, setSelectedUis] = useState([]); 
+            const [showFilterMenu, setShowFilterMenu] = useState(false); // Controls popover
 
             const toggleCat = (cat) => setActiveCats(prev => ({ ...prev, [cat]: !prev[cat] }));
             const resetCats = () => {
@@ -634,8 +627,12 @@
                 setSelectedOwners([]);
                 setSelectedClients([]);
                 setSelectedRoi([]);
-                setSelectedUis([]); // Reset UI filter
+                setSelectedUis([]); 
             };
+
+            // Check if any complex filter is active
+            const hasActiveFilters = selectedOwners.length > 0 || selectedClients.length > 0 || selectedRoi.length > 0 || selectedUis.length > 0;
+            const activeFilterCount = selectedOwners.length + selectedClients.length + selectedRoi.length + selectedUis.length;
 
             const uniqueOwners = useMemo(() => {
                 const owners = new Set(data.map(d => d.owner).filter(Boolean)); 
@@ -652,7 +649,6 @@
                 return Array.from(uis).sort();
             }, [data]);
 
-            // ROI Ranges for filter
             const roiRanges = ['Nízky (<0,4)', 'Stredný (0,4 - 0,8)', 'Vysoký (>0,8)'];
 
             const filteredData = useMemo(() => {
@@ -660,12 +656,8 @@
                     const catMatch = (activeCats[i.category] ?? true);
                     const ownerMatch = selectedOwners.length === 0 || selectedOwners.includes(i.owner);
                     const clientMatch = selectedClients.length === 0 || selectedClients.includes(i.client);
-                    
-                    // ROI Filter Match
                     const currentRoiLabel = getRoiRange(i.roiIndex);
                     const roiMatch = selectedRoi.length === 0 || selectedRoi.includes(currentRoiLabel);
-
-                    // UI Filter Match
                     const uiMatch = selectedUis.length === 0 || selectedUis.includes(i.cmsUi);
 
                     return catMatch && ownerMatch && clientMatch && roiMatch && uiMatch;
@@ -688,6 +680,7 @@
                         <StrategyBoard />
 
                         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
+                            {/* LEFT SIDE: View Switchers */}
                             <div className="flex bg-white p-1 rounded-xl shadow-sm border border-slate-200">
                                 <button onClick={() => setView('roadmap')} className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${view === 'roadmap' ? 'bg-blue-50 text-blue-700' : 'text-slate-600'}`}>
                                     <Icons.Calendar size={16} /> Roadmap
@@ -703,56 +696,83 @@
                                 </button>
                             </div>
 
-                            <div className="flex items-center gap-3">
-                                {/* Owner Filter */}
-                                <MultiSelectFilter 
-                                    label="Vlastník" 
-                                    icon={Icons.User} 
-                                    options={uniqueOwners} 
-                                    selected={selectedOwners} 
-                                    onChange={setSelectedOwners}
-                                    title="Filtrovať podľa vlastníka" 
-                                />
+                            {/* RIGHT SIDE: Filters */}
+                            <div className="flex items-center gap-3 relative">
+                                
+                                {/* 1. Grouped Filter Button */}
+                                <div className="relative">
+                                    <button 
+                                        onClick={() => setShowFilterMenu(!showFilterMenu)}
+                                        className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium border transition-colors ${hasActiveFilters ? 'bg-blue-50 border-blue-200 text-blue-700' : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'}`}
+                                    >
+                                        <Icons.Filter size={16} />
+                                        <span>Filtre</span>
+                                        {activeFilterCount > 0 && <span className="ml-1 bg-blue-100 text-blue-700 px-1.5 py-0.5 rounded-full text-xs">{activeFilterCount}</span>}
+                                    </button>
 
-                                {/* Client Filter */}
-                                <MultiSelectFilter 
-                                    label="Klient" 
-                                    icon={Icons.Briefcase} 
-                                    options={uniqueClients} 
-                                    selected={selectedClients} 
-                                    onChange={setSelectedClients}
-                                    title="Filtrovať podľa klienta (NMH/VLM)" 
-                                />
-
-                                {/* ROI Filter */}
-                                <MultiSelectFilter 
-                                    label="ROI Index" 
-                                    icon={Icons.TrendingUp} 
-                                    options={roiRanges} 
-                                    selected={selectedRoi} 
-                                    onChange={setSelectedRoi}
-                                    title="Filtrovať podľa ROI Indexu" 
-                                />
-
-                                {/* UI Filter (NEW) */}
-                                <MultiSelectFilter 
-                                    label="UI" 
-                                    icon={Icons.Layers} 
-                                    options={uniqueUis} 
-                                    selected={selectedUis} 
-                                    onChange={setSelectedUis}
-                                    title="Filtrovať podľa technológie UI" 
-                                />
+                                    {/* Popover Menu */}
+                                    {showFilterMenu && (
+                                        <>
+                                            <div className="fixed inset-0 z-40" onClick={() => setShowFilterMenu(false)}></div>
+                                            <div className="absolute top-full mt-2 right-0 bg-white border border-slate-200 shadow-xl rounded-xl p-4 z-50 w-72 flex flex-col gap-3">
+                                                <div className="text-sm font-bold text-slate-700 mb-1">Pokročilé filtre</div>
+                                                <MultiSelectFilter 
+                                                    label="Vlastník" 
+                                                    icon={Icons.User} 
+                                                    options={uniqueOwners} 
+                                                    selected={selectedOwners} 
+                                                    onChange={setSelectedOwners}
+                                                    title="Filtrovať podľa vlastníka" 
+                                                />
+                                                <MultiSelectFilter 
+                                                    label="Klient" 
+                                                    icon={Icons.Briefcase} 
+                                                    options={uniqueClients} 
+                                                    selected={selectedClients} 
+                                                    onChange={setSelectedClients}
+                                                    title="Filtrovať podľa klienta" 
+                                                />
+                                                <MultiSelectFilter 
+                                                    label="ROI Index" 
+                                                    icon={Icons.TrendingUp} 
+                                                    options={roiRanges} 
+                                                    selected={selectedRoi} 
+                                                    onChange={setSelectedRoi}
+                                                    title="Filtrovať podľa ROI" 
+                                                />
+                                                <MultiSelectFilter 
+                                                    label="UI Tech" 
+                                                    icon={Icons.Layers} 
+                                                    options={uniqueUis} 
+                                                    selected={selectedUis} 
+                                                    onChange={setSelectedUis}
+                                                    title="Filtrovať podľa UI" 
+                                                />
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
 
                                 <div className="h-6 w-px bg-slate-300 mx-1"></div>
 
+                                {/* 2. Category Toggles (Kept visible for quick access) */}
                                 {['Feature','AI','Tech upgrade','BAS'].map(cat => (
                                     <button key={cat} onClick={() => toggleCat(cat)} className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${activeCats[cat] ? 'bg-slate-100 text-slate-800' : 'bg-transparent text-slate-400'}`} title={`${activeCats[cat] ? 'Zrušiť filter' : 'Zapnúť filter'} ${cat}`}>
                                         <span className={`w-2 h-2 rounded-full ${cat === 'Feature' ? 'bg-blue-400' : cat === 'AI' ? 'bg-purple-400' : cat === 'Tech upgrade' ? 'bg-green-400' : 'bg-gray-400'}`}></span>
                                         <span>{cat === 'Tech upgrade' ? 'Tech' : cat}</span>
                                     </button>
                                 ))}
-                                <button onClick={resetCats} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-500 hover:bg-slate-50">Reset</button>
+
+                                {/* 3. Reset Button (Icon Only) */}
+                                {(hasActiveFilters || !Object.values(activeCats).every(Boolean)) && (
+                                    <button 
+                                        onClick={resetCats} 
+                                        className="p-1.5 rounded-full bg-red-50 text-red-500 hover:bg-red-100 transition-colors border border-red-100"
+                                        title="Vymazať všetky filtre"
+                                    >
+                                        <Icons.X size={16} />
+                                    </button>
+                                )}
                             </div>
                         </div>
 
