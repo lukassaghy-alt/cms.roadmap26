@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>CMS Product Roadmap 2026 v2.1</title>
+    <title>CMS Product Roadmap 2026 v2.2</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -14,6 +14,9 @@
         /* Scrollbar pre dropdown */
         .scrollbar-hide::-webkit-scrollbar { display: none; }
         .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        /* Animácia pre status icon */
+        @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        .animate-spin-slow { animation: spin-slow 3s linear infinite; }
     </style>
 </head>
 <body>
@@ -55,9 +58,13 @@
             Pencil: (props) => <Icon {...props}><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25z"/><path d="M20.71 7.04a1 1 0 0 0 0-1.41"/></Icon>,
             User: (props) => <Icon {...props}><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></Icon>,
             Briefcase: (props) => <Icon {...props}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></Icon>,
+            CheckCircle: (props) => <Icon {...props}><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></Icon>,
+            RefreshCw: (props) => <Icon {...props}><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></Icon>,
+            StopCircle: (props) => <Icon {...props}><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></Icon>,
+            TrendingUp: (props) => <Icon {...props}><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></Icon>,
         };
 
-        // --- DATA ---
+        // --- DATA (Updated Category: TECH -> Tech upgrade) ---
         const rawData = [
             { id: '1', title: 'Stiahnutie obrázkov priamo z článkov', category: 'Feature', status: 'Doručené', owner: 'karol.schulz@newsandmedia.sk', size: 'XS', impact: 'Low', launch: 'Január', roiIndex: '0.47', impactMoney: 1, impactMarket: 3, client: 'NMH + VLM', manDays: 2, teams: 1, components: 1, effort: 'XS', sprints: 1, desiredDelivery: '31.1.2026', ddlProdSpec: '20.12.2025', notes: '' },
             { id: '2', title: 'SEO Content Checker 1.0', category: 'BAS', status: 'Doručené', owner: 'marek.murin@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'Január', roiIndex: '0.30', impactMoney: 1, impactMarket: 2, client: 'NMH', manDays: 5, teams: 3, components: 2, effort: 'M', sprints: 1, desiredDelivery: '31.1.2026', ddlProdSpec: '6.12.2025', notes: '1. Clarity - pozrieť vhodnosť toolu pre identifikáciu business value' },
@@ -67,16 +74,16 @@
             { id: '6', title: 'Tagy 2.0 MVP', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy@newsandmedia.sk', size: 'XL', impact: 'High', launch: 'Február', roiIndex: '0.17', impactMoney: 4, impactMarket: 4, client: 'NMH', manDays: 88, teams: 4, components: 3, effort: 'XL', sprints: 20, desiredDelivery: '28.2.2026', ddlProdSpec: '29.3.2025', notes: '' },
             { id: '7', title: 'Prenos TASR News restyling do .NET CMS', category: 'AI', status: 'Prebieha', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', roiIndex: '0.60', impactMoney: 2, impactMarket: 4, client: 'NMH', manDays: 5, teams: 2, components: 4, effort: 'M', sprints: 1, desiredDelivery: '28.2.2026', ddlProdSpec: '3.1.2026', notes: 'Potvrdiť ASAP scope s redakciou TREND.' },
             { id: '8', title: 'Swap článkov na HP cez Drag&Drop (NČ)', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Február', roiIndex: '0.29', impactMoney: 3, impactMarket: 4, client: 'NMH + VLM', manDays: 45, teams: 2, components: 5, effort: 'L', sprints: 8, desiredDelivery: '28.2.2026', ddlProdSpec: '27.9.2025', notes: 'Zostáva primárne swap článkov pre NČ.' },
-            { id: '9', title: 'TECH UPGRADE PLAN 2026', category: 'TECH', status: 'Prebieha', owner: 'tomas.mikeska@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Február', roiIndex: '0.56', impactMoney: 3, impactMarket: 2, client: 'NMH + VLM', manDays: 10, teams: 2, components: 6, effort: 'L', sprints: 2, desiredDelivery: '28.2.2026', ddlProdSpec: '20.12.2025', notes: 'Outcome = Zoznam / Rámec na 2026' },
+            { id: '9', title: 'TECH UPGRADE PLAN 2026', category: 'Tech upgrade', status: 'Prebieha', owner: 'tomas.mikeska@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Február', roiIndex: '0.56', impactMoney: 3, impactMarket: 2, client: 'NMH + VLM', manDays: 10, teams: 2, components: 6, effort: 'L', sprints: 2, desiredDelivery: '28.2.2026', ddlProdSpec: '20.12.2025', notes: 'Outcome = Zoznam / Rámec na 2026' },
             { id: '10', title: 'VLM Tickets MVP Denik', category: 'BAS', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'XL', impact: 'High', launch: 'Február', roiIndex: '0.29', impactMoney: 4, impactMarket: 4, client: 'VLM', manDays: 45, teams: 4, components: 9, effort: 'XL', sprints: 10, desiredDelivery: '28.2.2026', ddlProdSpec: '16.8.2025', notes: '' },
             { id: '11', title: 'Perex generator pre VLM (bez GITA)', category: 'AI', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'VLM', manDays: 8, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '28.2.2026', ddlProdSpec: '20.12.2025', notes: '' },
             { id: '12', title: 'Summary generator pre VLM (bez GITA)', category: 'AI', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'VLM', manDays: 8, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '28.2.2026', ddlProdSpec: '20.12.2025', notes: '' },
             { id: '13', title: 'HPM 2.0 Automat - P1D Case study a prenos na NČ', category: 'Feature', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Február', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 3, components: 3, effort: 'M', sprints: 1, desiredDelivery: '28.2.2026', ddlProdSpec: '3.1.2026', notes: '' },
             { id: '14', title: 'Piano Integration', category: 'BAS', status: 'Prebieha', owner: 'matus.zahradnik@newsandmedia.sk', size: 'L', impact: 'High', launch: 'Marec', roiIndex: '0.80', impactMoney: 4, impactMarket: 4, client: 'NMH', manDays: 10, teams: 4, components: 3, effort: 'L', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '20.1.2026', notes: '' },
             { id: '15', title: 'VLM Deník migrace / Spustenie', category: 'BAS', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Marec', roiIndex: '0.64', impactMoney: 3, impactMarket: 4, client: 'VLM', manDays: 10, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '20.1.2026', notes: '' },
-            { id: '16', title: 'TREND migrácia React Web .NET CMS', category: 'TECH', status: 'Prebieha', owner: 'tomas.valach@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Marec', roiIndex: '0.53', impactMoney: 3, impactMarket: 4, client: 'NMH', manDays: 15, teams: 4, components: 6, effort: 'L', sprints: 3, desiredDelivery: '31.3.2026', ddlProdSpec: '6.1.2026', notes: '' },
-            { id: '17', title: 'MBASE migracia', category: 'TECH', status: 'Zastavené', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Very Low', launch: 'Apríl', roiIndex: '0.25', impactMoney: 1, impactMarket: 1, client: 'NMH', manDays: 10, teams: 2, components: 1, effort: 'S', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '3.2.2026', notes: 'Definovať scope na Q2' },
-            { id: '18', title: 'DAM Full-text search', category: 'TECH', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'Marec', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 2, components: 2, effort: 'S', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '3.2.2026', notes: 'Primárne search, rozdeliť epic na fázy po Q1' },
+            { id: '16', title: 'TREND migrácia React Web .NET CMS', category: 'Tech upgrade', status: 'Prebieha', owner: 'tomas.valach@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Marec', roiIndex: '0.53', impactMoney: 3, impactMarket: 4, client: 'NMH', manDays: 15, teams: 4, components: 6, effort: 'L', sprints: 3, desiredDelivery: '31.3.2026', ddlProdSpec: '6.1.2026', notes: '' },
+            { id: '17', title: 'MBASE migracia', category: 'Tech upgrade', status: 'Zastavené', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Very Low', launch: 'Apríl', roiIndex: '0.25', impactMoney: 1, impactMarket: 1, client: 'NMH', manDays: 10, teams: 2, components: 1, effort: 'S', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '3.2.2026', notes: 'Definovať scope na Q2' },
+            { id: '18', title: 'DAM Full-text search', category: 'Tech upgrade', status: 'Prebieha', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'Marec', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 2, components: 2, effort: 'S', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '3.2.2026', notes: 'Primárne search, rozdeliť epic na fázy po Q1' },
             { id: '19', title: 'Tagy 2.01 (post-deploy improvements)', category: 'AI', status: 'Prebieha', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Marec', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 15, teams: 4, components: 5, effort: 'L', sprints: 3, desiredDelivery: '31.3.2026', ddlProdSpec: '6.1.2026', notes: '' },
             { id: '20', title: 'Article stats 1.0', category: 'Feature', status: 'Ready na analýzu', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Marec', roiIndex: '0.44', impactMoney: 2, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 2, effort: 'M', sprints: 2, desiredDelivery: '31.3.2026', ddlProdSpec: '20.1.2026', notes: '' },
             { id: '21', title: 'Menu editor 1.0 (NMH)', category: 'Feature', status: 'Ready na analýzu', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Apríl', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 3, teams: 3, components: 1, effort: 'M', sprints: 1, desiredDelivery: '31.3.2026', ddlProdSpec: '3.2.2026', notes: '' },
@@ -97,8 +104,8 @@
             { id: '36', title: 'SEO Copilot / Asistent redaktora', category: 'AI', status: 'Pripraviť prod. spec.', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.53', impactMoney: 3, impactMarket: 4, client: 'NMH + VLM', manDays: 15, teams: 3, components: 3, effort: 'M', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: 'Spojiť s VLM, zlúčiť aj s linkbuilding agent.' },
             { id: '37', title: 'Vytváranie koláží z obrázkov', category: 'Feature', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'Jún', roiIndex: '1.00', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 2, components: 1, effort: 'S', sprints: 1, desiredDelivery: '30.6.2026', ddlProdSpec: '19.5.2026', notes: 'Zvážiť spojenie s DAM upgrade Q2' },
             { id: '38', title: 'Tagy 2.1', category: 'AI', status: 'Pripraviť prod. spec.', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'Jún', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 15, teams: 4, components: 6, effort: 'L', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: '' },
-            { id: '39', title: 'Tech dept 2025', category: 'TECH', status: 'Prebieha', owner: 'tomas.mikeska@newsandmedia.sk', size: 'L', impact: 'Low', launch: 'Jún', roiIndex: '0.08', impactMoney: 1, impactMarket: 1, client: 'NMH + VLM', manDays: 50, teams: 2, components: 5, effort: 'L', sprints: 9, desiredDelivery: '30.6.2026', ddlProdSpec: '13.1.2026', notes: 'Meet s develom pre potvrdenie' },
-            { id: '40', title: 'Elasticsearch 9', category: 'TECH', status: 'Ready na analýzu', owner: 'tomas.mikeska@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'Jún', roiIndex: '0.33', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 15, teams: 2, components: 2, effort: 'M', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: 'Meet s develom pre potvrdenie' },
+            { id: '39', title: 'Tech dept 2025', category: 'Tech upgrade', status: 'Prebieha', owner: 'tomas.mikeska@newsandmedia.sk', size: 'L', impact: 'Low', launch: 'Jún', roiIndex: '0.08', impactMoney: 1, impactMarket: 1, client: 'NMH + VLM', manDays: 50, teams: 2, components: 5, effort: 'L', sprints: 9, desiredDelivery: '30.6.2026', ddlProdSpec: '13.1.2026', notes: 'Meet s develom pre potvrdenie' },
+            { id: '40', title: 'Elasticsearch 9', category: 'Tech upgrade', status: 'Ready na analýzu', owner: 'tomas.mikeska@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'Jún', roiIndex: '0.33', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 15, teams: 2, components: 2, effort: 'M', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: 'Meet s develom pre potvrdenie' },
             { id: '41', title: 'Body block Kvíz v článku s AI generátorom kvízov', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '30.6.2026', ddlProdSpec: '21.4.2026', notes: '' },
             { id: '42', title: 'DAM Integrácia free fotobánk', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.53', impactMoney: 3, impactMarket: 4, client: 'NMH + VLM', manDays: 15, teams: 2, components: 1, effort: 'M', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: '' },
             { id: '43', title: 'DAM Taxonomia obrazkov (tagy, img alt tag, gallery desc...)', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'radek.silbersky@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'Jún', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 15, teams: 3, components: 2, effort: 'M', sprints: 3, desiredDelivery: '30.6.2026', ddlProdSpec: '7.4.2026', notes: 'Zvážiť rozdelenie na min. 2 fázy' },
@@ -116,9 +123,9 @@
             { id: '55', title: 'Article Gallery Composer - Story Mode', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'December', roiIndex: '0.64', impactMoney: 3, impactMarket: 4, client: 'NMH + VLM', manDays: 10, teams: 3, components: 4, effort: 'M', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '22.10.2026', notes: '' },
             { id: '56', title: 'Editorial Peformance - Gamification', category: 'Feature', status: 'Idea - nevalidovaná', owner: 'viktor.koslab@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'December', roiIndex: '0.50', impactMoney: 3, impactMarket: 3, client: 'NMH', manDays: 15, teams: 3, components: 3, effort: 'M', sprints: 3, desiredDelivery: '31.12.2026', ddlProdSpec: '8.10.2026', notes: '' },
             { id: '57', title: 'Related articles 2.0 - Automation', category: 'AI', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'December', roiIndex: '0.55', impactMoney: 2, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 2, components: 3, effort: 'M', sprints: 1, desiredDelivery: '31.12.2026', ddlProdSpec: '5.11.2026', notes: 'Má záujem aj VLM' },
-            { id: '58', title: 'Livebox - videa', category: 'TECH', status: 'Pripraviť prod. spec.', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'December', roiIndex: '0.50', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 10, teams: 2, components: 1, effort: 'S', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '5.11.2026', notes: 'Zlúčiť s bodom nižšie' },
+            { id: '58', title: 'Livebox - videa', category: 'Tech upgrade', status: 'Pripraviť prod. spec.', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'December', roiIndex: '0.50', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 10, teams: 2, components: 1, effort: 'S', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '5.11.2026', notes: 'Zlúčiť s bodom nižšie' },
             { id: '59', title: 'Video improvements (Livebox)', category: 'Feature', status: 'Pripraviť prod. spec.', owner: 'radek.silbersky@newsandmedia.sk', size: 'S', impact: 'Mid', launch: 'December', roiIndex: '0.50', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 10, teams: 2, components: 1, effort: 'S', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '5.11.2026', notes: '' },
-            { id: '60', title: 'Admin Management Notifikácií v CMS & Release komunikácia', category: 'TECH', status: 'Ready na vývoj', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'TBD', roiIndex: '0.40', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 11, teams: 2, components: 1, effort: 'M', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '22.10.2026', notes: '' },
+            { id: '60', title: 'Admin Management Notifikácií v CMS & Release komunikácia', category: 'Tech upgrade', status: 'Ready na vývoj', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Low', launch: 'TBD', roiIndex: '0.40', impactMoney: 2, impactMarket: 2, client: 'NMH + VLM', manDays: 11, teams: 2, components: 1, effort: 'M', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '22.10.2026', notes: '' },
             { id: '61', title: 'Tagy 3.0 (image + gallery + video tagy, AI gen. content, BB editor)', category: 'AI', status: 'Idea - nevalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'L', impact: 'Mid', launch: 'TBD', roiIndex: '0.33', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 30, teams: 5, components: 7, effort: 'L', sprints: 6, desiredDelivery: '31.12.2026', ddlProdSpec: '27.8.2026', notes: '' },
             { id: '62', title: 'Headline ABC Testing 2.0', category: 'AI', status: 'Idea - nevalidovaná', owner: 'karol.schulz@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'TBD', roiIndex: '0.60', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 10, teams: 3, components: 3, effort: 'M', sprints: 2, desiredDelivery: '31.12.2026', ddlProdSpec: '22.10.2026', notes: '' },
             { id: '63', title: 'Poll Generator 2.0 - Proactive in-article suggestions', category: 'AI', status: 'Idea - Zvalidovaná', owner: 'lukas.saghy@newsandmedia.sk', size: 'M', impact: 'Mid', launch: 'TBD', roiIndex: '0.75', impactMoney: 3, impactMarket: 3, client: 'NMH + VLM', manDays: 5, teams: 2, components: 3, effort: 'M', sprints: 1, desiredDelivery: '31.12.2026', ddlProdSpec: '5.11.2026', notes: '' },
@@ -179,6 +186,15 @@
             return 'bg-gray-100 text-gray-500';
         };
 
+        // --- ROI FILTER HELPERS ---
+        const getRoiRange = (val) => {
+            const n = parseFloat(val);
+            if (isNaN(n)) return 'Neznáme';
+            if (n < 0.40) return 'Nízky (<0,4)';
+            if (n < 0.80) return 'Stredný (0,4 - 0,8)';
+            return 'Vysoký (>0,8)';
+        };
+
         const getMissingFields = (item) => {
             const missing = [];
             if (getImpactScore(item.impact) === -1) missing.push('Impact');
@@ -187,13 +203,12 @@
         };
 
         const getCategoryColor = (cat) => {
-            switch (String(cat || '').toUpperCase()) {
-                case 'AI': return 'bg-purple-100 text-purple-700 border-purple-200';
-                case 'FEATURE': return 'bg-blue-100 text-blue-700 border-blue-200';
-                case 'BAS': return 'bg-gray-100 text-gray-700 border-gray-200';
-                case 'TECH': return 'bg-green-100 text-green-700 border-green-200';
-                default: return 'bg-gray-50 text-gray-500 border-gray-200';
-            }
+            const c = String(cat || '').toUpperCase();
+            if (c === 'AI') return 'bg-purple-100 text-purple-700 border-purple-200';
+            if (c === 'FEATURE') return 'bg-blue-100 text-blue-700 border-blue-200';
+            if (c === 'BAS') return 'bg-gray-100 text-gray-700 border-gray-200';
+            if (c === 'TECH UPGRADE') return 'bg-green-100 text-green-700 border-green-200';
+            return 'bg-gray-50 text-gray-500 border-gray-200';
         };
 
         const getImpactColor = (impact) => {
@@ -201,6 +216,16 @@
             if (impact === 'Mid') return 'text-blue-600 bg-blue-50';
             if (impact === 'Low') return 'text-gray-500 bg-gray-50';
             return 'text-gray-400';
+        };
+
+        // --- STATUS ICON HELPER ---
+        const getStatusIcon = (status) => {
+            const s = String(status || '').toLowerCase();
+            if (s.includes('doručené')) return <Icons.CheckCircle size={14} className="text-green-500 flex-shrink-0" />;
+            if (s.includes('prebieha')) return <Icons.RefreshCw size={14} className="text-blue-500 animate-spin-slow flex-shrink-0" />;
+            if (s.includes('idea') || s.includes('zastavené') || s.includes('nevalidovaná')) return <Icons.StopCircle size={14} className="text-slate-400 flex-shrink-0" />;
+            // default
+            return <Icons.HelpCircle size={14} className="text-slate-300 flex-shrink-0" />;
         };
 
         const sanitizeTitle = (title) => {
@@ -223,13 +248,12 @@
         };
 
         const barColorForCategory = (cat) => {
-            switch (String(cat || '').toUpperCase()) {
-                case 'AI': return 'bg-purple-500';
-                case 'FEATURE': return 'bg-blue-500';
-                case 'BAS': return 'bg-gray-400';
-                case 'TECH': return 'bg-green-500';
-                default: return 'bg-slate-400';
-            }
+            const c = String(cat || '').toUpperCase();
+            if (c === 'AI') return 'bg-purple-500';
+            if (c === 'FEATURE') return 'bg-blue-500';
+            if (c === 'BAS') return 'bg-gray-400';
+            if (c === 'TECH UPGRADE') return 'bg-green-500';
+            return 'bg-slate-400';
         };
 
         // --- EDITABLE JIRA LINK (simple) ---
@@ -293,7 +317,7 @@
             );
         };
 
-        // --- MULTI-SELECT FILTER COMPONENT (Replaces OwnerFilter) ---
+        // --- MULTI-SELECT FILTER COMPONENT ---
         const MultiSelectFilter = ({ label, icon: Icon, options, selected, onChange, title }) => {
             const [isOpen, setIsOpen] = useState(false);
 
@@ -359,8 +383,9 @@
                         <h1 className="text-2xl md:text-3xl font-bold leading-tight">
                             EAGLE CMS ako <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">Inteligentný Copilot redakcie</span>
                         </h1>
-                        <p className="text-slate-300 mt-2 max-w-2xl">
-                            Zvyšovanie efektivity redakcie pomocou AI funkcií a automatizácie, s využitím historických dát, aktuálnych trendov a predikcií.
+                        {/* Upravený text a zmenšené písmo, aby sa nezalamovalo */}
+                        <p className="text-slate-300 mt-2 text-sm whitespace-nowrap md:whitespace-normal">
+                            Zvyšovanie efektivity redakcie pomocou AI a automatizácie, s využitím historických dát, aktuálnych trendov a predikcií.
                         </p>
                     </div>
                     <div className="flex gap-3">
@@ -418,7 +443,8 @@
                                 {item.notes && <div className="text-xs text-slate-400 mt-0.5 font-normal">{item.notes}</div>}
                             </div>
 
-                            <div className="flex items-center gap-1">
+                            {/* HOVER VISIBILITY */}
+                            <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                 <EditableJiraLink item={item} onUpdate={onUpdate} />
                                 <TitleEditor item={item} onUpdate={onUpdate} />
                             </div>
@@ -455,12 +481,13 @@
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         {quickWins.length > 0 ? quickWins.map(item => (
-                            <div key={item.id} className="p-3 rounded-lg shadow-sm border bg-white flex justify-between items-center">
+                            <div key={item.id} className="p-3 rounded-lg shadow-sm border bg-white flex justify-between items-center group">
                                 <div className="flex-1">
                                     <div className="text-xs text-green-600 font-bold mb-1">{item.impact} Impact • {item.size} Effort</div>
                                     <div className="text-sm font-medium text-slate-800 flex items-center">
                                         <div className="flex-1">{sanitizeTitle(item.title)}</div>
-                                        <div className="flex items-center gap-1">
+                                        {/* HOVER VISIBILITY */}
+                                        <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                             <EditableJiraLink item={item} onUpdate={onUpdate} />
                                             <TitleEditor item={item} onUpdate={onUpdate} />
                                         </div>
@@ -494,9 +521,13 @@
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                     <div className="mt-2">
                         <div className="flex items-end gap-4">
-                            <div className="w-64 text-sm font-semibold text-slate-700 pb-2">Funkcia</div>
+                            <div className="w-64 pb-2 flex justify-between items-end pr-4">
+                                <div className="text-sm font-semibold text-slate-700">Funkcia</div>
+                                {/* ROI Header */}
+                                <div className="text-xs font-semibold text-slate-400">ROI</div>
+                            </div>
                             <div className="flex-1 overflow-x-auto">
-                                {/* b) Quarters Indication */}
+                                {/* Quarters Indication */}
                                 <div className="grid grid-cols-12 mb-1 pl-[1px]">
                                      <div className="col-span-3 text-center text-xs text-slate-400 font-semibold bg-slate-50/50 rounded-t mx-0.5">Q1</div>
                                      <div className="col-span-3 text-center text-xs text-slate-400 font-semibold bg-slate-50/50 rounded-t mx-0.5">Q2</div>
@@ -517,9 +548,12 @@
                                         return (
                                             <div key={row.id} className="flex items-center gap-4">
                                                 <div className="w-64">
-                                                    <div className="flex items-center justify-between text-sm text-slate-800 font-medium pr-4">
-                                                        <span className="truncate">{sanitizeTitle(row.title)}</span>
-                                                        {/* d) ROI Index */}
+                                                    <div className="flex items-center justify-between text-xs text-slate-800 font-medium pr-4">
+                                                        <div className="flex items-center gap-2 overflow-hidden">
+                                                            {/* Status Icon */}
+                                                            {getStatusIcon(row.status)}
+                                                            <span className="truncate">{sanitizeTitle(row.title)}</span>
+                                                        </div>
                                                         <span className={`text-[10px] px-1.5 py-0.5 rounded ml-2 whitespace-nowrap ${getRoiColor(row.roiIndex)}`} title="ROI Index">
                                                             {row.roiIndex}
                                                         </span>
@@ -527,7 +561,6 @@
                                                 </div>
                                                 <div className="flex-1">
                                                     <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
-                                                        {/* a) Darker borders */}
                                                         {Array.from({length:12}).map((_,i) => <div key={i} className="h-8 border-r border-slate-300"></div>)}
                                                         <div className={`h-8 flex items-center justify-center ${barColorForCategory(row.category)} text-white text-[10px] font-semibold rounded`}>Future</div>
                                                     </div>
@@ -546,9 +579,12 @@
                                         return (
                                             <div key={row.id} className="flex items-center gap-4 group">
                                                 <div className="w-64">
-                                                    <div className="flex items-center justify-between text-sm text-slate-800 font-medium pr-4">
-                                                        <span className="truncate">{sanitizeTitle(row.title)}</span>
-                                                        {/* d) ROI Index */}
+                                                    <div className="flex items-center justify-between text-xs text-slate-800 font-medium pr-4">
+                                                        <div className="flex items-center gap-2 overflow-hidden">
+                                                            {/* Status Icon */}
+                                                            {getStatusIcon(row.status)}
+                                                            <span className="truncate">{sanitizeTitle(row.title)}</span>
+                                                        </div>
                                                         <span className={`text-[10px] px-1.5 py-0.5 rounded ml-2 whitespace-nowrap ${getRoiColor(row.roiIndex)}`} title="ROI Index">
                                                             {row.roiIndex}
                                                         </span>
@@ -557,11 +593,9 @@
                                                 <div className="flex-1">
                                                     <div className="relative">
                                                         <div className="grid" style={{ gridTemplateColumns: `repeat(${totalCols}, minmax(0, 1fr))` }}>
-                                                            {/* a) Darker borders */}
                                                             {Array.from({length: totalCols}).map((_,i) => <div key={i} className="h-8 border-r border-slate-300"></div>)}
                                                         </div>
 
-                                                        {/* e) Smaller font size text-[10px] */}
                                                         <div
                                                             className={`absolute top-0 h-8 rounded text-white text-[10px] leading-tight font-semibold flex items-center ${barColorForCategory(row.category)} px-2`}
                                                             style={{ left: `${leftPercent}%`, width: `${widthPercent}%` }}
@@ -586,42 +620,47 @@
         const RoadmapApp = () => {
             const [view, setView] = useState('roadmap'); // 'roadmap' | 'delivery' | 'matrix' | 'list'
             const [data, setData] = useState(rawData);
-            const [activeCats, setActiveCats] = useState({ Feature: true, AI: true, Tech: true, BAS: true });
+            const [activeCats, setActiveCats] = useState({ Feature: true, AI: true, 'Tech upgrade': true, BAS: true });
             
             // Filters state
             const [selectedOwners, setSelectedOwners] = useState([]);
-            const [selectedClients, setSelectedClients] = useState([]); // c) New client filter state
+            const [selectedClients, setSelectedClients] = useState([]);
+            const [selectedRoi, setSelectedRoi] = useState([]); // g) ROI Filter
 
             const toggleCat = (cat) => setActiveCats(prev => ({ ...prev, [cat]: !prev[cat] }));
             const resetCats = () => {
-                setActiveCats({ Feature: true, AI: true, Tech: true, BAS: true });
+                setActiveCats({ Feature: true, AI: true, 'Tech upgrade': true, BAS: true });
                 setSelectedOwners([]);
                 setSelectedClients([]);
+                setSelectedRoi([]);
             };
 
-            // Calculate unique owners for dropdown
             const uniqueOwners = useMemo(() => {
                 const owners = new Set(data.map(d => d.owner).filter(Boolean)); 
                 return Array.from(owners).sort();
             }, [data]);
 
-            // c) Calculate unique clients for dropdown
             const uniqueClients = useMemo(() => {
                 const clients = new Set(data.map(d => d.client).filter(Boolean));
                 return Array.from(clients).sort();
             }, [data]);
 
+            // ROI Ranges for filter
+            const roiRanges = ['Nízky (<0,4)', 'Stredný (0,4 - 0,8)', 'Vysoký (>0,8)'];
+
             const filteredData = useMemo(() => {
                 return data.filter(i => {
                     const catMatch = (activeCats[i.category] ?? true);
-                    // Filter by owner
                     const ownerMatch = selectedOwners.length === 0 || selectedOwners.includes(i.owner);
-                    // c) Filter by client
                     const clientMatch = selectedClients.length === 0 || selectedClients.includes(i.client);
                     
-                    return catMatch && ownerMatch && clientMatch;
+                    // ROI Filter Match
+                    const currentRoiLabel = getRoiRange(i.roiIndex);
+                    const roiMatch = selectedRoi.length === 0 || selectedRoi.includes(currentRoiLabel);
+
+                    return catMatch && ownerMatch && clientMatch && roiMatch;
                 });
-            }, [data, activeCats, selectedOwners, selectedClients]);
+            }, [data, activeCats, selectedOwners, selectedClients, selectedRoi]);
 
             const handleUpdate = (id, updates) => setData(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
 
@@ -665,7 +704,7 @@
                                     title="Filtrovať podľa vlastníka" 
                                 />
 
-                                {/* c) Client Filter */}
+                                {/* Client Filter */}
                                 <MultiSelectFilter 
                                     label="Klient" 
                                     icon={Icons.Briefcase} 
@@ -675,12 +714,22 @@
                                     title="Filtrovať podľa klienta (NMH/VLM)" 
                                 />
 
+                                {/* ROI Filter */}
+                                <MultiSelectFilter 
+                                    label="ROI Index" 
+                                    icon={Icons.TrendingUp} 
+                                    options={roiRanges} 
+                                    selected={selectedRoi} 
+                                    onChange={setSelectedRoi}
+                                    title="Filtrovať podľa ROI Indexu" 
+                                />
+
                                 <div className="h-6 w-px bg-slate-300 mx-1"></div>
 
-                                {['Feature','AI','Tech','BAS'].map(cat => (
+                                {['Feature','AI','Tech upgrade','BAS'].map(cat => (
                                     <button key={cat} onClick={() => toggleCat(cat)} className={`flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${activeCats[cat] ? 'bg-slate-100 text-slate-800' : 'bg-transparent text-slate-400'}`} title={`${activeCats[cat] ? 'Zrušiť filter' : 'Zapnúť filter'} ${cat}`}>
-                                        <span className={`w-2 h-2 rounded-full ${cat === 'Feature' ? 'bg-blue-400' : cat === 'AI' ? 'bg-purple-400' : cat === 'Tech' ? 'bg-green-400' : 'bg-gray-400'}`}></span>
-                                        <span>{cat}</span>
+                                        <span className={`w-2 h-2 rounded-full ${cat === 'Feature' ? 'bg-blue-400' : cat === 'AI' ? 'bg-purple-400' : cat === 'Tech upgrade' ? 'bg-green-400' : 'bg-gray-400'}`}></span>
+                                        <span>{cat === 'Tech upgrade' ? 'Tech' : cat}</span>
                                     </button>
                                 ))}
                                 <button onClick={resetCats} className="text-xs px-2 py-1 rounded border border-slate-200 text-slate-500 hover:bg-slate-50">Reset</button>
@@ -794,7 +843,8 @@
                                                                     {item.notes && <div className="text-xs text-slate-400 mt-0.5 font-normal">{item.notes}</div>}
                                                                 </div>
 
-                                                                <div className="flex items-center gap-1">
+                                                                {/* HOVER VISIBILITY */}
+                                                                <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                                                                     <EditableJiraLink item={item} onUpdate={handleUpdate} />
                                                                     <TitleEditor item={item} onUpdate={handleUpdate} />
                                                                 </div>
