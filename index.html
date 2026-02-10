@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>CMS Product Roadmap 2026 v2.2</title>
+    <title>CMS Product Roadmap 2026 v2.3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -626,6 +626,7 @@
             const [selectedOwners, setSelectedOwners] = useState([]);
             const [selectedClients, setSelectedClients] = useState([]);
             const [selectedRoi, setSelectedRoi] = useState([]); // g) ROI Filter
+            const [selectedUis, setSelectedUis] = useState([]); // NEW: UI Filter
 
             const toggleCat = (cat) => setActiveCats(prev => ({ ...prev, [cat]: !prev[cat] }));
             const resetCats = () => {
@@ -633,6 +634,7 @@
                 setSelectedOwners([]);
                 setSelectedClients([]);
                 setSelectedRoi([]);
+                setSelectedUis([]); // Reset UI filter
             };
 
             const uniqueOwners = useMemo(() => {
@@ -643,6 +645,11 @@
             const uniqueClients = useMemo(() => {
                 const clients = new Set(data.map(d => d.client).filter(Boolean));
                 return Array.from(clients).sort();
+            }, [data]);
+
+            const uniqueUis = useMemo(() => {
+                const uis = new Set(data.map(d => d.cmsUi).filter(Boolean));
+                return Array.from(uis).sort();
             }, [data]);
 
             // ROI Ranges for filter
@@ -658,9 +665,12 @@
                     const currentRoiLabel = getRoiRange(i.roiIndex);
                     const roiMatch = selectedRoi.length === 0 || selectedRoi.includes(currentRoiLabel);
 
-                    return catMatch && ownerMatch && clientMatch && roiMatch;
+                    // UI Filter Match
+                    const uiMatch = selectedUis.length === 0 || selectedUis.includes(i.cmsUi);
+
+                    return catMatch && ownerMatch && clientMatch && roiMatch && uiMatch;
                 });
-            }, [data, activeCats, selectedOwners, selectedClients, selectedRoi]);
+            }, [data, activeCats, selectedOwners, selectedClients, selectedRoi, selectedUis]);
 
             const handleUpdate = (id, updates) => setData(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
 
@@ -722,6 +732,16 @@
                                     selected={selectedRoi} 
                                     onChange={setSelectedRoi}
                                     title="Filtrovať podľa ROI Indexu" 
+                                />
+
+                                {/* UI Filter (NEW) */}
+                                <MultiSelectFilter 
+                                    label="UI" 
+                                    icon={Icons.Layers} 
+                                    options={uniqueUis} 
+                                    selected={selectedUis} 
+                                    onChange={setSelectedUis}
+                                    title="Filtrovať podľa technológie UI" 
                                 />
 
                                 <div className="h-6 w-px bg-slate-300 mx-1"></div>
@@ -875,4 +895,3 @@
     </script>
 </body>
 </html>
-
